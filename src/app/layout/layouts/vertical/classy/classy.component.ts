@@ -20,6 +20,7 @@ import {ShortcutsComponent} from 'app/layout/common/shortcuts/shortcuts.componen
 import {UserComponent} from 'app/layout/common/user/user.component';
 import {Subject, takeUntil} from 'rxjs';
 
+
 @Component({
     selector: 'classy-layout',
     templateUrl: './classy.component.html',
@@ -89,16 +90,15 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
             email: 'hughes.brian@company.com',
             avatar: 'assets/images/avatars/brian-hughes.jpg',
             status: 'online',
-
         };
 
         // Subscribe to media changes
-        // this._fuseMediaWatcherService.onMediaChange$
-        //     .pipe(takeUntil(this._unsubscribeAll))
-        //     .subscribe(({matchingAliases}) => {
-        //         // Check if the screen is small
-        //         this.isScreenSmall = !matchingAliases.includes('md');
-        //     });
+        this._fuseMediaWatcherService.onMediaChange$
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe(({matchingAliases}) => {
+                // Check if the screen is small
+                this.isScreenSmall = !matchingAliases.includes('md');
+            });
     }
 
     /**
