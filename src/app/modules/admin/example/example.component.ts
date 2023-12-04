@@ -13,5 +13,5 @@ export class ExampleComponent
      */
     constructor()
     {
-    }
+    }z
 }

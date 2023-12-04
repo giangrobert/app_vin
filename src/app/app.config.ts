@@ -18,8 +18,8 @@ import {tokenInterceptorInterceptor} from "./providers/interceptors/token/token-
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimations(),
-        // provideHttpClient(),
-        provideHttpClient(withInterceptors([urlInterceptorInterceptor, tokenInterceptorInterceptor])),
+        provideHttpClient(),
+        // provideHttpClient(withInterceptors([urlInterceptorInterceptor, tokenInterceptorInterceptor])),
 
         provideRouter(appRoutes,
             withPreloading(PreloadAllModules),
