@@ -26,8 +26,8 @@ export const appRoutes: Route[] = [
         canActivateChild: [NoAuthGuard],
         component: LayoutComponent,
         data: {
-            // layout: 'empty',
-            initialData: initialDataResolver
+            layout: 'empty',
+            // initialData: initialDataResolver
 
         },
         children: [
@@ -36,9 +36,6 @@ export const appRoutes: Route[] = [
             {path: 'reset-password', loadChildren: () => import('app/modules/auth/reset-password/reset-password.routes')},
             {path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.routes')},
             {path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.routes')},
-            {path: 'example', loadChildren: () => import('app/modules/admin/example/example.routes')},
-
-
         ]
     },
     // {
@@ -76,6 +73,7 @@ export const appRoutes: Route[] = [
             layout: 'empty'
         },
         children: [
+
             {path: 'home', loadChildren: () => import('app/modules/landing/home/home.routes')},
         ]
     },
@@ -90,6 +88,7 @@ export const appRoutes: Route[] = [
             initialData: initialDataResolver
         },
         children: [
+            {path: 'example', loadChildren: () => import('app/modules/admin/example/example.routes')},
 
             {path: 'homeScreen', loadChildren: () => import('app/views/views.routes')},
 

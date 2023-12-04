@@ -18,8 +18,8 @@ import {mockApiServices} from "./mock-api/mockApiServices";
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimations(),
-        provideHttpClient(),
-        // provideHttpClient(withInterceptors([urlInterceptorInterceptor, tokenInterceptorInterceptor])),
+        // provideHttpClient(),
+        provideHttpClient(withInterceptors([urlInterceptorInterceptor, tokenInterceptorInterceptor])),
         provideRouter(appRoutes,
             withPreloading(PreloadAllModules),
             withInMemoryScrolling({scrollPositionRestoration: 'enabled'}),
