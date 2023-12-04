@@ -39,9 +39,6 @@ export class OauthService {
             this.accessToken = response.token;
             this._authenticated = true;
             return of(response);
-        } else {
-            this._authenticated = false;
-
         }
     }
   private notAutorized() {
@@ -58,12 +55,6 @@ export class OauthService {
 
         // Check the access token availability
         if ( !this.accessToken )
-        {
-            return of(false);
-        }
-
-        // Check the access token expire date
-        if ( AuthUtils.isTokenExpired(this.accessToken) )
         {
             return of(false);
         }
