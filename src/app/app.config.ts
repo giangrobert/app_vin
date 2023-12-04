@@ -10,16 +10,16 @@ import { firstValueFrom } from 'rxjs';
 import { appRoutes } from 'app/app.routes';
 import { provideAuth } from 'app/core/auth/auth.provider';
 import { provideIcons } from 'app/core/icons/icons.provider';
-import { mockApiServices } from 'app/mock-api';
 import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
 import {urlInterceptorInterceptor} from "./providers/interceptors/url/url-interceptor.interceptor";
 import {tokenInterceptorInterceptor} from "./providers/interceptors/token/token-interceptor.interceptor";
+import {mockApiServices} from "./mock-api/mockApiServices";
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimations(),
-        // provideHttpClient(),
-        provideHttpClient(withInterceptors([urlInterceptorInterceptor, tokenInterceptorInterceptor])),
+        provideHttpClient(),
+        // provideHttpClient(withInterceptors([urlInterceptorInterceptor, tokenInterceptorInterceptor])),
         provideRouter(appRoutes,
             withPreloading(PreloadAllModules),
             withInMemoryScrolling({scrollPositionRestoration: 'enabled'}),
@@ -82,48 +82,48 @@ export const appConfig: ApplicationConfig = {
         // Fuse
         provideAuth(),
         provideIcons(),
-        // provideFuse({
-        //     mockApi: {
-        //         delay   : 0,
-        //         services: mockApiServices,
-        //     },
-        //     fuse   : {
-        //         layout : 'classy',
-        //         scheme : 'light',
-        //         screens: {
-        //             sm: '600px',
-        //             md: '960px',
-        //             lg: '1280px',
-        //             xl: '1440px',
-        //         },
-        //         theme  : 'theme-default',
-        //         themes : [
-        //             {
-        //                 id  : 'theme-default',
-        //                 name: 'Default',
-        //             },
-        //             {
-        //                 id  : 'theme-brand',
-        //                 name: 'Brand',
-        //             },
-        //             {
-        //                 id  : 'theme-teal',
-        //                 name: 'Teal',
-        //             },
-        //             {
-        //                 id  : 'theme-rose',
-        //                 name: 'Rose',
-        //             },
-        //             {
-        //                 id  : 'theme-purple',
-        //                 name: 'Purple',
-        //             },
-        //             {
-        //                 id  : 'theme-amber',
-        //                 name: 'Amber',
-        //             },
-        //         ],
-        //     },
-        // }),
+        provideFuse({
+            mockApi: {
+                delay   : 0,
+                services: mockApiServices,
+            },
+            fuse   : {
+                layout : 'classy',
+                scheme : 'light',
+                screens: {
+                    sm: '600px',
+                    md: '960px',
+                    lg: '1280px',
+                    xl: '1440px',
+                },
+                theme  : 'theme-default',
+                themes : [
+                    {
+                        id  : 'theme-default',
+                        name: 'Default',
+                    },
+                    {
+                        id  : 'theme-brand',
+                        name: 'Brand',
+                    },
+                    {
+                        id  : 'theme-teal',
+                        name: 'Teal',
+                    },
+                    {
+                        id  : 'theme-rose',
+                        name: 'Rose',
+                    },
+                    {
+                        id  : 'theme-purple',
+                        name: 'Purple',
+                    },
+                    {
+                        id  : 'theme-amber',
+                        name: 'Amber',
+                    },
+                ],
+            },
+        }),
     ],
 };

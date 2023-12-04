@@ -6,7 +6,7 @@
     class="dark bg-gray-900 print:hidden"
     [mode]="isScreenSmall ? 'over' : 'side'"
     [name]="'mainNavigation'"
-    [navigation]="navigation.default"
+    [navigation]="navigation"
     [opened]="!isScreenSmall">
     <!-- Navigation header hook -->
     <ng-container fuseVerticalNavigationContentHeader>
@@ -20,7 +20,7 @@
             <!-- Components -->
             <div class="flex items-center ml-auto">
                 <notifications></notifications>
-                <user [showAvatar]="true"></user>
+                <user [showAvatar]="false"></user>
             </div>
         </div>
         <!-- User -->
@@ -28,19 +28,20 @@
             <div class="relative w-24 h-24">
                 <img
                     class="w-full h-full rounded-full"
-                    src="https://elcomercio.pe/resizer/1f7agYA0kJGO2PupqpIS4tosMjM=/1200x1200/smart/filters:format(jpeg):quality(90)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/UWPNCW3OQNAKZAC7NDTMEBVMAM.jpg"
+                    *ngIf="user.avatar"
+                    [src]="user.avatar"
                     alt="User avatar">
                 <mat-icon
                     class="icon-size-24"
-
+                    *ngIf="!user.avatar"
                     [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
             </div>
             <div class="flex flex-col items-center justify-center w-full mt-6">
                 <div class="w-full whitespace-nowrap text-ellipsis overflow-hidden text-center leading-normal font-medium">
-                   Juan
+                    {{user.name}}
                 </div>
                 <div class="w-full mt-0.5 whitespace-nowrap text-ellipsis overflow-hidden text-center text-md leading-normal font-medium text-secondary">
-                    juangasmd.com
+                    {{user.email}}
                 </div>
             </div>
         </div>
