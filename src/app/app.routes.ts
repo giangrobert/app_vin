@@ -36,6 +36,17 @@ export const appRoutes: Route[] = [
             {path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.routes')}
         ]
     },
+    {
+        path: '',
+        component: LayoutComponent,
+        data: {
+            layout: 'classic'
+        },
+        children:[
+            {path: 'homeScreen', loadChildren: () => import('app/views/views.routes')},
+        ]
+    },
+
 
     // Auth routes for authenticated users
     {

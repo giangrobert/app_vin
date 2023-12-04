@@ -20,7 +20,6 @@ export const appConfig: ApplicationConfig = {
         provideAnimations(),
         // provideHttpClient(),
         provideHttpClient(withInterceptors([urlInterceptorInterceptor, tokenInterceptorInterceptor])),
-
         provideRouter(appRoutes,
             withPreloading(PreloadAllModules),
             withInMemoryScrolling({scrollPositionRestoration: 'enabled'}),
@@ -83,48 +82,48 @@ export const appConfig: ApplicationConfig = {
         // Fuse
         provideAuth(),
         provideIcons(),
-        provideFuse({
-            mockApi: {
-                delay   : 0,
-                services: mockApiServices,
-            },
-            fuse   : {
-                layout : 'classy',
-                scheme : 'light',
-                screens: {
-                    sm: '600px',
-                    md: '960px',
-                    lg: '1280px',
-                    xl: '1440px',
-                },
-                theme  : 'theme-default',
-                themes : [
-                    {
-                        id  : 'theme-default',
-                        name: 'Default',
-                    },
-                    {
-                        id  : 'theme-brand',
-                        name: 'Brand',
-                    },
-                    {
-                        id  : 'theme-teal',
-                        name: 'Teal',
-                    },
-                    {
-                        id  : 'theme-rose',
-                        name: 'Rose',
-                    },
-                    {
-                        id  : 'theme-purple',
-                        name: 'Purple',
-                    },
-                    {
-                        id  : 'theme-amber',
-                        name: 'Amber',
-                    },
-                ],
-            },
-        }),
+        // provideFuse({
+        //     mockApi: {
+        //         delay   : 0,
+        //         services: mockApiServices,
+        //     },
+        //     fuse   : {
+        //         layout : 'classy',
+        //         scheme : 'light',
+        //         screens: {
+        //             sm: '600px',
+        //             md: '960px',
+        //             lg: '1280px',
+        //             xl: '1440px',
+        //         },
+        //         theme  : 'theme-default',
+        //         themes : [
+        //             {
+        //                 id  : 'theme-default',
+        //                 name: 'Default',
+        //             },
+        //             {
+        //                 id  : 'theme-brand',
+        //                 name: 'Brand',
+        //             },
+        //             {
+        //                 id  : 'theme-teal',
+        //                 name: 'Teal',
+        //             },
+        //             {
+        //                 id  : 'theme-rose',
+        //                 name: 'Rose',
+        //             },
+        //             {
+        //                 id  : 'theme-purple',
+        //                 name: 'Purple',
+        //             },
+        //             {
+        //                 id  : 'theme-amber',
+        //                 name: 'Amber',
+        //             },
+        //         ],
+        //     },
+        // }),
     ],
 };

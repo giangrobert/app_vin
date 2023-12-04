@@ -3,7 +3,7 @@ import {environment} from "../../../../environments/environment";
 
 export const urlInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
     const url = environment.url;
-    if (!req.url.includes('http') && !req.url.includes('assets')) {
+    if (!req.url.includes('assets')) {
         req = req.clone({
             url: `${url}${req.url}`,
         });
