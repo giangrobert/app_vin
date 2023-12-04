@@ -56,8 +56,8 @@ export class AuthSignUpComponent implements OnInit
                 name      : ['', Validators.required],
                 email     : ['', [Validators.required, Validators.email]],
                 password  : ['', Validators.required],
-                company   : [''],
-                agreements: ['', Validators.requiredTrue],
+                c_password  : ['', Validators.required],
+               
             },
         );
     }
@@ -89,7 +89,9 @@ export class AuthSignUpComponent implements OnInit
                 (response) =>
                 {
                     // Navigate to the confirmation required page
-                    this._router.navigateByUrl('/confirmation-required');
+                    console.log('ojla');
+                    console.log(response);
+                    this._router.navigateByUrl('/sign-in');
                 },
                 (response) =>
                 {
@@ -102,7 +104,7 @@ export class AuthSignUpComponent implements OnInit
                     // Set the alert
                     this.alert = {
                         type   : 'error',
-                        message: 'Something went wrong, please try again.',
+                        message: 'Algo salio mal, intentalo de nuevo.',
                     };
 
                     // Show the alert

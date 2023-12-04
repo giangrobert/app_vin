@@ -3,7 +3,7 @@ export const END_POINTS = {
     register: 'api/auth/register',
     login: 'api/auth/login',
     logout: 'logout',
-    signup: 'register',
+    signup: 'api/auth/register',
     active: 'auth/active',
     create: 'auth/create',
     find: 'find',

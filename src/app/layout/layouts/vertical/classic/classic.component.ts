@@ -80,6 +80,13 @@ export class ClassicLayoutComponent implements OnInit, OnDestroy
                 type: 'basic',
                 icon: 'heroicons_outline:chart-pie',
                 link: '/homeScreen'
+            },
+            {
+                id: 'Selector',
+                title: 'Selector',
+                type: 'basic',
+                icon: 'heroicons_outline:chart-pie',
+                link: '/logout'
             }
         ];
         // Subscribe to media changes
