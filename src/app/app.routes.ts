@@ -1,8 +1,8 @@
 import { Route } from '@angular/router';
 import { initialDataResolver } from 'app/app.resolvers';
 import { LayoutComponent } from 'app/layout/layout.component';
-import {AuthGuard} from "./providers/guards/auth.guard";
-import {NoAuthGuard} from "./providers/guards/noAuth.guard";
+import { AuthGuard } from './providers/guards/auth.guard';
+import { NoAuthGuard } from './providers/guards/noAuth.guard';
 
 // @formatter:off
 /* eslint-disable max-len */
@@ -27,18 +27,6 @@ export const appRoutes: Route[] = [
         component: LayoutComponent,
         data: {
             layout: 'empty',
-<<<<<<< HEAD
-            // initialData: initialDataResolver
-
-        },
-        children: [
-            {path: 'confirmation-required', loadChildren: () => import('app/modules/auth/confirmation-required/confirmation-required.routes')},
-            {path: 'forgot-password', loadChildren: () => import('app/modules/auth/forgot-password/forgot-password.routes')},
-            {path: 'reset-password', loadChildren: () => import('app/modules/auth/reset-password/reset-password.routes')},
-            {path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.routes')},
-            {path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.routes')},
-        ]
-=======
         },
         children: [
             {
@@ -73,7 +61,6 @@ export const appRoutes: Route[] = [
                     import('app/modules/auth/sign-up/sign-up.routes'),
             },
         ],
->>>>>>> 0a39820 (Guardando cambios locales)
     },
     // {
     //     path: '',
@@ -85,7 +72,6 @@ export const appRoutes: Route[] = [
     //         {path: 'homeScreen', loadChildren: () => import('app/views/views.routes')},
     //     ]
     // },
-
 
     // Auth routes for authenticated users
     {
@@ -120,18 +106,12 @@ export const appRoutes: Route[] = [
             layout: 'empty',
         },
         children: [
-<<<<<<< HEAD
-
-            {path: 'home', loadChildren: () => import('app/modules/landing/home/home.routes')},
-        ]
-=======
             {
                 path: 'home',
                 loadChildren: () =>
                     import('app/modules/landing/home/home.routes'),
             },
         ],
->>>>>>> 0a39820 (Guardando cambios locales)
     },
 
     // Admin routes
@@ -144,27 +124,6 @@ export const appRoutes: Route[] = [
             initialData: initialDataResolver,
         },
         children: [
-<<<<<<< HEAD
-            {path: 'example', loadChildren: () => import('app/modules/admin/example/example.routes')},
-
-            {path: 'homeScreen', loadChildren: () => import('app/views/views.routes')},
-
-        ]
-    },
-    // Admin routes
-    {
-        path: '',
-        canActivate: [AuthGuard],
-        canActivateChild: [AuthGuard],
-        component: LayoutComponent,
-        resolve: {
-            initialData: initialDataResolver
-        },
-        children: [
-            {path: 'tree', loadChildren: () => import('app/modules/admin/example-tree/example.routes')},
-        ]
-    }
-=======
             {
                 path: 'example',
                 loadChildren: () =>
@@ -182,5 +141,4 @@ export const appRoutes: Route[] = [
             },
         ],
     },
->>>>>>> 0a39820 (Guardando cambios locales)
 ];
