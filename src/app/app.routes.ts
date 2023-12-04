@@ -93,5 +93,18 @@ export const appRoutes: Route[] = [
             {path: 'homeScreen', loadChildren: () => import('app/views/views.routes')},
 
         ]
+    },
+    // Admin routes
+    {
+        path: '',
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        component: LayoutComponent,
+        resolve: {
+            initialData: initialDataResolver
+        },
+        children: [
+            {path: 'tree', loadChildren: () => import('app/modules/admin/example-tree/example.routes')},
+        ]
     }
 ];

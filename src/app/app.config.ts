@@ -20,6 +20,8 @@ export const appConfig: ApplicationConfig = {
         provideAnimations(),
         // provideHttpClient(),
         provideHttpClient(withInterceptors([urlInterceptorInterceptor, tokenInterceptorInterceptor])),
+
+        // provideHttpClient(),
         provideRouter(appRoutes,
             withPreloading(PreloadAllModules),
             withInMemoryScrolling({scrollPositionRestoration: 'enabled'}),
