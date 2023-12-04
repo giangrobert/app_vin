@@ -26,16 +26,29 @@ export const appRoutes: Route[] = [
         canActivateChild: [NoAuthGuard],
         component: LayoutComponent,
         data: {
-            layout: 'empty'
+            layout: 'empty',
+            // initialData: initialDataResolver
+
         },
         children: [
             {path: 'confirmation-required', loadChildren: () => import('app/modules/auth/confirmation-required/confirmation-required.routes')},
             {path: 'forgot-password', loadChildren: () => import('app/modules/auth/forgot-password/forgot-password.routes')},
             {path: 'reset-password', loadChildren: () => import('app/modules/auth/reset-password/reset-password.routes')},
             {path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.routes')},
-            {path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.routes')}
+            {path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.routes')},
         ]
     },
+    // {
+    //     path: '',
+    //     component: LayoutComponent,
+    //     data: {
+    //         layout: 'classic'
+    //     },
+    //     children:[
+    //         {path: 'homeScreen', loadChildren: () => import('app/views/views.routes')},
+    //     ]
+    // },
+
 
     // Auth routes for authenticated users
     {
@@ -60,6 +73,7 @@ export const appRoutes: Route[] = [
             layout: 'empty'
         },
         children: [
+
             {path: 'home', loadChildren: () => import('app/modules/landing/home/home.routes')},
         ]
     },
@@ -75,6 +89,9 @@ export const appRoutes: Route[] = [
         },
         children: [
             {path: 'example', loadChildren: () => import('app/modules/admin/example/example.routes')},
+
+            {path: 'homeScreen', loadChildren: () => import('app/views/views.routes')},
+
         ]
     },
     // Admin routes

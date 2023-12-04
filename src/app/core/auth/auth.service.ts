@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
 import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
+import {user} from "../../mock-api/common/user/data";
 
 @Injectable({providedIn: 'root'})
 export class AuthService
@@ -75,8 +76,8 @@ export class AuthService
                 this._authenticated = true;
 
                 // Store the user on the user service
-                this._userService.user = response.user;
-
+                this._userService.user = user;
+                // console.log(response.toJSON())
                 // Return a new observable with the response
                 return of(response);
             }),
