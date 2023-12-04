@@ -9,6 +9,8 @@ import { MatTreeFlatDataSource, MatTreeFlattener, MatTreeModule } from '@angular
 import { RouterLink } from '@angular/router';
 import { FuseAlertComponent } from '@fuse/components/alert';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FuseConfirmationService } from '@fuse/services/confirmation';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 
 interface DirNode
@@ -29,7 +31,6 @@ interface FlatDirNode
     level: number;
     last: boolean;
 }
-
 
 @Component({
   selector: 'app-example-tree',
@@ -59,6 +60,7 @@ interface FlatDirNode
   encapsulation: ViewEncapsulation.None,
 })
 export class ExampleTreeComponent {
+    configForm: UntypedFormGroup;
     treeValues: any;
     tree: any;
     generalTree: any;
@@ -66,7 +68,10 @@ export class ExampleTreeComponent {
     /**
      * Constructor
      */
-    constructor()
+    constructor(
+        private _formBuilder: UntypedFormBuilder,
+        private _fuseConfirmationService: FuseConfirmationService,
+    )
     {
         // tree
         this.treeValues = [
@@ -136,6 +141,31 @@ export class ExampleTreeComponent {
         });
         // Expand the first item
         this.tree.treeControl.expand(this.tree.treeControl.dataNodes[0]);
+    
+        // Build the config form
+        this.configForm = this._formBuilder.group({
+            title      : 'Eliminar nodo',
+            message    : `
+                ¿Estás seguro de que deseas eliminar este nodo permanentemente?
+            `,
+            icon       : this._formBuilder.group({
+                show : true,
+                name : 'heroicons_outline:exclamation-triangle',
+                color: 'warn',
+            }),
+            actions    : this._formBuilder.group({
+                confirm: this._formBuilder.group({
+                    show : true,
+                    label: 'Eliminar',
+                    color: 'warn',
+                }),
+                cancel : this._formBuilder.group({
+                    show : true,
+                    label: 'Cancelar',
+                }),
+            }),
+            dismissible: true,
+        });
     }
 
     /**
@@ -175,5 +205,20 @@ export class ExampleTreeComponent {
             treeControl,
             dataSource,
         };
+    }
+
+    openConfirmationDialog(node: FlatDirNode | DirNode): void
+    {
+        if(!node.selected) return
+        // Open the dialog delete node
+        const dialogRef = this._fuseConfirmationService.open(this.configForm.value);
+
+        // Confirm delete node
+        dialogRef.afterClosed().subscribe((result) =>
+        {
+            if (!"confirmed" == result) {
+                node.selected = true
+            }
+        });
     }
 }
