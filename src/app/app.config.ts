@@ -1,8 +1,8 @@
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi} from '@angular/common/http';
 import { APP_INITIALIZER, ApplicationConfig, inject } from '@angular/core';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule, provideAnimations} from '@angular/platform-browser/animations';
 import {
     PreloadAllModules,
     provideRouter,
@@ -19,16 +19,37 @@ import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
 import { urlInterceptorInterceptor } from './providers/interceptors/url/url-interceptor.interceptor';
 import { tokenInterceptorInterceptor } from './providers/interceptors/token/token-interceptor.interceptor';
 import { mockApiServices } from './mock-api/mockApiServices';
+import {toastInterceptor} from "./providers/interceptors/toasts/toast.interceptor";
+import {provideToastr, ToastrModule} from "ngx-toastr";
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimations(),
+
         // provideHttpClient(),
+        // provideHttpClient(
+        //     // DI-based interceptors must be explicitly enabled.
+        //     withInterceptorsFromDi(),
+        // ),
+        // {provide: HTTP_INTERCEPTORS, useClass: toastInterceptor, multi: true},
+
         provideHttpClient(
             withInterceptors([
                 urlInterceptorInterceptor,
                 tokenInterceptorInterceptor,
+                toastInterceptor
             ])
+        ),
+        // toastInterceptor,
+        provideAnimations(),
+        provideToastr(
+            {
+                timeOut: 1000,
+                positionClass: 'toast-bottom-right',
+                preventDuplicates: true,
+                progressBar: true,
+                closeButton: true,
+            }
         ),
 
         provideRouter(
@@ -91,7 +112,7 @@ export const appConfig: ApplicationConfig = {
         },
 
         // Fuse
-        provideAuth(),
+        // provideAuth(),
         provideIcons(),
         provideFuse({
             mockApi: {

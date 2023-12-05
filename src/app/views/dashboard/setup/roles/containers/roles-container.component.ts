@@ -5,15 +5,18 @@ import {CommonModule} from "@angular/common";
 import {RouterOutlet} from "@angular/router";
 import {Component, OnInit} from "@angular/core";
 import {RolesListComponent} from "../components";
+import {FuseAlertComponent} from '@fuse/components/alert';
+
 
 @Component({
   selector: 'app-roles-container',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RolesListComponent],
+  imports: [CommonModule, RouterOutlet, RolesListComponent,FuseAlertComponent],
   template: `
     <app-roles-list [rols]="rols"
                     (eventNew)="eventNew($event)" (eventEdit)="eventEdit($event)"
                     (eventAssign)="eventAssign($event)" (eventDelete)="eventDelete($event)"></app-roles-list>
+
   `
 })
 
