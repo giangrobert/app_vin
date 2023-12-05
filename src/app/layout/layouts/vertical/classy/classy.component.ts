@@ -18,7 +18,9 @@ import {QuickChatComponent} from 'app/layout/common/quick-chat/quick-chat.compon
 import {SearchComponent} from 'app/layout/common/search/search.component';
 import {ShortcutsComponent} from 'app/layout/common/shortcuts/shortcuts.component';
 import {UserComponent} from 'app/layout/common/user/user.component';
-import {Subject, takeUntil} from 'rxjs';
+import {Subject, map, takeUntil} from 'rxjs';
+import {MenuService} from '../../../../providers/services/setup/menu.service'
+import { MenuAcceso } from './menu_accesos';
 
 
 @Component({
@@ -31,9 +33,11 @@ import {Subject, takeUntil} from 'rxjs';
 export class ClassyLayoutComponent implements OnInit, OnDestroy {
     isScreenSmall: boolean;
     navigation: FuseNavigationItem[];
+    menu: MenuAcceso []; 
 
     user: User;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+    private 
 
     /**
      * Constructor
@@ -45,6 +49,7 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
         // private _userService: UserService,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
         private _fuseNavigationService: FuseNavigationService,
+        private _menuService:MenuService,
     ) {
     }
 
@@ -67,23 +72,51 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
      * On init
      */
     ngOnInit(): void {
-        this.navigation = [
-            {
-                id: 'example',
-                title: 'Example',
-                type: 'basic',
-                icon: 'heroicons_outline:chart-pie',
-                link: '/example'
-            },
-            {
-                id: 'juan',
-                title: 'Juan',
-                type: 'basic',
-                icon: 'heroicons_outline:chart-pie',
-                link: '/homeScreen'
-            }
-        ];
-
+        this.showmenu();
+        // this.navigation = [
+        //     {
+        //         id: 'example',
+        //         title: 'Example',
+        //         type: 'basic',
+        //         icon: 'heroicons_outline:chart-pie',
+        //         link: '/example',
+        //         children:[
+        //             {
+        //             id: 'asdasd',
+        //             title: 'Juahijon',
+        //             type: 'basic',
+        //             icon: 'heroicons_outline:chart-pie',
+        //             link: '/homeScreen',
+                    
+        //         }]
+        //     },
+        //     {
+        //         id: 'juansss',
+        //         title: 'Juansss',
+        //         type: 'group',
+        //         icon: 'heroicons_outline:bolt',
+        //         link: '/homeScreen',
+        //         children:[
+        //             {
+        //                 id: 'juansss',
+        //                 title: 'Juansss',
+        //                 type: 'basic',
+        //                 icon: 'heroicons_outline:bolt',
+        //                 link: '/homeScreen',
+                        
+        //             }
+        //             ,  {
+        //                 id: 'juansssSSS',
+        //                 title: 'Juansss',
+        //                 type: 'basic',
+        //                 icon: 'heroicons_outline:battery-100',
+        //                 link: '/ASD',
+                        
+        //             }
+        //         ]
+        //     }
+        // ];
+        
         this.user = {
             id: 'cfaad35d-07a3-4447-a6c3-d8c3d54fd5df',
             name: 'Brian Hughes',
@@ -99,11 +132,50 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
         //         // Check if the screen is small
         //         this.isScreenSmall = !matchingAliases.includes('md');
         //     });
+
+        
     }
 
     /**
      * On destroy
      */
+    showmenu(): void {
+        this._menuService.getAll$().pipe(
+            map(data => {
+                console.log(data.data);
+                if (Array.isArray(data.data)) {
+                    return data.data;
+                } else if (typeof data.data === 'object' && data.data !== null) {
+                    return Object.values(data.data);
+                } else {
+                    return [];
+                }
+            }),
+            map(formattedData => {
+                return formattedData.map(item => ({
+                    id: item.id,
+                    title: item.title,
+                    type: item.type,
+                    icon: item.icon,
+                    link: item.link,
+                    children: item.children.map(child => ({
+                        id: child.id,
+                        title: child['title '],
+                        type: child.type,
+                        icon: child.icon,
+                        link: child.link,
+                    })),
+                }));
+            })
+        ).subscribe(formattedData => {
+            
+            // Utiliza los datos formateados en this.navigation
+            this.navigation = formattedData;
+            console.log('ds'+formattedData[0]['children'][0]['nombre']);
+        });
+    }
+    
+
     ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next(null);
