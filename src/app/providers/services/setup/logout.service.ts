@@ -8,7 +8,5 @@ export class LogoutService extends EntityDataService<any> {
   constructor(protected override httpClient: HttpClient) {
     super(httpClient, END_POINTS.oauth.logout);
   }
-  public getDeletetoken$(): Observable<any> {
-    return this.httpClient.get<any>(this.endPoint);
-  }
+  
 }
