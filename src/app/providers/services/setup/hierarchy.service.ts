@@ -4,7 +4,7 @@ import {END_POINTS, EntityDataService} from '../../utils';
 import {Observable} from "rxjs";
 
 @Injectable({providedIn: 'root'})
-export class SubsidiaryService extends EntityDataService<any> {
+export class HierarchyService extends EntityDataService<any> {
   constructor(protected override httpClient: HttpClient) {
     super(httpClient, END_POINTS.setup.jerarquia);
   }

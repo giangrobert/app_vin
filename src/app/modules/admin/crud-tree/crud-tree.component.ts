@@ -11,31 +11,46 @@ import { FuseAlertComponent } from '@fuse/components/alert';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { HierarchyService } from 'app/providers/services/setup/hierarchy.service';
+import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialog } from '@angular/material/dialog';
+import { MailboxComposeComponent } from './compose/compose.component';
 
 
-interface DirNode
-{
-    name: string;
-    selected: boolean,
-    expandable?: boolean;
-    level?: number;
-    last?: boolean;
-    children?: DirNode[];
-}
+
 
 interface FlatDirNode
 {
-    name: string;
-    selected: boolean,
+    id: number,
+    codigo: string,
+    nombre: string;
+    nivel: number,
+    estado: number,
+    Parent_gerarquia_id?: number,
     expandable: boolean;
     level: number;
     last: boolean;
 }
 
+interface DirNode extends FlatDirNode
+{
+    // id: number,
+    // codigo: string,
+    // nombre: string;
+    // nivel: number,
+    // estado: number,
+    // Parent_gerarquia_id?: number,
+    // expandable?: boolean;
+    // level?: number;
+    // last?: boolean;
+    children?: DirNode[];
+}
+
 @Component({
   selector: 'app-crud-tree',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule, FuseAlertComponent, MatTreeModule, NgIf, RouterLink, MatCheckboxModule],
+  imports: [CommonModule, MatMenuModule, MatTableModule, MatIconModule, MatButtonModule, FuseAlertComponent, MatTreeModule, NgIf, RouterLink, MatCheckboxModule, MatSelectModule],
   templateUrl: './crud-tree.component.html',
   styleUrl: './crud-tree.component.scss',
   styles       : [
@@ -63,7 +78,9 @@ export class CrudTreeComponent {
     configForm: UntypedFormGroup;
     treeValues: any;
     tree: any;
-    generalTree: any;
+    hierarchyValues: any;
+    roles: any[];
+    generalValues: any;
 
     /**
      * Constructor
@@ -71,59 +88,27 @@ export class CrudTreeComponent {
     constructor(
         private _formBuilder: UntypedFormBuilder,
         private _fuseConfirmationService: FuseConfirmationService,
+        private hierarchyService: HierarchyService,
+        private _matDialog: MatDialog,
     )
     {
         // tree
-        this.treeValues = [
-            {
-                name    : 'area superior',
-                selected: true,
-                children: [
-                    {
-                        name    : 'sede superior 1',
-                        selected: true,
-                        children: [
-                            {
-                                name: 'Area 1',
-                                selected: true,
-                            },
-                            {
-                                name: 'Area 2',
-                                selected: true,
-                            },
-                        ],
-                    },
-                    {
-                        name    : 'sede superior 2',
-                        selected: true,
-                        children: [
-                            {
-                                name: 'Area 1',
-                                selected: true,
-                            },
-                            {
-                                name: 'Area 2',
-                                selected: false,
-                                children: [
-                                    {
-                                        name: 'Sub Area 1',
-                                        selected: false,
-                                    },
-                                    {
-                                        name: 'Sub Area 2',
-                                        selected: false,
-                                    },
-                                ]
-                            },
-                        ],
-                    },
-                ],
-            },
-        ];
+        this.treeValues = [];
+        this.createTreeView();
+        this.getHierarchy()
     }
 
-    ngOnInit(): void
-    {
+    async getHierarchy(): Promise<void> {
+        try {
+            const resp = await this.hierarchyService.getAll$().toPromise();
+            this.treeValues = resp.data;
+            this.createTreeView();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    createTreeView(): void {
         this.tree = this.createTree(this.treeValues);
 
         // Add 'last:true' to the last child
@@ -141,7 +126,9 @@ export class CrudTreeComponent {
         });
         // Expand the first item
         this.tree.treeControl.expand(this.tree.treeControl.dataNodes[0]);
-    
+    }
+    ngOnInit(): void
+    {
         // Build the config form
         this.configForm = this._formBuilder.group({
             title      : 'Eliminar nodo',
@@ -184,6 +171,14 @@ export class CrudTreeComponent {
      */
     createTree(data): { dataSource: any; treeControl: any }
     {
+        // id: number,
+        // codigo: string,
+        // nombre: string;
+        // nivel: number,
+        // estado: number,
+        // Parent_gerarquia_id?: number,
+
+
         // Create tree control and data source
         const treeControl = new FlatTreeControl<FlatDirNode>(node => node.level, node => node.expandable);
         const dataSource = new MatTreeFlatDataSource(
@@ -191,9 +186,13 @@ export class CrudTreeComponent {
             new MatTreeFlattener(
                 (node: DirNode, level: number) => ({
                     expandable: !!node.children && node.children.length > 0,
-                    name      : node.name,
+                    nombre      : node.nombre,
                     level     : level,
-                    selected  : node.selected,
+                    id     : node.id,
+                    codigo     : node.codigo,
+                    nivel     : node.nivel,
+                    estado     : node.estado,
+                    // Parent_gerarquia_id     : node.Parent_gerarquia_id,
                 }),
                 node => node.level, node => node.expandable, node => node.children,
             ),
@@ -207,14 +206,28 @@ export class CrudTreeComponent {
         };
     }
 
-    deleteNode(node: FlatDirNode | DirNode): void
+    createNode(node: FlatDirNode | DirNode): void
     {
-        console.log(node)
+        // Open the dialog
+        const dialogRef = this._matDialog.open(MailboxComposeComponent, {
+            data     : {
+                note: {
+                    jauncho: "HOLA MUNDO"
+                },
+            },
+        });
+        dialogRef.afterClosed()
+            .subscribe((result) =>
+            {
+                console.log(result);
+                console.log('Compose dialog was closed!');
+            });
     }
+
+    
 
     openConfirmationDialog(node: FlatDirNode | DirNode): void
     {
-        if(!node.selected) return
         // Open the dialog delete node
         const dialogRef = this._fuseConfirmationService.open(this.configForm.value);
 
@@ -222,9 +235,8 @@ export class CrudTreeComponent {
         dialogRef.afterClosed().subscribe((result) =>
         {
             if (!"confirmed" == result) {
-                node.selected = true
             }
-            this.deleteNode(node);
+            // this.deleteNode(node);
         });
     }
 }
