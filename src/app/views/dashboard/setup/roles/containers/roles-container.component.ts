@@ -7,11 +7,12 @@ import { RolesListComponent } from '../components';
 import {MatDialog} from "@angular/material/dialog";
 import {RolesNewComponent} from "../components/form/roles-new.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {RolesEditComponent} from "../components/form/roles-edit.component";
 
 @Component({
     selector: 'app-roles-container',
     standalone: true,
-    imports: [CommonModule, RouterOutlet, RolesListComponent,RolesNewComponent, FormsModule,ReactiveFormsModule],
+    imports: [CommonModule, RouterOutlet, RolesListComponent,RolesNewComponent,RolesEditComponent, FormsModule,ReactiveFormsModule],
     template: `
 
         <app-roles-list
@@ -53,19 +54,11 @@ export class RolesContainerComponent implements OnInit {
         if ($event) {
             const rolForm = this._matDialog.open(RolesNewComponent);
             rolForm.componentInstance.title = 'Nuevo Rol' || null;
-            rolForm.afterOpened().subscribe((result:any) => {
+            rolForm.afterClosed().subscribe((result:any) => {
                 if (result){
-                    console.log('result new',result)
-                    // this.saveRol(result);
+                    this.saveRol(result);
                 }
-            });
-            // const rolForm = this.modalService.open(RolesNewComponent);
-            // rolForm.componentInstance.title = 'Nuevo Rol' || null;
-            // rolForm.result.then((result: any) => {
-            //   if (result) {
-            //     this.saveRol(result);
-            //   }
-            // });
+            })
         }
     }
 
@@ -86,14 +79,16 @@ export class RolesContainerComponent implements OnInit {
     }
 
     openMOdalEdit(data: Rol) {
-        // const rolForm = this.modalService.open(RolesEditComponent);
-        // rolForm.componentInstance.title = 'Editar Rol' || null;
-        // rolForm.componentInstance.rol = data;
-        // rolForm.result.then((result: any) => {
-        //   if (result) {
-        //     this.editRol(data.id!, result);
-        //   }
-        // });
+        if (data){
+            const rolForm = this._matDialog.open(RolesEditComponent);
+            rolForm.componentInstance.title = 'Nuevo Rol' || null;
+            rolForm.componentInstance.rol = data;
+            rolForm.afterClosed().subscribe((result:any) => {
+                if (result){
+                    this.editRol(data.id!, result);
+                }
+            })
+        }
     }
 
     editRol(idRol: number, data: Object) {

@@ -163,6 +163,7 @@ import { MatDialog } from '@angular/material/dialog';
                                     <div class="flex space-x-3">
                                         <mat-icon
                                             class="text-amber-400 hover:text-amber-500 cursor-pointer"
+                                            (click)="goEdit(r.id)"
                                             >edit</mat-icon
                                         >
 
@@ -171,11 +172,11 @@ import { MatDialog } from '@angular/material/dialog';
                                             (click)="goDelete(r.id)"
                                             >delete_sweep</mat-icon
                                         >
-                                        <mat-icon
-                                            class="text-sky-400 hover:text-sky-600 cursor-pointer"
-                                            (click)="openComposeDialog()"
-                                            >swap_horiz
-                                        </mat-icon>
+<!--                                        <mat-icon-->
+<!--                                            class="text-sky-400 hover:text-sky-600 cursor-pointer"-->
+<!--                                            (click)="openComposeDialog()"-->
+<!--                                            >swap_horiz-->
+<!--                                        </mat-icon>-->
                                     </div>
                                 </td>
                             </tr>

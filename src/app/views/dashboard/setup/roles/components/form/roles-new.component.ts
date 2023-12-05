@@ -5,46 +5,67 @@ import {abcForms} from '../../../../../../../environments/generals';
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 @Component({
   selector: 'app-roles-new',
   standalone: true,
-  imports: [ FormsModule,
+  imports: [FormsModule,
     MatIconModule,
     MatButtonModule,
     ReactiveFormsModule,
-    MatSlideToggleModule],
+    MatSlideToggleModule, MatFormFieldModule, MatInputModule],
   template: `
-    <div class="modal-header">
-      <h6 class="modal-title">{{title}}</h6>
-      <button type="button" class="close" aria-label="Close" (click)="cancelForm()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form [formGroup]="rolesForm">
-        <div class="form-group row required">
-          <div class="input-group input-group-sm col-sm-3">
-            <label class="col-form-label">Rol.</label>
+        <div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
+      <!-- Header -->
+      <div
+          class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary"
+      >
+        <div class="text-lg font-medium">{{title}}</div>
+        <button mat-icon-button (click)="cancelForm()" [tabIndex]="-1">
+          <mat-icon
+              class="text-current"
+              [svgIcon]="'heroicons_outline:x-mark'"
+          ></mat-icon>
+        </button>
+      </div>
+
+      <!-- Compose form -->
+      <form
+          class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
+          [formGroup]="rolesForm"
+      >
+        <mat-form-field>
+          <mat-label>ROL</mat-label>
+          <input matInput formControlName="nombre"/>
+        </mat-form-field>
+
+        <!-- Actions -->
+        <div
+            class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6"
+        >
+          <div class="flex space-x-2 items-center mt-4 sm:mt-0">
+            <button
+                class="ml-auto sm:ml-0"
+                [color]="'warn'"
+                mat-stroked-button
+                (click)="cancelForm()"
+            >
+              Cancelar
+            </button>
+            <button
+                class="ml-auto sm:ml-0"
+                [color]="'primary'"
+                mat-stroked-button
+                (click)="saveForm()"
+            >
+              Guardar
+            </button>
           </div>
-          <div class="col-sm-9 input-group input-group-sm input-group-rounded">
-            <input type="text" class="form-control form-control-sm" formControlName="nombre"
-                   id="nombre"
-                   placeholder="Rol">
-          </div>
-<!--          <app-form-validate-errors [group]="rolesForm"-->
-<!--                                    [controlName]="'nombre'"></app-form-validate-errors>-->
         </div>
       </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn {{ abcForms.btnCancel.class }} btn-sm" (click)="cancelForm()">
-        <span class="{{ abcForms.btnCancel.icon }} lamb-icon"></span> {{ abcForms.btnCancel.label }}
-      </button>
-      <button type="button" class="btn {{ abcForms.btnSave.class }} btn-sm" (click)="saveForm()"
-              [disabled]="rolesForm.invalid">
-        <span class="{{ abcForms.btnSave.icon }} lamb-icon"></span> {{ abcForms.btnSave.label }}
-      </button>
     </div>
   `
 })
@@ -56,7 +77,8 @@ export class RolesNewComponent implements OnInit {
   });
 
   constructor(
-      // public activeModal: NgbActiveModal
+      private _matDialog: MatDialogRef<RolesNewComponent>,
+
   ) {
   }
 
@@ -67,12 +89,13 @@ export class RolesNewComponent implements OnInit {
 
   public saveForm(): void {
     if (this.rolesForm.valid) {
-      // this.activeModal.close(this.rolesForm.value);
+
+      this._matDialog.close(this.rolesForm.value);
     }
   }
 
   public cancelForm(): void {
-    // this.activeModal.close('');
+      this._matDialog.close('');
   }
 
 }
