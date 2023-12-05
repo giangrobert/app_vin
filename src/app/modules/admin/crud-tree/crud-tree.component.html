@@ -23,14 +23,34 @@
                     </div>
 
                     <span>
-                        <mat-checkbox
-                            (click)="openConfirmationDialog(node)"
-                            class="mb-2"
-                            [checked]="node.selected"
-                            [color]="'primary'">
-                            {{ node.name }}
-                        </mat-checkbox>
+                        {{ node.nombre }}
                     </span>
+
+                    <button
+                        mat-icon-button
+                        [matMenuTriggerFor]="userActions">
+                        <span class="relative">
+                            <mat-icon
+                                [svgIcon]="'heroicons_outline:arrow-top-right-on-square'"></mat-icon>
+                        </span>
+                    </button>
+                    <mat-menu
+                        [xPosition]="'before'"
+                        #userActions="matMenu">
+                        <button mat-menu-item>
+                            <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
+                            <span>Editar</span>
+                        </button>
+                        <button (click)="createNode(node)" mat-menu-item>
+                            <mat-icon [svgIcon]="'heroicons_outline:cog-8-tooth'"></mat-icon>
+                            <span>Agregar nodo</span>
+                        </button>
+                        <button
+                            mat-menu-item>
+                            <mat-icon [svgIcon]="'heroicons_outline:archive-box'"></mat-icon>
+                            <span>Eliminar</span>
+                        </button>
+                    </mat-menu>
                 </div>
             </mat-tree-node>
             <!-- This is the tree node template for expandable nodes -->
@@ -39,25 +59,47 @@
                 matTreeNodePaddingIndent="32"
                 matTreeNodePadding
             >
-              <button
-                  mat-icon-button
-                  matTreeNodeToggle
-                  [attr.aria-label]="'toggle ' + node.name">
-                  <mat-icon class="icon-size-4">
-                      {{tree.treeControl.isExpanded(node) ? 'remove' : 'add'}}
-                  </mat-icon>
-              </button>
+                <button
+                    mat-icon-button
+                    matTreeNodeToggle
+                    [attr.aria-label]="'toggle ' + node.name">
+                    <mat-icon class="icon-size-4">
+                        {{tree.treeControl.isExpanded(node) ? 'remove' : 'add'}}
+                    </mat-icon>
+                </button>
               
-              <span class="font-mono">
-                <mat-checkbox
-                    (click)="openConfirmationDialog(node)"
-                    class="mb-2"
-                    [checked]="node.selected"
-                    [color]="'primary'">
-                    {{ node.name }}
-                </mat-checkbox>
-              </span>
+                <span class="font-mono">
+                    {{ node.nombre }}
+                </span>
+                <button
+                    mat-icon-button
+                    [matMenuTriggerFor]="userActions">
+                    <span class="relative">
+                        <mat-icon
+                            [svgIcon]="'heroicons_outline:arrow-top-right-on-square'"></mat-icon>
+                    </span>
+                </button>
+                <mat-menu
+                    [xPosition]="'before'"
+                    #userActions="matMenu">
+                    <button mat-menu-item>
+                        <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
+                        <span>Editar</span>
+                    </button>
+                    <button (click)="createNode(node)" mat-menu-item>
+                        <mat-icon [svgIcon]="'heroicons_outline:cog-8-tooth'"></mat-icon>
+                        <span>Agregar nodo</span>
+                    </button>
+                    <button
+                        mat-menu-item>
+                        <mat-icon [svgIcon]="'heroicons_outline:archive-box'"></mat-icon>
+                        <span>Eliminar</span>
+                    </button>
+                </mat-menu>
+
             </mat-tree-node>
+            
+            
         </mat-tree>
     </div>
   </div>
