@@ -9,22 +9,25 @@ import {FuseConfirmationService} from "../../../@fuse/services/confirmation";
 
 
 @Component({
-  selector: 'app-dashboard',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, MatIconModule, MatButtonModule],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+    selector: 'app-dashboard',
+    standalone: true,
+    imports: [CommonModule, RouterOutlet, MatIconModule, MatButtonModule],
+    templateUrl: './dashboard.component.html',
+    //   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
     public title: string = '';
+
     configForm: UntypedFormGroup;
     abcForms:any;
     constructor( private _formBuilder: UntypedFormBuilder,private _fuseConfirmationService: FuseConfirmationService) {
     }
+
     ngOnInit() {
-        this.title = 'Dashboard'
+        this.title = 'Dashboard';
         this.abcForms = abcForms;
     }
+
     configConfirm(){
         this.configForm = this._formBuilder.group({
             title      : 'Eliminar nodo',
