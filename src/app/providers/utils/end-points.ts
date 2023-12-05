@@ -1,7 +1,7 @@
 export const END_POINTS = {
   oauth: {
-    register: 'api/auth/register',
-    login: 'api/auth/login',
+    register: 'auth/register',
+    login: 'auth/login',
     logout: 'logout',
     signup: 'register',
     active: 'auth/active',
@@ -10,7 +10,7 @@ export const END_POINTS = {
     reset: 'auth/reset',
   },
   setup: {
-    period: 'periodo',
+    role: 'rol',
     person: 'persona',
     institution: 'institucion',
     subsidiary: 'filial',

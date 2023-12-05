@@ -3,8 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {END_POINTS, EntityDataService} from '../../utils';
 
 @Injectable({providedIn: 'root'})
-export class PeriodService extends EntityDataService<any> {
+export class RoleService extends EntityDataService<any> {
   constructor(protected override httpClient: HttpClient) {
-    super(httpClient, END_POINTS.setup.period);
+    super(httpClient, END_POINTS.setup.role);
   }
 }
