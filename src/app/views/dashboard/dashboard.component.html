@@ -2,7 +2,12 @@
 
     <!-- Main -->
     <div class="flex-auto p-6 sm:p-10">
-
+<button class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+        mat-flat-button
+        [color]="'primary'">
+    <mat-icon>{{abcForms.btnDelete.icon}}</mat-icon>
+    {{abcForms.btnNew.label}} Roles
+</button>
         <!-- CONTENT GOES HERE -->
 <!--        <div class="h-400 min-h-400 max-h-400 border-2 border-dashed border-gray-300 rounded-2xl"></div>-->
         <router-outlet></router-outlet>

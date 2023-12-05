@@ -4,6 +4,10 @@ export const TOASTR_CONFIG = {
   timeOut: 5000,
   // positionClass: 'toast-bottom-center',
 };
+export const TYPE_ICONS = {
+  tipe: 'heroicons_solid:',
+  // outline: 'heroicons_outline:',
+}
 
 export const MESSAGES = {
   btnSave: 'Guardar',
@@ -64,9 +68,9 @@ export const MESSAGES = {
 };
 
 export const abcForms = {
-  btnDuoble: {
+  btnClone: {
     label: MESSAGES.btnDuoble,
-    icon: 'fa fa-clone', /** FontAewsome */
+    icon: 'library books icon', /** FontAewsome */
     class: 'btn-outline-primary', /** primary, secondary, ligth (bootstrap) */
   },
   btnChangeStatus: {
@@ -180,9 +184,8 @@ export const abcForms = {
   },
   btnNew: {
     label: MESSAGES.btnNew,
-    labela: MESSAGES.btnNewa,
-    icon: 'fa fa-plus-circle', /** FontAewsome */
-    class: 'btn-outline-primary', /** primary, secondary, ligth (bootstrap) */
+    icon: 'add',
+    // class: 'btn-outline-primary', /** primary, secondary, ligth (bootstrap) */
   },
   btnReturn: {
     label: MESSAGES.btnReturn,
@@ -206,7 +209,7 @@ export const abcForms = {
   },
   btnDelete: {
     label: MESSAGES.btnDelete,
-    icon: 'fa fa-trash', /** FontAewsome */
+    icon: 'delete',
     class: 'btn-outline-danger', /** primary, secondary, ligth (bootstrap) */
   },
   btnActived: {

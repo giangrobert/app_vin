@@ -1,88 +1,228 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import {abcForms} from '../../../../../../../environments/generals';
-import {Rol} from '../../models/Rol';
-import {CommonModule} from "@angular/common";
-import {RouterOutlet} from "@angular/router";
+import { abcForms } from '../../../../../../../environments/generals';
+import { Rol } from '../../models/Rol';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { InputComponent } from '../input/roles-input.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-roles-list',
-  imports: [CommonModule, RouterOutlet],
+    selector: 'app-roles-list',
+    imports: [CommonModule, RouterOutlet, MatButtonModule, MatIconModule],
     standalone: true,
-  template: `
-  <div class="d-flex justify-content-end">
-    <button type="button" (click)="goNew()" class="btn-gm-danger">
-      <span class="{{ abcForms.btnNew.icon }} lamb-icon"></span> {{ abcForms.btnNew.label }} Rol
-    </button>
-  </div>
-        <div class="row mt-3">
-          <c-col md="6" xs="12" sm="4" lg="4" xl="3" *ngFor="let r of rols; let i= index" class="mb-2">
-              <c-card class="shadow-gm-card">
-                  <c-card-body>
-                  <div class="row">
-                      <c-col md="3" class="d-flex align-items-center justify-content-center bg-primary img-gm-svg">
-                          <span>{{i+1}}</span>
-                           <i class="{{abcForms.btnUser.icon}}"></i>
-                      </c-col>
-                      <c-col md="9">
+    template: `
+        <div class="flex flex-col flex-auto min-w-0">
+            <div class="flex justify-end mt-1 sm:mt-1 pr-6 sm:ml-4">
+                <button
+                    mat-flat-button
+                    [color]="'primary'"
+                    class="ml-4"
+                    (click)="openComposeDialog()"
+                >
+                    <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                    <span class="ml-2">Nuevo Rol</span>
+                </button>
+            </div>
 
-                              <h5 cCardTitle></h5>
-                              <p cCardText class="m-0 mb-1">
-                                  <b>Rol:</b>
-                                  {{r.nombre}}
-                              </p>
-                              <button type="button" class="btn-gm-sm btn {{ abcForms.btnEdit.class }} "
-                                  title="{{ abcForms.btnEdit.label }}" (click)="goEdit(r.id!)">
-                                  <span class="{{ abcForms.btnEdit.icon }} lamb-icon"></span>
-                              </button>
-                              <button type="button" class="btn-gm-sm btn {{ abcForms.btnDelete.class }} "
-                                  title="{{ abcForms.btnDelete.label }}" (click)="goDelete(r.id!)">
-                                  <span class="{{ abcForms.btnDelete.icon }} lamb-icon"></span>
-                              </button>
-                              <button type="button" class="btn-gm-sm btn {{ abcForms.btnExchange.class }} "
-                                  title="{{ abcForms.btnExchange.label }}" (click)="goAssign(r.id!)">
-                                  <span class="{{ abcForms.btnExchange.icon }} lamb-icon"></span>
-                              </button>
+            <div class="flex-auto px-6 sm:px-10">
+                <div class="p-6 overflow-scroll px-0">
+                    <table class="mt-4 w-full min-w-max table-auto text-left">
+                        <thead>
+                            <tr>
+                                <th
+                                    class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                                >
+                                    <p
+                                        class="antialiased font-sans text-sm text-gray-800 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                    >
+                                        #
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="2"
+                                            stroke="currentColor"
+                                            aria-hidden="true"
+                                            class="h-4 w-4"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+                                            ></path>
+                                        </svg>
+                                    </p>
+                                </th>
+                                <th
+                                    class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                                >
+                                    <p
+                                        class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                    >
+                                        NOMBRE
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="2"
+                                            stroke="currentColor"
+                                            aria-hidden="true"
+                                            class="h-4 w-4"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+                                            ></path>
+                                        </svg>
+                                    </p>
+                                </th>
+                                <th
+                                    class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                                >
+                                    <p
+                                        class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                    >
+                                        ESTADO
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="2"
+                                            stroke="currentColor"
+                                            aria-hidden="true"
+                                            class="h-4 w-4"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+                                            ></path>
+                                        </svg>
+                                    </p>
+                                </th>
+                                <th
+                                    class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                                >
+                                    <p
+                                        class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                    >
+                                        ACCIONES
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="2"
+                                            stroke="currentColor"
+                                            aria-hidden="true"
+                                            class="h-4 w-4"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+                                            ></path>
+                                        </svg>
+                                    </p>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody
+                            class="mb-10 bgw"
+                            *ngFor="let r of rols; let i = index"
+                        >
+                            <tr>
+                                <td class="p-4 border-b border-blue-gray-50">
+                                    <p
+                                        class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
+                                    >
+                                        {{ i }}
+                                    </p>
+                                </td>
+                                <td class="p-4 border-b border-blue-gray-50">
+                                    <p
+                                        class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
+                                    >
+                                        {{ r.nombre }}
+                                    </p>
+                                </td>
+                                <td class="p-4 border-b border-blue-gray-50">
+                                    <div class="w-max">
+                                        <div
+                                            class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
+                                            style="opacity: 1"
+                                        >
+                                            <span class="">ACTIVO</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4 border-b border-blue-gray-50">
+                                    <div class="flex space-x-3">
+                                        <mat-icon
+                                            class="text-amber-400 hover:text-amber-500 cursor-pointer"
+                                            >edit</mat-icon
+                                        >
 
-                      </c-col>
-                  </div>
-              </c-card-body>
-
-              </c-card>
-          </c-col>
-      </div>
-  `,
+                                        <mat-icon
+                                            class="text-rose-500 hover:text-rose-600 cursor-pointer"
+                                            (click)="goDelete(r.id)"
+                                            >delete_sweep</mat-icon
+                                        >
+                                        <mat-icon
+                                            class="text-sky-400 hover:text-sky-600 cursor-pointer"
+                                            (click)="openComposeDialog()"
+                                            >swap_horiz
+                                        </mat-icon>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    `,
 })
-
 export class RolesListComponent implements OnInit {
-  abcForms: any;
-  @Input() rols: Rol[] = [];
-  @Output() eventNew = new EventEmitter<boolean>();
-  @Output() eventEdit = new EventEmitter<number>();
-  @Output() eventDelete = new EventEmitter<number>();
-  @Output() eventAssign = new EventEmitter<number>();
+    abcForms: any;
+    @Input() rols: Rol[] = [];
+    @Output() eventNew = new EventEmitter<boolean>();
+    @Output() eventEdit = new EventEmitter<number>();
+    @Output() eventDelete = new EventEmitter<number>();
+    @Output() eventAssign = new EventEmitter<number>();
 
-  constructor() {
-  }
+    constructor(private _matDialog: MatDialog) {}
 
+    openComposeDialog(): void {
+        // Open the dialog
+        const dialogRef = this._matDialog.open(InputComponent);
 
-  ngOnInit() {
-    this.abcForms = abcForms;
-  }
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log('Compose dialog was closed!', result, 'hello');
+            this.eventAssign.emit(result);
+        });
+    }
 
-  public goNew(): void {
-    this.eventNew.emit(true);
-  }
+    ngOnInit() {
+        this.abcForms = abcForms;
+    }
 
-  public goEdit(id: number): void {
-    this.eventEdit.emit(id);
-  }
+    public goNew(): void {
+        this.eventNew.emit(true);
+    }
 
-  public goDelete(id: number): void {
-    this.eventDelete.emit(id);
-  }
+    public goEdit(id: number): void {
+        this.eventEdit.emit(id);
+    }
 
-  public goAssign(id: number): void {
-    this.eventAssign.emit(id);
-  }
+    public goDelete(id: number): void {
+        this.eventDelete.emit(id);
+    }
+
+    public goAssign(id: number): void {
+        this.eventAssign.emit(id);
+    }
 }
