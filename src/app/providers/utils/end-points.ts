@@ -2,7 +2,7 @@ export const END_POINTS = {
   oauth: {
     register: 'auth/register',
     login: 'auth/login',
-    logout: 'logout',
+    logout: 'auth/logout',
     signup: 'api/auth/register',
     active: 'auth/active',
     create: 'auth/create',

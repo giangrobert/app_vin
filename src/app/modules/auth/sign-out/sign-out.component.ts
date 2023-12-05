@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { finalize, Subject, takeUntil, takeWhile, tap, timer } from 'rxjs';
 import {OauthService} from "../../../providers/services";
+import {LogoutService} from "../../../providers/services/setup/logout.service";
 
 @Component({
     selector     : 'auth-sign-out',
@@ -25,6 +26,8 @@ export class AuthSignOutComponent implements OnInit, OnDestroy
      */
     constructor(
         private _oauthService: OauthService,
+        private _logoutService: LogoutService,
+
         private _router: Router,
     )
     {
@@ -40,8 +43,12 @@ export class AuthSignOutComponent implements OnInit, OnDestroy
     ngOnInit(): void
     {
         // Sign out
+       
+        this._logoutService.getAll$().subscribe(r=>{
+            console.log(r);
+            
+        });
         this._oauthService.signOut();
-
         // Redirect after the countdown
         timer(1000, 1000)
             .pipe(
