@@ -15,6 +15,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/juan'
+    },
+    {
+        id: 'Selector',
+        title: 'Selector',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/logout'
     }
 ];
 export const compactNavigation: FuseNavigationItem[] = [
@@ -31,6 +38,13 @@ export const compactNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/juan'
+    },
+    {
+        id: 'Selector',
+        title: 'Selector',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/logout'
     }
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -48,6 +62,13 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         icon : 'heroicons_outline:chart-pie',
         link : '/juan'
     }
+    ,{
+        id: 'Selector',
+        title: 'Selector',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/logout'
+    }
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
@@ -63,5 +84,12 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:chart-pie',
         link : '/juan'
+    },
+    {
+        id: 'Selector',
+        title: 'Selector',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-pie',
+        link: '/logout'
     }
 ];
