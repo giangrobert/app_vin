@@ -18,7 +18,8 @@ export const END_POINTS = {
     prefessionalSchool: 'escuela-profesional',
     cycle: 'ciclo',
     group: 'grupo',
-    jerarquia: "gerarquia"
+    jerarquia: "gerarquia",
+    menu:"menu"
   },
   event: {
     event: 'evento',

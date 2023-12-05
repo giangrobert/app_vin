@@ -22,7 +22,7 @@ export class OauthService {
 
     public authenticate(credentials: any): Observable<IResponse> {
         if (this._authenticated) {
-            return throwError('User is already logged in.');
+            return throwError(() => new Error('User is already logged in.'));            
         }
         return this.http
             .post<IResponse>(END_POINTS.oauth.login, credentials)
