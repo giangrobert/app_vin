@@ -232,6 +232,10 @@ export class RolesListComponent implements OnInit {
     }
 
     public goEdit(id: number): void {
+        this.eventEdit.emit(id);
+    }
+
+    public goDelete(id: number): void {
         const confirmation = window.confirm(
             '¿Estás seguro de que deseas eliminar este elemento permanentemente?'
         );
@@ -242,10 +246,6 @@ export class RolesListComponent implements OnInit {
         } else {
             // Si el usuario cancela, no se hace nada
         }
-    }
-
-    public goDelete(id: number): void {
-        this.eventDelete.emit(id);
     }
 
     public goAssign(id: number): void {
