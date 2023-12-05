@@ -91,7 +91,7 @@ export const appConfig: ApplicationConfig = {
         },
 
         // Fuse
-        provideAuth(),
+        // provideAuth(),
         provideIcons(),
         provideFuse({
             mockApi: {
