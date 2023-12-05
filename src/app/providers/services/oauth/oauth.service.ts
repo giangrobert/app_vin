@@ -4,6 +4,7 @@ import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 import { END_POINTS, IResponse } from '../../utils';
 import { shareReplay, tap } from 'rxjs/operators';
 import { AuthUtils } from '../../../core/auth/auth.utils';
+import { get } from 'lodash';
 
 @Injectable({ providedIn: 'root' })
 export class OauthService {
@@ -40,8 +41,8 @@ export class OauthService {
     }
     public signOut(): Observable<any>
     {
-        localStorage.removeItem('accessToken');
         this._authenticated = false;
+        localStorage.removeItem('accessToken');
         return of(true);
     }
 
