@@ -4,11 +4,14 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { RolesListComponent } from '../components';
+import {MatDialog} from "@angular/material/dialog";
+import {RolesNewComponent} from "../components/form/roles-new.component";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
     selector: 'app-roles-container',
     standalone: true,
-    imports: [CommonModule, RouterOutlet, RolesListComponent],
+    imports: [CommonModule, RouterOutlet, RolesListComponent,RolesNewComponent, FormsModule,ReactiveFormsModule],
     template: `
 
         <app-roles-list
@@ -26,7 +29,8 @@ export class RolesContainerComponent implements OnInit {
     public rol = new Rol();
 
     constructor(
-        private rolService: RoleService
+        private rolService: RoleService,
+    private _matDialog: MatDialog,
     ) //private confirmDialogService: ConfirmDialogService
     {}
 
@@ -47,6 +51,14 @@ export class RolesContainerComponent implements OnInit {
 
     public eventNew($event: boolean): void {
         if ($event) {
+            const rolForm = this._matDialog.open(RolesNewComponent);
+            rolForm.componentInstance.title = 'Nuevo Rol' || null;
+            rolForm.afterOpened().subscribe((result:any) => {
+                if (result){
+                    console.log('result new',result)
+                    // this.saveRol(result);
+                }
+            });
             // const rolForm = this.modalService.open(RolesNewComponent);
             // rolForm.componentInstance.title = 'Nuevo Rol' || null;
             // rolForm.result.then((result: any) => {

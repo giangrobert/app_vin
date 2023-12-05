@@ -1,12 +1,19 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 
-// @ts-ignore
-import {abcForms} from 'src/environments/generals';
+import {abcForms} from '../../../../../../../environments/generals';
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-roles-new',
+  standalone: true,
+  imports: [ FormsModule,
+    MatIconModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatSlideToggleModule],
   template: `
     <div class="modal-header">
       <h6 class="modal-title">{{title}}</h6>
@@ -25,8 +32,8 @@ import {abcForms} from 'src/environments/generals';
                    id="nombre"
                    placeholder="Rol">
           </div>
-          <app-form-validate-errors [group]="rolesForm"
-                                    [controlName]="'nombre'"></app-form-validate-errors>
+<!--          <app-form-validate-errors [group]="rolesForm"-->
+<!--                                    [controlName]="'nombre'"></app-form-validate-errors>-->
         </div>
       </form>
     </div>
@@ -48,7 +55,8 @@ export class RolesNewComponent implements OnInit {
     nombre: new FormControl('', [Validators.required]),
   });
 
-  constructor(public activeModal: NgbActiveModal
+  constructor(
+      // public activeModal: NgbActiveModal
   ) {
   }
 
@@ -59,12 +67,12 @@ export class RolesNewComponent implements OnInit {
 
   public saveForm(): void {
     if (this.rolesForm.valid) {
-      this.activeModal.close(this.rolesForm.value);
+      // this.activeModal.close(this.rolesForm.value);
     }
   }
 
   public cancelForm(): void {
-    this.activeModal.close('');
+    // this.activeModal.close('');
   }
 
 }

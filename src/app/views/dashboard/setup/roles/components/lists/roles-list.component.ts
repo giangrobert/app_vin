@@ -20,7 +20,7 @@ import { MatDialog } from '@angular/material/dialog';
                     mat-flat-button
                     [color]="'primary'"
                     class="ml-4"
-                    (click)="openComposeDialog()"
+                    (click)="goNew()"
                 >
                     <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                     <span class="ml-2">Nuevo Rol</span>
@@ -196,15 +196,15 @@ export class RolesListComponent implements OnInit {
 
     constructor(private _matDialog: MatDialog) {}
 
-    openComposeDialog(): void {
-        // Open the dialog
-        const dialogRef = this._matDialog.open(InputComponent);
-
-        dialogRef.afterClosed().subscribe((result) => {
-            console.log('Compose dialog was closed!', result, 'hello');
-            this.eventAssign.emit(result);
-        });
-    }
+    // openComposeDialog(): void {
+    //     // Open the dialog
+    //     const dialogRef = this._matDialog.open(InputComponent);
+    //
+    //     dialogRef.afterClosed().subscribe((result) => {
+    //         console.log('Compose dialog was closed!', result, 'hello');
+    //         this.eventAssign.emit(result);
+    //     });
+    // }
 
     ngOnInit() {
         this.abcForms = abcForms;
