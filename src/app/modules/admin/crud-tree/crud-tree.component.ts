@@ -33,11 +33,11 @@ interface FlatDirNode
 }
 
 @Component({
-  selector: 'app-example-tree',
+  selector: 'app-crud-tree',
   standalone: true,
   imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule, FuseAlertComponent, MatTreeModule, NgIf, RouterLink, MatCheckboxModule],
-  templateUrl: './example-tree.component.html',
-  styleUrl: './example-tree.component.scss',
+  templateUrl: './crud-tree.component.html',
+  styleUrl: './crud-tree.component.scss',
   styles       : [
     `
         directory-structure .mat-tree {
@@ -59,7 +59,7 @@ interface FlatDirNode
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class ExampleTreeComponent {
+export class CrudTreeComponent {
     configForm: UntypedFormGroup;
     treeValues: any;
     tree: any;
@@ -210,8 +210,6 @@ export class ExampleTreeComponent {
     deleteNode(node: FlatDirNode | DirNode): void
     {
         console.log(node)
-        console.log(this.tree)
-        // this.treeValues
     }
 
     openConfirmationDialog(node: FlatDirNode | DirNode): void
@@ -229,5 +227,4 @@ export class ExampleTreeComponent {
             this.deleteNode(node);
         });
     }
-
 }
