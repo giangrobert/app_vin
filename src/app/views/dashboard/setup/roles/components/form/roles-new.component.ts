@@ -58,7 +58,7 @@ import { MatInputModule } from '@angular/material/input';
                 >
                     <div class="flex space-x-2 items-center mt-4 sm:mt-0">
                         <button
-                            class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
+                            class="border border-primary bg-primary text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline"
                             mat-stroked-button
                             (click)="saveForm()"
                         >
