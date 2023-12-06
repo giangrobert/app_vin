@@ -40,7 +40,7 @@ import { ConfirmDialogService } from 'app/shared/confirm-dialog/confirm-dialog.s
             </div>
 
             <!-- Body -->
-            <div class="flex flex-row space-x-2 mt-4">
+            <div class="flex flex-row space-x-2 m-4">
                 @for (item of rolAssigneds; track item.id; let idx = $index) {
                 <div
                     class="flex items-start  text-sm text-gray-900 bg-white mx-4"
@@ -62,7 +62,7 @@ import { ConfirmDialogService } from 'app/shared/confirm-dialog/confirm-dialog.s
             </div>
 
             <div
-                class="flex flex-col sm:flex-row sm:items-center justify-between mt-6"
+                class="flex flex-col sm:flex-row sm:items-center justify-between m-6"
             >
                 <div class="flex space-x-4 items-center mt-4 sm:mt-0">
                     <button
