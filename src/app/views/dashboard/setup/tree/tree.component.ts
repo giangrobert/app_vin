@@ -21,9 +21,12 @@ import { Component, OnInit } from '@angular/core';
 export class TreeComponent implements OnInit {
     public title: string = '';
     abcForms: any;
+
     constructor() {}
+
     ngOnInit() {
         this.title = 'Arbol';
         this.abcForms = abcForms;
     }
+
 }
