@@ -137,21 +137,29 @@ import { CommonModule, DatePipe } from '@angular/common';
                             @for (user of users;track user.id; let idx = $index)
                             {
                             <tr class="hover:bg-gray-100">
-                                <td class="w-1/6 p-4 border-b">
+                                <td class="w-1/6 p-2 text-center border-b">
                                     {{ idx + 1 }}
                                 </td>
 
-                                <td class="w-2/6 p-4 border-b">
+                                <td
+                                    class="w-2/6 p-2  text-start border-b text-sm"
+                                >
                                     {{ user.name }}
                                 </td>
-                                <td class="w-2/6 p-4 border-b">
+                                <td
+                                    class="w-2/6 p-2 text-start border-b text-sm"
+                                >
                                     {{ user.email }}
                                 </td>
-                                <td class="w-2/6 p-4 border-b">
+                                <td
+                                    class="w-2/6 p-2 text-start border-b text-sm"
+                                >
                                     {{ user.created_at | date : 'dd/MM/yyyy' }}
                                 </td>
-                                <td class="w-2/6 p-4 border-b">
-                                    <div class="w-max">
+                                <td
+                                    class="w-1/6 p-2 text-center border-b text-sm"
+                                >
+                                    <div class="w-max flex justify-center">
                                         @if(user.active == 1){
                                         <div
                                             class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
@@ -169,16 +177,18 @@ import { CommonModule, DatePipe } from '@angular/common';
                                         }
                                     </div>
                                 </td>
-                                <td class="w-1/6 p-4 border-b">
-                                    <div class="flex space-x-3">
+
+                                <td
+                                    class="w-2/6 p-2 text-center border-b text-sm"
+                                >
+                                    <div class="flex justify-center space-x-3">
                                         <mat-slide-toggle
                                             [checked]="
                                                 user.active == 1 ? true : false
                                             "
                                             [color]="'primary'"
                                             (change)="goChangeState(user.id)"
-                                        >
-                                        </mat-slide-toggle>
+                                        ></mat-slide-toggle>
                                         <mat-icon>swap_horiz</mat-icon>
 
                                         
@@ -192,7 +202,9 @@ import { CommonModule, DatePipe } from '@angular/common';
                             </tr>
                             } @empty {
                             <tr>
-                                Sin Contenido
+                                <td colspan="6" class="text-center">
+                                    Sin Contenido
+                                </td>
                             </tr>
                             }
                         </tbody>
