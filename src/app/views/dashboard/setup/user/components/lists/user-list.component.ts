@@ -199,8 +199,11 @@ import { CommonModule, DatePipe } from '@angular/common';
                             <td class="p-4 border-b border-blue-gray-50">
                                 <div class="flex space-x-3">
                                     <mat-slide-toggle
-                                        [ngModel]="'activated'"
+                                        [checked]="user.active == 1 ? true : false"
+                                        
                                         [color]="'primary'"
+                                        (change)="goChangeState(user.id)"
+                                
                                     >
                                     </mat-slide-toggle>
                                     <mat-icon>swap_horiz</mat-icon>

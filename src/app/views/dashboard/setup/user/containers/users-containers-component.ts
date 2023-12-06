@@ -26,8 +26,8 @@ export class UsersContainerComponent implements OnInit {
     public user = new User();
 
     constructor(
-        private userService: UsersService,
-        private signupService: SignupService,
+        private _userService: UsersService,
+        private _signupService: SignupService,
         private _matDialog: MatDialog // private modalService: NgbModal,
     ) // private confirmDialogService: ConfirmDialogService
     {}
@@ -37,7 +37,7 @@ export class UsersContainerComponent implements OnInit {
     }
 
     getUsers(): void {
-        this.userService.getAll$().subscribe(
+        this._userService.getAll$().subscribe(
             (response) => {
                 this.users = response.data;
             },
@@ -70,7 +70,7 @@ export class UsersContainerComponent implements OnInit {
     }
 
     saveUser(data: Object) {
-        this.signupService.add$(data).subscribe((response) => {
+        this._signupService.add$(data).subscribe((response) => {
             this.users = (response && response.data) || [];
             this.getUsers();
         });
@@ -88,7 +88,7 @@ export class UsersContainerComponent implements OnInit {
     }
 
     public eventChangeState($event: number): void {
-        this.userService.getById$($event).subscribe((response) => {
+        this._userService.updateStateUserId$($event).subscribe((response) => {
             this.users = response.data;
         });
     }
