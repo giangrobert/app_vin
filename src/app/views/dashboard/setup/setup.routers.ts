@@ -10,7 +10,7 @@ export default [
             {path: 'users', loadChildren: () => import('./users/user.routes')},
             {path: 'user', loadChildren: () => import('./user/users-routers')},
             {path: 'tree', loadChildren: () => import('./tree/tree.routers')},
-            //{path: 'access', loadChildren: () => import('./access/access.routers')},
+            {path: 'access', loadChildren: () => import('./access/access.routers')},
         ],
     },
 ] as Routes;
