@@ -28,7 +28,7 @@ import { ConfirmDialogService } from 'app/shared/confirm-dialog/confirm-dialog.s
         <div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
             <!-- Header -->
             <div
-                class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary"
+                class="flex items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary"
             >
                 <div class="text-lg font-medium">Nuevo Usuario</div>
                 <button mat-icon-button (click)="cancelForm()">
@@ -39,46 +39,48 @@ import { ConfirmDialogService } from 'app/shared/confirm-dialog/confirm-dialog.s
                 </button>
             </div>
 
-
-
-            <div class="flex justify-center">
+            <!-- Body -->
+            <div class="flex flex-row space-x-2 mt-4">
                 @for (item of rolAssigneds; track item.id; let idx = $index) {
-                  <div class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                <label>
-                    <input
-                        type="checkbox"
-                        [(ngModel)]="item.asignado"
-                        class="accent-primary"
-                        id="men{{idx}}"
-                    />
-                    <label for="men{{idx}}">{{ item.nombre }}</label>
-                    <br />
-                </label>
-            </div>
+                <div
+                    class="flex items-start  text-sm text-gray-900 bg-white mx-4"
+                >
+                    <label class="flex items-start">
+                        <input
+                            type="checkbox"
+                            [(ngModel)]="item.asignado"
+                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-offset-gray-100 focus:ring-2"
+                            id="men{{ idx }}"
+                        />
+                        <label for="men{{ idx }}" lass="ml-3 cursor-pointer">{{
+                            item.nombre
+                        }}</label>
+                        <br />
+                    </label>
+                </div>
                 }
             </div>
+
             <div
-                    class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6"
-                >
-                    <div class="flex space-x-2 items-center mt-4 sm:mt-0">
-                        <button
-                            class="ml-auto sm:ml-0"
-                            [color]="'warn'"
-                            mat-stroked-button
-                            (click)="cancelForm()"
-                        >
-                            Cancelar
-                        </button>
-                        <button
-                            class="ml-auto sm:ml-0"
-                            [color]="'primary'"
-                            mat-stroked-button
-                            (click)="saveAssign()"
-                        >
-                            Guardar
-                        </button>
-                    </div>
+                class="flex flex-col sm:flex-row sm:items-center justify-between mt-6"
+            >
+                <div class="flex space-x-4 items-center mt-4 sm:mt-0">
+                    <button
+                        [color]="'warn'"
+                        mat-stroked-button
+                        (click)="cancelForm()"
+                    >
+                        Cancelar
+                    </button>
+                    <button
+                        [color]="'primary'"
+                        mat-stroked-button
+                        (click)="saveAssign()"
+                    >
+                        Guardar
+                    </button>
                 </div>
+            </div>
 
             <!-- <div class="modal-header">
      <h6 class="modal-title">{{title}}</h6>
@@ -129,7 +131,7 @@ export class UserRolesAsingComponent implements OnInit {
         private formBuilder: FormBuilder,
         private _rolService: RoleService,
         private _matDialog: MatDialogRef<UserRolesAsingComponent>,
-        private _confirmDialogService: ConfirmDialogService,
+        private _confirmDialogService: ConfirmDialogService
     ) {}
 
     ngOnInit() {
@@ -160,23 +162,24 @@ export class UserRolesAsingComponent implements OnInit {
 
     public saveAssign(): void {
         this.rolAssigneds.map((data) => {
-
             if (data.asignado) {
-              
                 this.rolesIds.push(data.id!);
                 console.log(this.rolesIds);
-                
             }
         });
-         this._confirmDialogService.confirmSave().then(() => {
-           const params: any = {};
-           params.usuario_id = this.idUser;
-           params.roles = this.rolesIds;
-           this._rolService.getByAssigmentRole$(params).subscribe(response => {
-             this._matDialog.close('');
-           });
-         }).catch(() => {
-         });
+        this._confirmDialogService
+            .confirmSave()
+            .then(() => {
+                const params: any = {};
+                params.usuario_id = this.idUser;
+                params.roles = this.rolesIds;
+                this._rolService
+                    .getByAssigmentRole$(params)
+                    .subscribe((response) => {
+                        this._matDialog.close('');
+                    });
+            })
+            .catch(() => {});
     }
 
     public cancelForm(): void {
