@@ -1,78 +1,95 @@
-import {Component, OnInit} from '@angular/core';
-import {User} from '../models/user';
-import {UserListComponent} from "../components/lists/user-list.component";
-import {UsersService} from "../../../../../providers/services/setup/users.service";
-import {SignupService} from "../../../../../providers/services/oauth";
+import { Component, OnInit } from '@angular/core';
+import { User } from '../models/user';
+import { UserListComponent } from '../components/lists/user-list.component';
+import { UsersService } from '../../../../../providers/services/setup/users.service';
+import { SignupService } from '../../../../../providers/services/oauth';
+import { MatDialog } from '@angular/material/dialog';
+import { UserNewComponent } from '../components/form/user-new.component';
 
 @Component({
-  selector: 'app-users-container',
+    selector: 'app-users-container',
     standalone: true,
     imports: [UserListComponent],
-  template: `
-    <app-user-list [users]="users"
-                   (eventNew)="eventNew($event)"
-                   (eventAssign)="eventAssign($event)" (eventChangeState)="eventChangeState($event)"></app-user-list>
-  `
+    template: `
+        <app-user-list
+            class="w-full"
+            [users]="users"
+            (eventNew)="eventNew($event)"
+            (eventAssign)="eventAssign($event)"
+            (eventChangeState)="eventChangeState($event)"
+        ></app-user-list>
+    `,
 })
-
 export class UsersContainerComponent implements OnInit {
-  public error: string = '';
-  public users: User[] = [];
-  public user = new User();
+    public error: string = '';
+    public users: User[] = [];
+    public user = new User();
 
-  constructor(
-      private userService: UsersService,
-      private signupService: SignupService,
-      // private modalService: NgbModal,
-      // private confirmDialogService: ConfirmDialogService
-  ) {
-  }
+    constructor(
+        private userService: UsersService,
+        private signupService: SignupService,
+        private _matDialog: MatDialog // private modalService: NgbModal,
+    ) // private confirmDialogService: ConfirmDialogService
+    {}
 
-  ngOnInit() {
-    this.getUsers();
-  }
+    ngOnInit() {
+        this.getUsers();
+    }
 
-  getUsers(): void {
-    this.userService.getAll$().subscribe(response => {
-      this.users = response.data;
-    }, error => {
-      this.error = error;
-    });
-  }
+    getUsers(): void {
+        this.userService.getAll$().subscribe(
+            (response) => {
+                this.users = response.data;
+            },
+            (error) => {
+                this.error = error;
+            }
+        );
+    }
 
-  public eventNew($event: boolean): void {
-    // if ($event) {
-    //   const userForm = this.modalService.open(UserNewComponent);
-    //   userForm.componentInstance.title = 'Nuevo Usuario' || null;
-    //   userForm.result.then((result) => {
-    //     if (result) {
-    //       this.saveUser(result);
-    //     }
-    //   });
-    // }
-  }
+    public eventNew($event: boolean): void {
+        if ($event) {
+            const userForm = this._matDialog.open(UserNewComponent);
+            userForm.componentInstance.title = 'Nuevo Rol' || null;
+            userForm.afterClosed().subscribe((result: any) => {
+                if (result) {
+                    this.saveUser(result);
+                }
+            });
+        }
 
-  saveUser(data: Object) {
-    this.signupService.add$(data).subscribe(response => {
-      this.users = response && response.data || [];
-      this.getUsers();
-    });
-  }
+        // if ($event) {
+        //   const userForm = this.modalService.open(UserNewComponent);
+        //   userForm.componentInstance.title = 'Nuevo Usuario' || null;
+        //   userForm.result.then((result) => {
+        //     if (result) {
+        //       this.saveUser(result);
+        //     }
+        //   });
+        // }
+    }
 
-  eventAssign($event: number) {
-    // let userForm = this.modalService.open(UserRolesComponent, {size: 'lg'});
-    // userForm.componentInstance.title = 'Asignar Rol a Usuario' || null;
-    // userForm.componentInstance.idUser = $event;
-    // userForm.result.then((result) => {
-    //   if (result) {
-    //     // this.saveUser(result);
-    //   }
-    // });
-  }
+    saveUser(data: Object) {
+        this.signupService.add$(data).subscribe((response) => {
+            this.users = (response && response.data) || [];
+            this.getUsers();
+        });
+    }
 
-  public eventChangeState($event: number): void {
-    this.userService.getById$($event).subscribe(response => {
-      this.users = response.data;
-    });
-  }
+    eventAssign($event: number) {
+        // let userForm = this.modalService.open(UserRolesComponent, {size: 'lg'});
+        // userForm.componentInstance.title = 'Asignar Rol a Usuario' || null;
+        // userForm.componentInstance.idUser = $event;
+        // userForm.result.then((result) => {
+        //   if (result) {
+        //     // this.saveUser(result);
+        //   }
+        // });
+    }
+
+    public eventChangeState($event: number): void {
+        this.userService.getById$($event).subscribe((response) => {
+            this.users = response.data;
+        });
+    }
 }

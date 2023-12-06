@@ -1,107 +1,127 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {abcForms} from "../../../../../../../environments/generals";
-import {MatIconModule} from "@angular/material/icon";
-import {MatButtonModule} from "@angular/material/button";
-import {MatSlideToggleModule} from "@angular/material/slide-toggle";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
+import { Component, Input, OnInit } from '@angular/core';
+import {
+    FormControl,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    Validators,
+} from '@angular/forms';
+import { abcForms } from '../../../../../../../environments/generals';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-user-new',
+    selector: 'app-user-new',
     standalone: true,
-    imports: [FormsModule,
+    imports: [
+        FormsModule,
         MatIconModule,
         MatButtonModule,
         ReactiveFormsModule,
-        MatSlideToggleModule, MatFormFieldModule, MatInputModule],
-  template: `
-<!--    <div class="modal-header">-->
-<!--      <h6 class="modal-title">{{title}}</h6>-->
-<!--      <button type="button" class="close" aria-label="Close" (click)="cancelForm()">-->
-<!--        <span aria-hidden="true">&times;</span>-->
-<!--      </button>-->
-<!--    </div>-->
-<!--    <div class="modal-body">-->
-<!--      <form [formGroup]="userForm">-->
-<!--        <div class="form-group row required">-->
-<!--          <div class="input-group input-group-sm col-sm-3">-->
-<!--            <label class="col-form-label">Usuario</label>-->
-<!--          </div>-->
-<!--          <div class="col-sm-9 input-group input-group-sm input-group-rounded">-->
-<!--            <input type="text" class="form-control form-control-sm" formControlName="name"-->
-<!--                   id="name"-->
-<!--                   placeholder="Usuario" required>-->
-<!--          </div>-->
-<!--&lt;!&ndash;          <app-form-validate-errors [group]="userForm"&ndash;&gt;-->
-<!--&lt;!&ndash;                                    [controlName]="'name'"></app-form-validate-errors>&ndash;&gt;-->
-<!--        </div>-->
-<!--        <div class="form-group row required">-->
-<!--          <div class="input-group input-group-sm col-sm-3">-->
-<!--            <label class="col-form-label">Email</label>-->
-<!--          </div>-->
-<!--          <div class="col-sm-9 input-group input-group-sm input-group-rounded">-->
-<!--            <input type="email" class="form-control form-control-sm" formControlName="email"-->
-<!--                   id="email"-->
-<!--                   placeholder="Email">-->
-<!--          </div>-->
-<!--&lt;!&ndash;          <app-form-validate-errors [group]="userForm"&ndash;&gt;-->
-<!--&lt;!&ndash;                                    [controlName]="'email'"></app-form-validate-errors>&ndash;&gt;-->
-<!--        </div>-->
-<!--        <div class="form-group row required">-->
-<!--          <div class="input-group input-group-sm col-sm-3">-->
-<!--            <label class="col-form-label">Contraseña</label>-->
-<!--          </div>-->
-<!--          <div class="col-sm-9 input-group input-group-sm input-group-rounded">-->
-<!--            <input type="text" class="form-control form-control-sm" formControlName="password"-->
-<!--                   id="password"-->
-<!--                   placeholder="Contraseña">-->
-<!--          </div>-->
-<!--&lt;!&ndash;          <app-form-validate-errors [group]="userForm"&ndash;&gt;-->
-<!--&lt;!&ndash;                                    [controlName]="'password'"></app-form-validate-errors>&ndash;&gt;-->
-<!--        </div>-->
-<!--      </form>-->
-<!--    </div>-->
-<!--    <div class="modal-footer">-->
-<!--      <button type="button" class="btn {{ abcForms.btnCancel.class }} btn-sm" (click)="cancelForm()">-->
-<!--        <span class="{{ abcForms.btnCancel.icon }} lamb-icon"></span> {{ abcForms.btnCancel.label }}-->
-<!--      </button>-->
-<!--      <button type="button" class="btn {{ abcForms.btnSave.class }} btn-sm" (click)="saveForm()"-->
-<!--              [disabled]="userForm.invalid">-->
-<!--        <span class="{{ abcForms.btnSave.icon }} lamb-icon"></span> {{ abcForms.btnSave.label }}-->
-<!--      </button>-->
-<!--    </div>-->
-  `
+        MatSlideToggleModule,
+        MatFormFieldModule,
+        MatInputModule,
+    ],
+    template: `
+       <div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
+            <!-- Header -->
+            <div
+                class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary"
+            >
+                <div class="text-lg font-medium">Nuevo Usuario</div>
+                <button mat-icon-button (click)="cancelForm()" [tabIndex]="-1">
+                    <mat-icon
+                        class="text-current"
+                        [svgIcon]="'heroicons_outline:x-mark'"
+                    ></mat-icon>
+                </button>
+            </div>
+
+            <!-- Compose form -->
+            <form
+                class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
+                [formGroup]="userForm"
+            >
+                <mat-form-field>
+                    <mat-label>Usuario</mat-label>
+                    <input type="text" matInput [formControlName]="'name'" />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Correo Electrónico</mat-label>
+                    <input type="email" matInput [formControlName]="'email'" />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Contraseña</mat-label>
+                    <input type="password" matInput [formControlName]="'password'" />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Repetir Contraseña</mat-label>
+                    <input type="password" matInput [formControlName]="'c_password'" />
+                </mat-form-field>
+
+                <!-- Actions -->
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6"
+                >
+                    <div class="flex space-x-2 items-center mt-4 sm:mt-0">
+                        <button
+                            class="ml-auto sm:ml-0"
+                            [color]="'warn'"
+                            mat-stroked-button
+                            (click)="cancelForm()"
+                        >
+                            Cancelar
+                        </button>
+                        <button
+                            class="ml-auto sm:ml-0"
+                            [color]="'primary'"
+                            [disabled]="userForm.invalid"
+                            mat-stroked-button
+                            (click)="saveForm()"
+                        >
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    `,
 })
 export class UserNewComponent implements OnInit {
-  //public userForm: FormGroup;
-  @Input() title: string = '';
+    //public userForm: FormGroup;
+    @Input() title: string = '';
 
-  abcForms: any;
-  userForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required,]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(10)]),
-    // c_password: ['', [Validators.required, Validators.minLength(8)]],
-  });
+    abcForms: any;
+    userForm = new FormGroup({
+        name: new FormControl('', [Validators.required]),
+        email: new FormControl('', [Validators.required]),
+        password: new FormControl('', [ Validators.required,]),
+        c_password: new FormControl('', [ Validators.required,]),
 
-  constructor(
-      // public activeModal: NgbActiveModal
-  ) {
-  }
+    });
 
-  ngOnInit() {
-    this.abcForms = abcForms;
-  }
+    constructor(
+        private _matDialog: MatDialogRef<UserNewComponent>
+    ) {}
 
-  public saveForm(): void {
-    if (this.userForm.valid) {
-      // this.activeModal.close(this.userForm.value);
+    ngOnInit() {
+        this.abcForms = abcForms;
     }
-  }
 
-  public cancelForm(): void {
-    // this.activeModal.close('');
-  }
+    public saveForm(): void {
+        if (this.userForm.valid) {
+          this._matDialog.close(this.userForm.value);
+        }
+    }
 
+    public cancelForm(): void {
+      this._matDialog.close('');
+    }
 }

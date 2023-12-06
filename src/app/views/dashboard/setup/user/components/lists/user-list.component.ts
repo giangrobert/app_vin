@@ -1,259 +1,36 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {abcForms} from '../../../../../../../environments/generals';
-import {User} from '../../models/user';
-import {MatButtonModule} from "@angular/material/button";
-import {MatIconModule} from "@angular/material/icon";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatSlideToggleModule} from "@angular/material/slide-toggle";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {CommonModule, DatePipe} from "@angular/common";
-
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { abcForms } from '../../../../../../../environments/generals';
+import { User } from '../../models/user';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-user-list',
     standalone: true,
-    imports: [FormsModule,
+    imports: [
+        FormsModule,
         CommonModule,
         MatIconModule,
         MatButtonModule,
         ReactiveFormsModule,
-        MatSlideToggleModule, MatFormFieldModule, MatInputModule, DatePipe],
+        MatSlideToggleModule,
+        MatFormFieldModule,
+        MatInputModule,
+        DatePipe,
+    ],
     // imports: [CommonModule, RouterOutlet, MatButtonModule, MatIconModule],
     template: `
-        <div class="flex flex-col flex-auto min-w-0">
-            <!-- Main -->
-
-            <div class="flex justify-end mt-6 sm:mt-6 pr-6 sm:ml-4">
-                <button
-                        mat-flat-button
-                        [color]="'primary'"
-                        class="ml-4"
-                >
+        <div class="flex justify-end sm:mt-6 sm:ml-4 mb-2">
+                <button mat-flat-button [color]="'primary'" class="ml-4" (click)="goNew()">
                     <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                     <span class="ml-2">Nuevo Usuario</span>
                 </button>
             </div>
-
-            <div class="flex-auto px-6 sm:px-10">
-                <div class="p-6 overflow-scroll px-0">
-                    <table class="mt-4 w-full min-w-max table-auto text-left">
-                        <thead>
-                        <tr>
-                            <th
-                                    class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                            >
-                                <p
-                                        class="antialiased font-sans text-sm text-gray-800 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                                >
-                                    #
-                                    <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke-width="2"
-                                            stroke="currentColor"
-                                            aria-hidden="true"
-                                            class="h-4 w-4"
-                                    >
-                                        <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                                        ></path>
-                                    </svg>
-                                </p>
-                            </th>
-                            <th
-                                    class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                            >
-                                <p
-                                        class="antialiased font-sans text-sm text-gray-800 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                                >
-                                    NOMBRE
-                                    <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke-width="2"
-                                            stroke="currentColor"
-                                            aria-hidden="true"
-                                            class="h-4 w-4"
-                                    >
-                                        <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                                        ></path>
-                                    </svg>
-                                </p>
-                            </th>
-                            <th
-                                    class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                            >
-                                <p
-                                        class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                                >
-                                    EMAIL
-                                    <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke-width="2"
-                                            stroke="currentColor"
-                                            aria-hidden="true"
-                                            class="h-4 w-4"
-                                    >
-                                        <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                                        ></path>
-                                    </svg>
-                                </p>
-                            </th>
-                            <th
-                                    class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                            >
-                                <p
-                                        class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                                >
-                                    FECHA CREACIÓN
-                                    <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke-width="2"
-                                            stroke="currentColor"
-                                            aria-hidden="true"
-                                            class="h-4 w-4"
-                                    >
-                                        <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                                        ></path>
-                                    </svg>
-                                </p>
-                            </th>
-                            <th
-                                    class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                            >
-                                <p
-                                        class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                                >
-                                    ESTADO
-                                    <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke-width="2"
-                                            stroke="currentColor"
-                                            aria-hidden="true"
-                                            class="h-4 w-4"
-                                    >
-                                        <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                                        ></path>
-                                    </svg>
-                                </p>
-                            </th>
-                            <th
-                                    class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                            >
-                                <p
-                                        class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                                >
-                                    ACCIONES
-                                    <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke-width="2"
-                                            stroke="currentColor"
-                                            aria-hidden="true"
-                                            class="h-4 w-4"
-                                    >
-                                        <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                                        ></path>
-                                    </svg>
-                                </p>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody class="mb-10 bgw">
-                        @for (user of users;track user.id; let idx = $index) {
-                        <tr>
-                            <td class="p-4 border-b border-blue-gray-50">
-                                <p
-                                        class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                                >
-                        {{idx + 1}}
-                        </p>
-                    </td>
-                    <td class="p-4 border-b border-blue-gray-50">
-                        <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                            {{user.name}}
-                        </p>
-                    </td>
-                    <td class="p-4 border-b border-blue-gray-50">
-                        <p  class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                            {{user.email}}
-                        </p>
-                    </td>
-                    <td class="p-4 border-b border-blue-gray-50">
-                        <p class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                            {{ user.created_at | date:'dd/MM/yyyy' }}
-                        </p>
-                    </td>
-                    <td class="p-4 border-b border-blue-gray-50">
-                    @if(user.active == 1){
-                        <div class="w-max">
-                            <div
-                                    class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
-                                    style="opacity: 1"
-                            >
-                                <span class="">ACTIVO</span>
-                            </div>
-                        </div>
-
-                        }@else{
-                        <div class="w-max">
-                            <div
-                                    class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-red-500/20 text-red-700 py-1 px-2 text-xs rounded-md"
-                                    style="opacity: 1"
-                            >
-                                <span class="">INACTIVO</span>
-                            </div>
-                        </div>
-                        }
-
-                        </td>
-                        <td class="p-4 border-b border-blue-gray-50">
-                            <div class="flex space-x-3">
-                                <mat-slide-toggle
-                                [ngModel]="activated"
-                                        [color]="'primary'"
-                                >
-                                </mat-slide-toggle>
-
-                                <mat-icon>swap_horiz</mat-icon>
-                            </div>
-                        </td>
-                    </tr>
-                        } @empty {
-                        <tr>none</tr>
-                        }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
         <!--        <div class="d-flex justify-content-end">-->
         <!--            <button type="button" (click)="goNew()" class="btn-gm-danger">-->
         <!--                <span class="{{ abcForms.btnNew.icon }} lamb-icon"></span> {{ abcForms.btnNew.label }} Usuario-->
@@ -305,9 +82,142 @@ import {CommonModule, DatePipe} from "@angular/common";
         <!--                </c-col>-->
         <!--            </div>-->
         <!--        </div>-->
+
+        <div
+            class="bg-white rounded overflow-hidden shadow-lg flex-auto px-6 sm:px-10"
+        >
+            <div class="p-6 overflow-scroll px-0">
+                <table class="mt-4 w-full min-w-max table-auto text-left">
+                    <thead>
+                        <tr>
+                            <th
+                                class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                            >
+                                <p
+                                    class="antialiased font-sans text-sm text-gray-800 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                >
+                                    #
+                                </p>
+                            </th>
+                            <th
+                                class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                            >
+                                <p
+                                    class="antialiased font-sans text-sm text-gray-800 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                >
+                                    NOMBRE
+                                </p>
+                            </th>
+                            <th
+                                class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                            >
+                                <p
+                                    class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                >
+                                    EMAIL
+                                </p>
+                            </th>
+                            <th
+                                class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                            >
+                                <p
+                                    class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                >
+                                    FECHA CREACIÓN
+                                </p>
+                            </th>
+                            <th
+                                class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                            >
+                                <p
+                                    class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                >
+                                    ESTADO
+                                </p>
+                            </th>
+                            <th
+                                class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                            >
+                                <p
+                                    class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                >
+                                    ACCIONES
+                                </p>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="mb-10 bgw">
+                        @for (user of users;track user.id; let idx = $index) {
+                        <tr>
+                            <td class="p-4 border-b border-blue-gray-50">
+                                <p
+                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
+                                >
+                                    {{ idx + 1 }}
+                                </p>
+                            </td>
+                            <td class="p-4 border-b border-blue-gray-50">
+                                <p
+                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
+                                >
+                                    {{ user.name }}
+                                </p>
+                            </td>
+                            <td class="p-4 border-b border-blue-gray-50">
+                                <p
+                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
+                                >
+                                    {{user.email}}
+                                </p>
+                            </td>
+                            <td class="p-4 border-b border-blue-gray-50">
+                                <p
+                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
+                                >
+                                    {{user.created_at | date : 'dd/MM/yyyy'}}
+                                </p>
+                            </td>
+                            <td class="p-4 border-b border-blue-gray-50">
+                                <div class="w-max">
+                                @if(user.active == 1){
+                                        <div
+                                            class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
+                                            style="opacity: 1"
+                                        >
+                                            <span class="">ACTIVO</span>
+                                        </div>
+                                    }@else{
+                                        <div
+                                            class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-red-500/20 text-red-700 py-1 px-2 text-xs rounded-md"
+                                            style="opacity: 1"
+                                        >
+                                            <span class="">INACTIVO</span>
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td class="p-4 border-b border-blue-gray-50">
+                                <div class="flex space-x-3">
+                                    <mat-slide-toggle
+                                        [ngModel]="'activated'"
+                                        [color]="'primary'"
+                                    >
+                                    </mat-slide-toggle>
+                                    <mat-icon>swap_horiz</mat-icon>
+                                </div>
+                            </td>
+                        </tr>
+                        } @empty {
+                        <tr>
+                            Sin Contenido
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     `,
 })
-
 export class UserListComponent implements OnInit {
     abcForms: any;
     @Input() users: User[] = [];
@@ -317,9 +227,7 @@ export class UserListComponent implements OnInit {
     @Output() eventChangeState = new EventEmitter<number>();
     activated: boolean = false;
 
-    constructor() {
-    }
-
+    constructor() {}
 
     ngOnInit() {
         this.abcForms = abcForms;
@@ -332,7 +240,6 @@ export class UserListComponent implements OnInit {
     public goChangeState(id: number) {
         this.eventChangeState.emit(id);
     }
-
 
     public goAssign(id: number) {
         this.eventAssign.emit(id);

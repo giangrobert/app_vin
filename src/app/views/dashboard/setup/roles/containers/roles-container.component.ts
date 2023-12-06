@@ -41,7 +41,7 @@ export class RolesContainerComponent implements OnInit {
     constructor(
         private _rolService: RoleService,
         private _confirmDialogService:ConfirmDialogService,
-        private _matDialog: MatDialog //private confirmDialogService: ConfirmDialogService
+        private _matDialog: MatDialog,
     ) {}
 
     ngOnInit() {
