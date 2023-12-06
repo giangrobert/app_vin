@@ -15,188 +15,155 @@ import { MatDialog } from '@angular/material/dialog';
     standalone: true,
     template: `
         <div
-            style="position: initial; display: initial; flex: initial; width: initial;"
+            class="w-full mx-auto p-6 bg-white rounded overflow-hidden shadow-lg"
         >
-            <div class="flex flex-col flex-auto min-w-0">
-                <div class="flex justify-end mt-1 sm:mt-1 pr-6 sm:ml-4">
-                    <button
-                        mat-flat-button
-                        [color]="'primary'"
-                        class="ml-4"
-                        (click)="goNew()"
-                    >
-                        <mat-icon
-                            [svgIcon]="'heroicons_outline:plus'"
-                        ></mat-icon>
-                        <span class="ml-2">Nuevo Rol</span>
-                    </button>
+            <!-- Encabezado principal -->
+            <div
+                class="flex justify-between items-center mb-2 bg-slate-300 text-black p-4 rounded"
+            >
+                <h2 class="text-2xl font-bold">
+                    Lista de <span class="text-primary">Roles</span>
+                </h2>
+                <button mat-flat-button [color]="'primary'" (click)="goNew()">
+                    <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                    <span class="ml-2">Nuevo Rol</span>
+                </button>
+            </div>
+
+            <!-- Filtros -->
+            <div class="bg-gray-100 rounded p-2 mb-2">
+                <div class="sm:flex sm:space-x-4">
+                    <!-- Filtro de NOMBRE -->
+                    <div class="flex-1">
+                        <div class="px-4 sm:px-6 py-2">
+                            <div class="font-semibold text-lg mb-2">
+                                Filtro de Nombre
+                            </div>
+                            <div class="mb-2">
+                                <input
+                                    class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+                                    id="nombre"
+                                    type="text"
+                                    placeholder="Ingrese el nombre"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filtro de ESTADO -->
+                    <div class="flex-1">
+                        <div class="px-4 sm:px-6 py-2">
+                            <div class="font-semibold text-lg mb-1">
+                                Filtro de Estado
+                            </div>
+                            <div class="mb-2">
+                                <select
+                                    class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+                                    id="estado"
+                                >
+                                    <option value="">Seleccionar</option>
+                                    <option value="activo">Activo</option>
+                                    <option value="inactivo">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
 
-                <div class="flex-auto px-6 sm:px-10">
-                    <div class="p-6 overflow-scroll px-0">
-                        <table
-                            class="mt-4 w-full min-w-max table-auto text-left"
+            <div class="bg-white rounded overflow-hidden shadow-lg">
+                <div class="p-2 overflow-scroll px-0">
+                    <table class="w-full table-fixed">
+                        <thead class="bg-primary-600 text-white">
+                            <tr>
+                                <th
+                                    class="w-1/6 table-head text-center px-5 border-r"
+                                >
+                                    #
+                                </th>
+                                <th
+                                    class="w-2/6 table-header text-center px-5 border-r"
+                                >
+                                    Nombre
+                                </th>
+                                <th
+                                    class="w-1/6 table-header text-center border-r"
+                                >
+                                    Estado
+                                </th>
+                                <th class="w-2/6 table-header text-center">
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody
+                            class="bg-white"
+                            *ngFor="let r of rols; let i = index"
                         >
-                            <thead>
-                                <tr>
-                                    <th
-                                        class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                            <tr class="hover:bg-gray-100">
+                                <td class="w-1/6 p-2 text-center border-b">
+                                    {{ i }}
+                                </td>
+                                <td
+                                    class="w-2/6 p-2  text-start border-b text-sm"
+                                >
+                                    {{ r.nombre }}
+                                </td>
+                                <td
+                                    class="w-1/6 p-2 text-center border-b text-sm"
+                                >
+                                    <div
+                                        class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
+                                        style="opacity: 1"
                                     >
-                                        <p
-                                            class="antialiased font-sans text-sm text-gray-800 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                                        >
-                                            #
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke-width="2"
-                                                stroke="currentColor"
-                                                aria-hidden="true"
-                                                class="h-4 w-4"
-                                            >
-                                                <path
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                                                ></path>
-                                            </svg>
-                                        </p>
-                                    </th>
-                                    <th
-                                        class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                                    >
-                                        <p
-                                            class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                                        >
-                                            NOMBRE
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke-width="2"
-                                                stroke="currentColor"
-                                                aria-hidden="true"
-                                                class="h-4 w-4"
-                                            >
-                                                <path
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                                                ></path>
-                                            </svg>
-                                        </p>
-                                    </th>
-                                    <th
-                                        class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                                    >
-                                        <p
-                                            class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                                        >
-                                            ESTADO
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke-width="2"
-                                                stroke="currentColor"
-                                                aria-hidden="true"
-                                                class="h-4 w-4"
-                                            >
-                                                <path
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                                                ></path>
-                                            </svg>
-                                        </p>
-                                    </th>
-                                    <th
-                                        class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                                    >
-                                        <p
-                                            class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                                        >
-                                            ACCIONES
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke-width="2"
-                                                stroke="currentColor"
-                                                aria-hidden="true"
-                                                class="h-4 w-4"
-                                            >
-                                                <path
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                                                ></path>
-                                            </svg>
-                                        </p>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody
-                                class="mb-10 bgw"
-                                *ngFor="let r of rols; let i = index"
-                            >
-                                <tr>
-                                    <td
-                                        class="p-4 border-b border-blue-gray-50"
-                                    >
-                                        <p
-                                            class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                                        >
-                                            {{ i }}
-                                        </p>
-                                    </td>
-                                    <td
-                                        class="p-4 border-b border-blue-gray-50"
-                                    >
-                                        <p
-                                            class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                                        >
-                                            {{ r.nombre }}
-                                        </p>
-                                    </td>
-                                    <td
-                                        class="p-4 border-b border-blue-gray-50"
-                                    >
-                                        <div class="w-max">
-                                            <div
-                                                class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
-                                                style="opacity: 1"
-                                            >
-                                                <span class="">ACTIVO</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td
-                                        class="p-4 border-b border-blue-gray-50"
-                                    >
-                                        <div class="flex space-x-3">
-                                            <mat-icon
-                                                class="text-amber-400 hover:text-amber-500 cursor-pointer"
-                                                (click)="goEdit(r.id)"
-                                                >edit</mat-icon
-                                            >
+                                        <span class="">ACTIVO</span>
+                                    </div>
+                                </td>
 
-                                            <mat-icon
-                                                class="text-rose-500 hover:text-rose-600 cursor-pointer"
-                                                (click)="goDelete(r.id)"
-                                                >delete_sweep</mat-icon
-                                            >
-                                            <!--                                        <mat-icon-->
-                                            <!--                                            class="text-sky-400 hover:text-sky-600 cursor-pointer"-->
-                                            <!--                                            (click)="openComposeDialog()"-->
-                                            <!--                                            >swap_horiz-->
-                                            <!--                                        </mat-icon>-->
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                <td
+                                    class="w-2/6 p-2 text-center border-b text-sm"
+                                >
+                                    <div class="flex justify-center space-x-3">
+                                        <mat-icon
+                                            class="text-amber-400 hover:text-amber-500 cursor-pointer"
+                                            (click)="goEdit(r.id)"
+                                            >edit</mat-icon
+                                        >
+
+                                        <mat-icon
+                                            class="text-rose-500 hover:text-rose-600 cursor-pointer"
+                                            (click)="goDelete(r.id)"
+                                            >delete_sweep</mat-icon
+                                        >
+                                        <!--                                        <mat-icon-->
+                                        <!--                                            class="text-sky-400 hover:text-sky-600 cursor-pointer"-->
+                                        <!--                                            (click)="openComposeDialog()"-->
+                                        <!--                                            >swap_horiz-->
+                                        <!--                                        </mat-icon>-->
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div
+                        class="px-5 py-2 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between"
+                    >
+                        <span class="text-xs xs:text-sm text-gray-900">
+                            Showing 1 to 4 of 50 Entries
+                        </span>
+                        <div class="inline-flex mt-2 xs:mt-0">
+                            <button
+                                class="text-sm text-primary-50 transition duration-150 hover:bg-primary-500 bg-primary-600 font-semibold py-2 px-4 rounded-l"
+                            >
+                                Prev
+                            </button>
+                            &nbsp; &nbsp;
+                            <button
+                                class="text-sm text-primary-50 transition duration-150 hover:bg-primary-500 bg-primary-600 font-semibold py-2 px-4 rounded-r"
+                            >
+                                Next
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
