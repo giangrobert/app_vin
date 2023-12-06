@@ -37,11 +37,11 @@ export class ConfirmDialogService {
   // }
     confirmDelete(additionalData?: any): Promise<void> {
         const title = additionalData?.title || message.confirmDelete.title;
-        const messages = additionalData?.message || '¿Estás seguro de que deseas eliminar este nodo permanentemente?';
-        const icon = additionalData?.icon || 'exclamation-triangle';
-        const color = additionalData?.color || 'warn';
+        const messages = additionalData?.message || message.confirmDelete.message;
+        const icon = additionalData?.icon ||  message.confirmUpdate.icon;
+        const color = additionalData?.color ||  message.confirmDelete.color;
 
-        this.configConfirm(title, messages, icon, color, true);
+        this.configConfirm(title, messages, icon, color,  message.confirmDelete.dismissible);
         const modalRef = this._fuseConfirmationService.open(this.configForm.value);
 
         return new Promise((resolve, reject) => {
