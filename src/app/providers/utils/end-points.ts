@@ -19,7 +19,8 @@ export const END_POINTS = {
     cycle: 'ciclo',
     group: 'grupo',
     jerarquia: "gerarquia",
-    menu:"menu"
+    menu:"menu",
+    access:"acceso"
   },
   event: {
     event: 'evento',
