@@ -189,9 +189,8 @@ import { CommonModule, DatePipe } from '@angular/common';
                                             [color]="'primary'"
                                             (change)="goChangeState(user.id)"
                                         ></mat-slide-toggle>
-                                        <button (click)="goAssign(user.id)">
-                                            <mat-icon> swap_horiz </mat-icon>
-                                        </button>
+                                        <mat-icon>swap_horiz</mat-icon>
+
                                         <button (click)="goChangeTree(user)">
                                             <mat-icon
                                                 svgIcon="account_tree"
