@@ -80,7 +80,7 @@ export class UsersContainerComponent implements OnInit {
             userForm.componentInstance.idUser = $event;
             userForm.afterClosed().subscribe((result: any) => {
                 if (result) {
-                    // this.saveUser(result);
+                    this.saveUser(result);
                 }
             });
         }

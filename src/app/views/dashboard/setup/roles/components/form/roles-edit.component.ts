@@ -26,7 +26,7 @@ import {MatDialogRef} from "@angular/material/dialog";
       <div
           class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary"
       >
-        <div class="text-lg font-medium">Nuevo Rol</div>
+        <div class="text-lg font-medium" [innerHTML]="title"></div>
         <button mat-icon-button (click)="cancelForm()" [tabIndex]="-1">
           <mat-icon
               class="text-current"
