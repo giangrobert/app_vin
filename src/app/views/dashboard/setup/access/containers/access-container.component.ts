@@ -10,6 +10,7 @@ import {ConfirmDialogService} from "../../../../../shared/confirm-dialog/confirm
 import { AccessNewComponent } from '../components/form/access-new.component';
 import { AccessEditComponent } from '../components/form/access-edit.component';
 
+
 @Component({
     selector: 'app-access-container',
     standalone: true,
@@ -25,7 +26,7 @@ import { AccessEditComponent } from '../components/form/access-edit.component';
     template: `
         <app-access-list
             class="w-full"
-            [acceso]="acceso"
+            [accesos]="accesos"
             (eventNew)="eventNew($event)"
             (eventEdit)="eventEdit($event)"
             (eventAssign)="eventAssign($event)"
@@ -35,7 +36,7 @@ import { AccessEditComponent } from '../components/form/access-edit.component';
 })
 export class AccessContainerComponent implements OnInit {
     public error: string = '';
-    public accesos: Acceso[] = [];
+    public accesos: Array<Acceso> = [];
     public acceso = new Acceso();
 
     constructor(
@@ -51,7 +52,7 @@ export class AccessContainerComponent implements OnInit {
     getAccess(): void {
         this._accessService.getAll$().subscribe(
             (response) => {
-                this.acceso = response.data;
+                this.accesos = response.data;
             },
             (error) => {
                 this.error = error;
@@ -62,7 +63,7 @@ export class AccessContainerComponent implements OnInit {
     public eventNew($event: boolean): void {
         if ($event) {
             const rolForm = this._matDialog.open(AccessNewComponent);
-            rolForm.componentInstance.title = 'Nuevo Rol' || null;
+            rolForm.componentInstance.title = 'Nuevo Acceso' || null;
             rolForm.afterClosed().subscribe((result: any) => {
                 if (result) {
                     this.saveRol(result);
@@ -90,7 +91,7 @@ export class AccessContainerComponent implements OnInit {
     openMOdalEdit(data: Acceso) {
         if (data) {
             const rolForm = this._matDialog.open(AccessEditComponent);
-            rolForm.componentInstance.title = 'Nuevo Rol' || null;
+            rolForm.componentInstance.title = 'Nuevo Acceso' || null;
             rolForm.componentInstance.acceso = data;
             rolForm.afterClosed().subscribe((result: any) => {
                 if (result) {
