@@ -11,15 +11,16 @@ export class FlatDirNode
     last: boolean;
 }
 
-export class DirNode extends FlatDirNode
+export class DirNode
 {
-    // id: number,
-    // codigo: string,
-    // nombre: string;
-    // nivel: number,
-    // estado: number,
-    // expandable?: boolean;
-    // level?: number;
-    // last?: boolean;
+    id: number;
+    codigo: string;
+    nombre: string;
+    nivel: number;
+    estado: number;
+    Parent_gerarquia_id: number;
+    expandable?: boolean;
+    level?: number;
+    last?: boolean;
     children?: DirNode[];
 }
