@@ -12,6 +12,10 @@ export class UsersService extends EntityDataService<any> {
     public updateStateUserId$(idUser: number): Observable<any> {
         return this.httpClient.get<any>(`auth/usuario/${idUser}`);
     }
+
+    public getUserTreeByUserId$(idUser: number): Observable<any> {
+        return this.httpClient.get<any>(`usuario-gerarquia?usuario_id=${idUser}`);
+    }
 }
 
 

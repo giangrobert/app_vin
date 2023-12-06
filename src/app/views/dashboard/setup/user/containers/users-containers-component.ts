@@ -6,6 +6,9 @@ import { SignupService } from '../../../../../providers/services/oauth';
 import { MatDialog } from '@angular/material/dialog';
 import { UserNewComponent } from '../components/form/user-new.component';
 import { UserTreeComponent } from '../components/form/user-tree.component';
+import { DirNodeUser, FlatDirNodeUser } from '../models/userTree';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 
 @Component({
     selector: 'app-users-container',
@@ -26,6 +29,7 @@ export class UsersContainerComponent implements OnInit {
     public error: string = '';
     public users: User[] = [];
     public user = new User();
+    public userTree: any;
 
     constructor(
         private _userService: UsersService,
@@ -96,17 +100,81 @@ export class UsersContainerComponent implements OnInit {
     }
 
     eventChangeTree($userEvent: User): void {
-        console.log("Modificando usuario")
-        console.log($userEvent);
+        this.openModalEditUserTree($userEvent)
+    }
 
-        const userForm = this._matDialog.open(UserTreeComponent);
-        userForm.componentInstance.title = `Modificar jerarquia para el usuario: ${$userEvent.email||$userEvent.name}`;
-        userForm.afterClosed().subscribe((result: any) => {
-            if (result) {
-                console.log("Guardar cambios")
-                // this.saveUser(result);
-            }
-        });
+    async openModalEditUserTree(user: User): Promise<void> {
+        this._userService.getUserTreeByUserId$(user.id).subscribe( ({ data }) => {
+            this.createTreeView(data)
+            console.log(this.userTree)
+            const userForm = this._matDialog.open(UserTreeComponent);
+            userForm.componentInstance.title = `Modificar jerarquia para el usuario: ${user.name||user.email}`;
+            userForm.afterClosed().subscribe((result: any) => {
+                if (result) {
+                    console.log("Guardar cambios")
+                    // this.saveUser(result);
+                }
+            });
+        })
+        // const { data = null } = await this._hierarchyService.getById$(id).toPromise();
+        // if (!data) return
+        // let titleDialog = `Editar nodo: ${data.nombre}`
+        // const rolForm = this._matDialog.open(TreeNewComponent);
+        // rolForm.componentInstance.title = titleDialog;
+        // rolForm.componentInstance.saveNode = data
+        // const modalValue = await rolForm.afterClosed().toPromise();
+        // if (modalValue) {
+        //     this.editTreeNode(modalValue.id, modalValue);
+        // }
 
     }
+
+    createTreeView(treeValues: Array<FlatDirNodeUser|DirNodeUser>): void {
+        this.userTree = this.createTree(treeValues);
+        // Add 'last:true' to the last child
+        this.userTree.treeControl.dataNodes.forEach((node: FlatDirNodeUser, index, nodes) =>
+        {
+            nodes[index].last = false;
+            if ( nodes[index + 1] )
+            {
+                nodes[index].last = nodes[index + 1].level === node.level - 1;
+            }
+            else
+            {
+                nodes[index].last = true;
+            }
+        });
+        // Expand the first item
+        this.userTree.treeControl.dataNodes.forEach(node => this.userTree.treeControl.expand(node));
+    }
+
+    createTree(data): { dataSource: any; treeControl: any }
+    {
+        // Create tree control and data source
+        const treeControl = new FlatTreeControl<FlatDirNodeUser>(node => node.level, node => node.expandable);
+        const dataSource = new MatTreeFlatDataSource(
+            treeControl,
+            new MatTreeFlattener(
+                (node: DirNodeUser, level: number) => ({
+                    expandable: !!node.children && node.children.length > 0,
+                    nombre      : node.nombre,
+                    level       : level,
+                    id          : node.id,
+                    codigo      : node.codigo,
+                    nivel       : node.nivel,
+                    estado      : node.estado,
+                    Parent_gerarquia_id   : node.Parent_gerarquia_id,
+                }),
+                node => node.level, node => node.expandable, node => node.children,
+            ),
+        );
+
+        // Set the data
+        dataSource.data = data;
+        return {
+            treeControl,
+            dataSource,
+        };
+    }
+
 }
