@@ -9,6 +9,7 @@ export default [
         children: [
             {path: 'role', loadChildren: () => import('./roles/roles.routers')},
             {path: 'users', loadChildren: () => import('./users/user.routes')},
+            {path: 'tree', loadChildren: () => import('./tree/tree.routers')},
         ],
     },
 ] as Routes;

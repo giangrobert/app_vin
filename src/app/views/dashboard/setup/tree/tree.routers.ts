@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { TreeContainerComponent } from "./containers/roles-container.component";
-import { TreeComponent } from "./roles.component";
+import { TreeContainerComponent } from "./containers/tree-container.component";
+import { TreeComponent } from "./tree.component";
 
 export default [
 

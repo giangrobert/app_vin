@@ -27,7 +27,7 @@ interface FlatDirNode
     nombre: string;
     nivel: number,
     estado: number,
-    Parent_gerarquia_id?: number,
+    Parent_gerarquia_id: number,
     expandable: boolean;
     level: number;
     last: boolean;
@@ -40,7 +40,6 @@ interface DirNode extends FlatDirNode
     // nombre: string;
     // nivel: number,
     // estado: number,
-    // Parent_gerarquia_id?: number,
     // expandable?: boolean;
     // level?: number;
     // last?: boolean;
@@ -187,12 +186,12 @@ export class CrudTreeComponent {
                 (node: DirNode, level: number) => ({
                     expandable: !!node.children && node.children.length > 0,
                     nombre      : node.nombre,
-                    level     : level,
-                    id     : node.id,
-                    codigo     : node.codigo,
-                    nivel     : node.nivel,
-                    estado     : node.estado,
-                    // Parent_gerarquia_id     : node.Parent_gerarquia_id,
+                    level       : level,
+                    id          : node.id,
+                    codigo      : node.codigo,
+                    nivel       : node.nivel,
+                    estado      : node.estado,
+                    Parent_gerarquia_id   : node.Parent_gerarquia_id,
                 }),
                 node => node.level, node => node.expandable, node => node.children,
             ),
@@ -208,6 +207,7 @@ export class CrudTreeComponent {
 
     createNode(node: FlatDirNode | DirNode): void
     {
+        console.log(node)
         // Open the dialog
         const dialogRef = this._matDialog.open(MailboxComposeComponent, {
             data     : {

@@ -28,10 +28,10 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { abcForms } from '../../../../../environments/generals';
 import { Component, OnInit } from '@angular/core';
-import { TreeContainerComponent } from './containers/roles-container.component';
+import { TreeContainerComponent } from './containers/tree-container.component';
 
 @Component({
-    selector: 'app-setup',
+    selector: 'app-tree',
     standalone: true,
     imports: [CommonModule, RouterOutlet],
     template: `
