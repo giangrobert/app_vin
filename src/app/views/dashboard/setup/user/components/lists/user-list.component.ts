@@ -180,6 +180,13 @@ import { CommonModule, DatePipe } from '@angular/common';
                                         >
                                         </mat-slide-toggle>
                                         <mat-icon>swap_horiz</mat-icon>
+
+                                        
+                                        <button
+                                            (click)="goChangeTree(user)">
+                                            <mat-icon svgIcon="account_tree"></mat-icon>
+                                        </button>
+
                                     </div>
                                 </td>
                             </tr>
@@ -222,6 +229,7 @@ export class UserListComponent implements OnInit {
     @Output() eventEdit = new EventEmitter<number>();
     @Output() eventAssign = new EventEmitter<number>();
     @Output() eventChangeState = new EventEmitter<number>();
+    @Output() eventChangeTree = new EventEmitter<User>();
     activated: boolean = false;
 
     constructor() {}
@@ -236,6 +244,10 @@ export class UserListComponent implements OnInit {
 
     public goChangeState(id: number) {
         this.eventChangeState.emit(id);
+    }
+
+    public goChangeTree(user: User) {
+        this.eventChangeTree.emit(user);
     }
 
     public goAssign(id: number) {

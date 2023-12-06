@@ -5,6 +5,7 @@ import { UsersService } from '../../../../../providers/services/setup/users.serv
 import { SignupService } from '../../../../../providers/services/oauth';
 import { MatDialog } from '@angular/material/dialog';
 import { UserNewComponent } from '../components/form/user-new.component';
+import { UserTreeComponent } from '../components/form/user-tree.component';
 
 @Component({
     selector: 'app-users-container',
@@ -17,6 +18,7 @@ import { UserNewComponent } from '../components/form/user-new.component';
             (eventNew)="eventNew($event)"
             (eventAssign)="eventAssign($event)"
             (eventChangeState)="eventChangeState($event)"
+            (eventChangeTree)="eventChangeTree($event)"
         ></app-user-list>
     `,
 })
@@ -91,5 +93,20 @@ export class UsersContainerComponent implements OnInit {
         this._userService.updateStateUserId$($event).subscribe((response) => {
             this.users = response.data;
         });
+    }
+
+    eventChangeTree($userEvent: User): void {
+        console.log("Modificando usuario")
+        console.log($userEvent);
+
+        const userForm = this._matDialog.open(UserTreeComponent);
+        userForm.componentInstance.title = `Modificar jerarquia para el usuario: ${$userEvent.email||$userEvent.name}`;
+        userForm.afterClosed().subscribe((result: any) => {
+            if (result) {
+                console.log("Guardar cambios")
+                // this.saveUser(result);
+            }
+        });
+
     }
 }
