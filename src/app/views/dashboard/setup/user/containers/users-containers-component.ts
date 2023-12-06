@@ -5,6 +5,7 @@ import { UsersService } from '../../../../../providers/services/setup/users.serv
 import { SignupService } from '../../../../../providers/services/oauth';
 import { MatDialog } from '@angular/material/dialog';
 import { UserNewComponent } from '../components/form/user-new.component';
+import { UserRolesComponent } from '../components/form/user-roles.component';
 
 @Component({
     selector: 'app-users-container',
@@ -77,6 +78,16 @@ export class UsersContainerComponent implements OnInit {
     }
 
     eventAssign($event: number) {
+        if($event){
+            const userForm = this._matDialog.open(UserRolesComponent);
+            userForm.componentInstance.title = 'Nuevo Rol' || null;
+            userForm.componentInstance.idUser = $event;
+            userForm.afterClosed().subscribe((result: any) => {
+                if (result) {
+                    // this.saveUser(result);
+                }
+            });
+        }
         // let userForm = this.modalService.open(UserRolesComponent, {size: 'lg'});
         // userForm.componentInstance.title = 'Asignar Rol a Usuario' || null;
         // userForm.componentInstance.idUser = $event;

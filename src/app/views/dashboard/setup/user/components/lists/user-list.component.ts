@@ -154,7 +154,9 @@ import { CommonModule, DatePipe } from '@angular/common';
                                 
                                     >
                                     </mat-slide-toggle>
-                                    <mat-icon>swap_horiz</mat-icon>
+                                    <button (click)="goAssign(user.id)">
+                                        <mat-icon >swap_horiz</mat-icon>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
