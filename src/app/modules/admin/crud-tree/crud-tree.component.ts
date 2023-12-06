@@ -20,29 +20,30 @@ import { MailboxComposeComponent } from './compose/compose.component';
 
 
 
-interface FlatDirNode
+class FlatDirNode
 {
-    id: number,
-    codigo: string,
+    id: number;
+    codigo: string;
     nombre: string;
-    nivel: number,
-    estado: number,
-    Parent_gerarquia_id: number,
+    nivel: number;
+    estado: number;
+    Parent_gerarquia_id: number;
     expandable: boolean;
     level: number;
     last: boolean;
 }
 
-interface DirNode extends FlatDirNode
+class DirNode
 {
-    // id: number,
-    // codigo: string,
-    // nombre: string;
-    // nivel: number,
-    // estado: number,
-    // expandable?: boolean;
-    // level?: number;
-    // last?: boolean;
+    id: number;
+    codigo: string;
+    nombre: string;
+    nivel: number;
+    estado: number;
+    Parent_gerarquia_id: number;
+    expandable?: boolean;
+    level?: number;
+    last?: boolean;
     children?: DirNode[];
 }
 
@@ -199,6 +200,10 @@ export class CrudTreeComponent {
 
         // Set the data
         dataSource.data = data;
+        console.log({
+            treeControl,
+            dataSource,
+        })
         return {
             treeControl,
             dataSource,
@@ -223,8 +228,6 @@ export class CrudTreeComponent {
                 console.log('Compose dialog was closed!');
             });
     }
-
-    
 
     openConfirmationDialog(node: FlatDirNode | DirNode): void
     {

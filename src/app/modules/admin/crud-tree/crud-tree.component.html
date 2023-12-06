@@ -27,14 +27,7 @@
                         </div>
 
                         <span>
-                            <mat-checkbox
-                                (click)="openConfirmationDialog(node)"
-                                class="mb-2"
-                                [checked]="node.selected"
-                                [color]="'primary'"
-                            >
-                                {{ node.name }}
-                            </mat-checkbox>
+                            {{ node.nombre }}
                         </span>
                     </div>
                 </mat-tree-node>
@@ -59,14 +52,7 @@
                     </button>
 
                     <span class="font-mono">
-                        <mat-checkbox
-                            (click)="openConfirmationDialog(node)"
-                            class="mb-2"
-                            [checked]="node.selected"
-                            [color]="'primary'"
-                        >
-                            {{ node.name }}
-                        </mat-checkbox>
+                        {{ node.nombre }}
                     </span>
                 </mat-tree-node>
             </mat-tree>

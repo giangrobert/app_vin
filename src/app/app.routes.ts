@@ -125,7 +125,7 @@ export const appRoutes: Route[] = [
         },
         children: [
             {path: 'example', loadChildren: () => import('app/modules/admin/example/example.routes')},
-            {path: 'tree', loadChildren: () => import('app/modules/admin/example-tree/example.routes')},
+            {path: 'tree', loadChildren: () => import('app/modules/admin/crud-tree/crud-tree.routes')},
             {path: 'homeScreen', loadChildren: () => import('app/views/views.routes')},
 
         ]

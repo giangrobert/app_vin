@@ -68,164 +68,62 @@
         class="bg-white rounded overflow-hidden shadow-lg flex-auto px-6 sm:px-10"
     >
         <div class="p-6 overflow-scroll px-0">
-            <table class="mt-4 w-full min-w-max table-auto text-left">
-                <thead>
+            <table class="table">
+                <thead class="bg-primary text-white">
                     <tr>
-                        <th
-                            class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                        >
-                            <p
-                                class="antialiased font-sans text-sm text-gray-800 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                            >
-                                #
-                            </p>
-                        </th>
-                        <th
-                            class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                        >
-                            <p
-                                class="antialiased font-sans text-sm text-gray-800 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                            >
-                                NOMBRE
-                            </p>
-                        </th>
-                        <th
-                            class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                        >
-                            <p
-                                class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                            >
-                                EMAIL
-                            </p>
-                        </th>
-                        <th
-                            class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                        >
-                            <p
-                                class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                            >
-                                FECHA CREACIÓN
-                            </p>
-                        </th>
-                        <th
-                            class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                        >
-                            <p
-                                class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                            >
-                                ESTADO
-                            </p>
-                        </th>
-                        <th
-                            class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                        >
-                            <p
-                                class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                            >
-                                ACCIONES
-                            </p>
-                        </th>
+                        <th class="table-header">#</th>
+                        <th class="table-header">NOMBRE</th>
+                        <th class="table-header">EMAIL</th>
+                        <th class="table-header">FECHA CREACIÓN</th>
+                        <th class="table-header">ESTADO</th>
+                        <th class="table-header">ACCIONES</th>
                     </tr>
                 </thead>
-                <tbody class="mb-10 bgw">
-                    <tr>
-                        <td class="p-4 border-b border-blue-gray-50">
-                            <p
-                                class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                            >
-                                1
-                            </p>
-                        </td>
-                        <td class="p-4 border-b border-blue-gray-50">
-                            <p
-                                class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                            >
-                                RODOLFO PACCO
-                            </p>
-                        </td>
-                        <td class="p-4 border-b border-blue-gray-50">
-                            <p
-                                class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                            >
-                                example?gmail.com
-                            </p>
-                        </td>
-                        <td class="p-4 border-b border-blue-gray-50">
-                            <p
-                                class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                            >
-                                2020-12-29 08:13:25
-                            </p>
-                        </td>
-                        <td class="p-4 border-b border-blue-gray-50">
+                <tbody class="bg-white">
+                    <tr class="hover:bg-gray-100">
+                        <td class="p-4 border-b">1</td>
+                        <td class="p-4 border-b">RODOLFO PACCO</td>
+                        <td class="p-4 border-b">example?gmail.com</td>
+                        <td class="p-4 border-b">2020-12-29 08:13:25</td>
+                        <td class="p-4 border-b">
                             <div class="w-max">
                                 <div
-                                    class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
-                                    style="opacity: 1"
+                                    class="relative grid items-center font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
                                 >
                                     <span class="">ACTIVO</span>
                                 </div>
                             </div>
                         </td>
-                        <td class="p-4 border-b border-blue-gray-50">
+                        <td class="p-4 border-b">
                             <div class="flex space-x-3">
                                 <mat-slide-toggle
                                     [formControlName]="'active'"
                                     [color]="'primary'"
-                                >
-                                </mat-slide-toggle>
-
+                                ></mat-slide-toggle>
                                 <mat-icon>swap_horiz</mat-icon>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="p-4 border-b border-blue-gray-50">
-                            <p
-                                class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                            >
-                                1
-                            </p>
-                        </td>
-                        <td class="p-4 border-b border-blue-gray-50">
-                            <p
-                                class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                            >
-                                RODOLFO PACCO
-                            </p>
-                        </td>
-                        <td class="p-4 border-b border-blue-gray-50">
-                            <p
-                                class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                            >
-                                example?gmail.com
-                            </p>
-                        </td>
-                        <td class="p-4 border-b border-blue-gray-50">
-                            <p
-                                class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                            >
-                                2020-12-29 08:13:25
-                            </p>
-                        </td>
-                        <td class="p-4 border-b border-blue-gray-50">
+                    <tr class="hover:bg-gray-100">
+                        <td class="p-4 border-b">2</td>
+                        <td class="p-4 border-b">RODOLFO PACCO</td>
+                        <td class="p-4 border-b">example?gmail.com</td>
+                        <td class="p-4 border-b">2020-12-29 08:13:25</td>
+                        <td class="p-4 border-b">
                             <div class="w-max">
                                 <div
-                                    class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-red-500/20 text-red-700 py-1 px-2 text-xs rounded-md"
-                                    style="opacity: 1"
+                                    class="relative grid items-center font-bold uppercase whitespace-nowrap select-none bg-red-500/20 text-red-700 py-1 px-2 text-xs rounded-md"
                                 >
                                     <span class="">INACTIVO</span>
                                 </div>
                             </div>
                         </td>
-                        <td class="p-4 border-b border-blue-gray-50">
+                        <td class="p-4 border-b">
                             <div class="flex space-x-3">
                                 <mat-slide-toggle
                                     [formControlName]="'active'"
                                     [color]="'primary'"
-                                >
-                                </mat-slide-toggle>
-
+                                ></mat-slide-toggle>
                                 <mat-icon>swap_horiz</mat-icon>
                             </div>
                         </td>
