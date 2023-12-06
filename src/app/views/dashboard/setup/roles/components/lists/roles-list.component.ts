@@ -236,16 +236,7 @@ export class RolesListComponent implements OnInit {
     }
 
     public goDelete(id: number): void {
-        const confirmation = window.confirm(
-            '¿Estás seguro de que deseas eliminar este elemento permanentemente?'
-        );
-
-        if (confirmation) {
-            // Si el usuario confirma, emite el evento de eliminación
-            this.eventDelete.emit(id);
-        } else {
-            // Si el usuario cancela, no se hace nada
-        }
+        this.eventDelete.emit(id);
     }
 
     public goAssign(id: number): void {

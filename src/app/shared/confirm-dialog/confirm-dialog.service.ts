@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ConfirmDialogComponent} from "../confirm-dialog2/confirm-dialog.component";
-import {message} from "../confirm-dialog2/messages";
+import {message} from "../confirm-dialog/messages";
 import {UntypedFormBuilder, UntypedFormGroup} from "@angular/forms";
 import {FuseConfirmationService} from "../../../@fuse/services/confirmation";
 
@@ -17,100 +16,105 @@ interface Options {
   providedIn: 'root'
 })
 export class ConfirmDialogService {
-  configForm: UntypedFormGroup,
+  configForm: UntypedFormGroup;
 
   constructor(
       private _formBuilder: UntypedFormBuilder,
       private _fuseConfirmationService: FuseConfirmationService,
-      private lambModalService: any) { }
+      ) { }
 
-  public confirm(options: Options = {}, action?: 'D' | 'U' | 'S' | 'E'): Promise<boolean> {
+  // confirmDelete() {
+  //     this.configConfirm('Eliminar Eber','¿Estás seguro de que deseas eliminar este nodo permanentemente?','exclamation-triangle','warn',true);
+  //     const modalRef = this._fuseConfirmationService.open(this.configForm.value);
+  //     // Confirm delete node
+  //     modalRef.afterClosed().subscribe((result) =>
+  //     {
+  //         if ("confirmed" == result) {
+  //             alert("no confirmado");
+  //         }
+  //         // this.deleteNode(node);
+  //     });
+  // }
+    confirmDelete(additionalData?: any): Promise<void> {
+        const title = additionalData?.title || message.confirmDelete.title;
+        const messages = additionalData?.message || '¿Estás seguro de que deseas eliminar este nodo permanentemente?';
+        const icon = additionalData?.icon || 'exclamation-triangle';
+        const color = additionalData?.color || 'warn';
 
-    const modalRef = this.lambModalService.open(ConfirmDialogComponent, {centered: true});
-    // const modalRef =
-    // this.lambModalService.open(ConfirmDialogComponent,
-    // { size: (options.dialogSize ? options.dialogSize : this.config.dialogSize) });
-    modalRef.componentInstance.title
-        = options.title ? options.title : this.config.title;
+        this.configConfirm(title, messages, icon, color, true);
+        const modalRef = this._fuseConfirmationService.open(this.configForm.value);
 
-    modalRef.componentInstance.message
-        = options.message ? options.message : this.getMessage(action!);
-    modalRef.componentInstance.btnOkText
-        = options.btnOkText ? options.btnOkText : this.config.btnOkText;
-    modalRef.componentInstance.btnCancelText
-        = options.btnCancelText ? options.btnCancelText : this.config.btnCancelText;
-    return modalRef.result;
-  }
-
-  public confirmDelete(options: Options = {}): Promise<boolean> {
-    return this.confirm(options, 'D');
-  }
-
-  public confirmUpdate(options: Options = {}): Promise<boolean> {
-    return this.confirm(options, 'U');
-  }
-
-  public confirmSave(options: Options = {}): Promise<boolean> {
-    return this.confirm(options, 'S');
-  }
-
-  public confirmState(options: Options = {}): Promise<boolean> {
-    return this.confirm(options, 'E');
-  }
-  private getMessage(action: string) {
-    switch (action) {
-      case 'D': {
-        return message.confirmDelete;
-      }
-      case 'U': {
-        return message.confirmUpdate;
-      }
-      case 'E': {
-        return message.confirmState;
-      }
-      case 'S': {
-        return message.confirmSave;
-      }
-      default: {
-        return this.config.message;
-      }
+        return new Promise((resolve, reject) => {
+            modalRef.afterClosed().subscribe((result) => {
+                if (result === 'confirmed') {
+                    resolve();
+                } else {
+                    reject();
+                }
+            });
+        });
     }
-  }
-  get config(): Options {
-    return {
-      title: 'Confirmación',
-      message: message.confirmDefault,
-      btnOkText: 'OK',
-      btnCancelText: 'CANCEL',
-      dialogSize: 'lg',
-    };
-  }
 
-  configConfirm(){
+    // confirmDelete(): Promise<void> {
+    //     this.configConfirm('Eliminar Eber', '¿Estás seguro de que deseas eliminar este nodo permanentemente?', 'exclamation-triangle', 'warn', true);
+    //     const modalRef = this._fuseConfirmationService.open(this.configForm.value);
+    //
+    //     return new Promise((resolve, reject) => {
+    //         modalRef.afterClosed().subscribe((result) => {
+    //             if (result === 'confirmed') {
+    //                 resolve();
+    //             } else {
+    //                 reject();
+    //             }
+    //         });
+    //     });
+    // }
+  configConfirm(title,message,icon,color, dismissible){
     this.configForm = this._formBuilder.group({
-      title      : 'Eliminar nodo',
-      message    : `
-                ¿Estás seguro de que deseas eliminar este nodo permanentemente?
-            `,
+      title      : title,
+      message    : message,
       icon       : this._formBuilder.group({
         show : true,
-        name : 'heroicons_outline:exclamation-triangle',
-        color: 'warn',
+        name : `heroicons_outline:${icon}`,
+        color: color,
       }),
       actions    : this._formBuilder.group({
         confirm: this._formBuilder.group({
           show : true,
           label: 'Eliminar',
-          color: 'warn',
+          color: color,
         }),
         cancel : this._formBuilder.group({
           show : true,
           label: 'Cancelar',
         }),
       }),
-      dismissible: true,
+      dismissible: dismissible,
     });
   }
-
-
+    configConfirm2(){
+        this.configForm = this._formBuilder.group({
+            title      : 'Eliminar nodo',
+            message    : `
+                ¿Estás seguro de que deseas eliminar este nodo permanentemente?
+            `,
+            icon       : this._formBuilder.group({
+                show : true,
+                name : 'heroicons_outline:exclamation-triangle',
+                color: 'warn',
+            }),
+            actions    : this._formBuilder.group({
+                confirm: this._formBuilder.group({
+                    show : true,
+                    label: 'Eliminar',
+                    color: 'warn',
+                }),
+                cancel : this._formBuilder.group({
+                    show : true,
+                    label: 'Cancelar',
+                }),
+            }),
+            dismissible: true,
+        });
+    }
 }

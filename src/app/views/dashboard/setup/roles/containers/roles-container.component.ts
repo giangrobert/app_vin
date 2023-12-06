@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { RolesNewComponent } from '../components/form/roles-new.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RolesEditComponent } from '../components/form/roles-edit.component';
+import {ConfirmDialogService} from "../../../../../shared/confirm-dialog/confirm-dialog.service";
 
 @Component({
     selector: 'app-roles-container',
@@ -38,7 +39,8 @@ export class RolesContainerComponent implements OnInit {
     public rol = new Rol();
 
     constructor(
-        private rolService: RoleService,
+        private _rolService: RoleService,
+        private _confirmDialogService:ConfirmDialogService,
         private _matDialog: MatDialog //private confirmDialogService: ConfirmDialogService
     ) {}
 
@@ -47,7 +49,7 @@ export class RolesContainerComponent implements OnInit {
     }
 
     getRols(): void {
-        this.rolService.getAll$().subscribe(
+        this._rolService.getAll$().subscribe(
             (response) => {
                 this.rols = response.data;
             },
@@ -70,13 +72,13 @@ export class RolesContainerComponent implements OnInit {
     }
 
     saveRol(data: Object): void {
-        this.rolService.add$(data).subscribe((response) => {
+        this._rolService.add$(data).subscribe((response) => {
             this.rols = (response && response.data) || [];
         });
     }
 
     eventEdit(idRol: number): void {
-        const listById = this.rolService
+        const listById = this._rolService
             .getById$(idRol)
             .subscribe(async (response) => {
                 this.rol = (response && response.data) || {};
@@ -99,7 +101,7 @@ export class RolesContainerComponent implements OnInit {
     }
 
     editRol(idRol: number, data: Object) {
-        this.rolService.update$(idRol, data).subscribe((response) => {
+        this._rolService.update$(idRol, data).subscribe((response) => {
             this.rols = (response && response.data) || [];
         });
     }
@@ -115,11 +117,17 @@ export class RolesContainerComponent implements OnInit {
     }
 
     public eventDelete(idRol: number) {
-        //this.confirmDialogService.confirmDelete().then(() => {
-        this.rolService.delete$(idRol).subscribe((response) => {
-            this.rols = (response && response.data) || [];
+        this._confirmDialogService.confirmDelete(
+            {
+                // title: 'Confirmación Personalizada',
+                // message: '¿Quieres proceder con esta acción?',
+            }
+        ).then(() => {
+            this._rolService.delete$(idRol).subscribe((response) => {
+                this.rols = (response && response.data) || [];
+            });
+        }).catch(() => {
         });
-        //}).catch(() => {
-        //});
+
     }
 }
