@@ -120,7 +120,7 @@ export class RolesContainerComponent implements OnInit {
         this._confirmDialogService.confirmDelete(
             {
                 // title: 'Confirmación Personalizada',
-                // message: '¿Quieres proceder con esta acción?',
+                // message: `¿Quieres proceder con esta acción ${}?`,
             }
         ).then(() => {
             this._rolService.delete$(idRol).subscribe((response) => {
