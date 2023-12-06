@@ -43,10 +43,10 @@ import { CommonModule, DatePipe } from '@angular/common';
 
             <!-- Filtros -->
             <div class="bg-gray-100 rounded p-2 mb-2">
-                <div class="flex space-x-4">
+                <div class="sm:flex sm:space-x-4">
                     <!-- Filtro de NOMBRE -->
                     <div class="flex-1">
-                        <div class="px-6 py-2">
+                        <div class="px-4 sm:px-6 py-2">
                             <div class="font-semibold text-lg mb-2">
                                 Filtro de Nombre
                             </div>
@@ -63,7 +63,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 
                     <!-- Filtro de FECHA CREACIÓN -->
                     <div class="flex-1">
-                        <div class="px-6 py-2">
+                        <div class="px-4 sm:px-6 py-2">
                             <div class="font-semibold text-lg mb-2">
                                 Filtro de Fecha
                             </div>
@@ -79,7 +79,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 
                     <!-- Filtro de ESTADO -->
                     <div class="flex-1">
-                        <div class="px-6 py-4">
+                        <div class="px-4 sm:px-6 py-2">
                             <div class="font-semibold text-lg mb-1">
                                 Filtro de Estado
                             </div>
@@ -137,21 +137,29 @@ import { CommonModule, DatePipe } from '@angular/common';
                             @for (user of users;track user.id; let idx = $index)
                             {
                             <tr class="hover:bg-gray-100">
-                                <td class="w-1/6 p-4 border-b">
+                                <td class="w-1/6 p-2 text-center border-b">
                                     {{ idx + 1 }}
                                 </td>
 
-                                <td class="w-2/6 p-4 border-b">
+                                <td
+                                    class="w-2/6 p-2  text-start border-b text-sm"
+                                >
                                     {{ user.name }}
                                 </td>
-                                <td class="w-2/6 p-4 border-b">
+                                <td
+                                    class="w-2/6 p-2 text-start border-b text-sm"
+                                >
                                     {{ user.email }}
                                 </td>
-                                <td class="w-2/6 p-4 border-b">
+                                <td
+                                    class="w-2/6 p-2 text-start border-b text-sm"
+                                >
                                     {{ user.created_at | date : 'dd/MM/yyyy' }}
                                 </td>
-                                <td class="w-2/6 p-4 border-b">
-                                    <div class="w-max">
+                                <td
+                                    class="w-1/6 p-2 text-center border-b text-sm"
+                                >
+                                    <div class="w-max flex justify-center">
                                         @if(user.active == 1){
                                         <div
                                             class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
@@ -166,6 +174,7 @@ import { CommonModule, DatePipe } from '@angular/common';
                                         >
                                             <span class="">INACTIVO</span>
                                         </div>
+<<<<<<< HEAD
                                     }
                                 </div>
                             </td>
@@ -192,6 +201,63 @@ import { CommonModule, DatePipe } from '@angular/common';
                         }
                     </tbody>
                 </table>
+=======
+                                        }
+                                    </div>
+                                </td>
+
+                                <td
+                                    class="w-2/6 p-2 text-center border-b text-sm"
+                                >
+                                    <div class="flex justify-center space-x-3">
+                                        <mat-slide-toggle
+                                            [checked]="
+                                                user.active == 1 ? true : false
+                                            "
+                                            [color]="'primary'"
+                                            (change)="goChangeState(user.id)"
+                                        ></mat-slide-toggle>
+                                        <mat-icon>swap_horiz</mat-icon>
+
+                                        <button (click)="goChangeTree(user)">
+                                            <mat-icon
+                                                svgIcon="account_tree"
+                                            ></mat-icon>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            } @empty {
+                            <tr>
+                                <td colspan="6" class="text-center">
+                                    Sin Contenido
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div
+                        class="px-5 py-2 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between"
+                    >
+                        <span class="text-xs xs:text-sm text-gray-900">
+                            Showing 1 to 4 of 50 Entries
+                        </span>
+                        <div class="inline-flex mt-2 xs:mt-0">
+                            <button
+                                class="text-sm text-primary-50 transition duration-150 hover:bg-primary-500 bg-primary-600 font-semibold py-2 px-4 rounded-l"
+                            >
+                                Prev
+                            </button>
+                            &nbsp; &nbsp;
+                            <button
+                                class="text-sm text-primary-50 transition duration-150 hover:bg-primary-500 bg-primary-600 font-semibold py-2 px-4 rounded-r"
+                            >
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                </div>
+>>>>>>> f451f32647938ae997646f4f3cd737612920bfd5
             </div>
         </div>
     `,
@@ -203,6 +269,7 @@ export class UserListComponent implements OnInit {
     @Output() eventEdit = new EventEmitter<number>();
     @Output() eventAssign = new EventEmitter<number>();
     @Output() eventChangeState = new EventEmitter<number>();
+    @Output() eventChangeTree = new EventEmitter<User>();
     activated: boolean = false;
 
     constructor() {}
@@ -217,6 +284,10 @@ export class UserListComponent implements OnInit {
 
     public goChangeState(id: number) {
         this.eventChangeState.emit(id);
+    }
+
+    public goChangeTree(user: User) {
+        this.eventChangeTree.emit(user);
     }
 
     public goAssign(id: number) {
