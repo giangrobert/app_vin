@@ -90,7 +90,7 @@ export class RolesContainerComponent implements OnInit {
     openMOdalEdit(data: Rol) {
         if (data) {
             const rolForm = this._matDialog.open(RolesEditComponent);
-            rolForm.componentInstance.title = 'Nuevo Rol' || null;
+            rolForm.componentInstance.title =`Editar <b>${data.nombre||data.id} </b>`;
             rolForm.componentInstance.rol = data;
             rolForm.afterClosed().subscribe((result: any) => {
                 if (result) {
