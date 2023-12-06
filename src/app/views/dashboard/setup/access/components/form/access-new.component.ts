@@ -14,6 +14,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+
 
 @Component({
     selector: 'app-access-new',
@@ -26,6 +29,8 @@ import { MatInputModule } from '@angular/material/input';
         MatSlideToggleModule,
         MatFormFieldModule,
         MatInputModule,
+        MatOptionModule,
+        MatSelectModule,
     ],
     template: `
         <div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
@@ -45,13 +50,57 @@ import { MatInputModule } from '@angular/material/input';
             <!-- Compose form -->
             <form
                 class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
-                [formGroup]="rolesForm"
+                [formGroup]="accessForm"
             >
                 <mat-form-field>
-                    <mat-label>ROL</mat-label>
+                    <mat-label>Nombre del acceso</mat-label>
                     <input matInput formControlName="nombre" />
                 </mat-form-field>
-
+                <mat-form-field>
+                    <mat-label>Icono</mat-label>
+                    <input matInput formControlName="icono" />
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <mat-label>orden</mat-label>
+                    <input matInput formControlName="orden" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>nivel</mat-label>
+                    <input matInput formControlName="nivel" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Url</mat-label>
+                    <input matInput formControlName="url" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Padre Accesso</mat-label>
+                    <input matInput formControlName="parent" />
+                </mat-form-field>
+                <mat-form-field class="flex-auto gt-xs:pr-3">
+                    <mat-select [placeholder]="'Estado'" formControlName="estado">
+                        <mat-option value="1">Activo</mat-option>
+                        <mat-option value="0">Inactivo</mat-option>
+                    </mat-select>
+                    <mat-icon
+                        class="icon-size-5"
+                        matPrefix
+                        [svgIcon]="'heroicons_outline:adjustments-vertical'"
+                    ></mat-icon>
+                </mat-form-field>
+                <mat-form-field class="flex-auto gt-xs:pr-3">
+                    <mat-select [placeholder]="'Tipo'" formControlName="tipo">
+                        <mat-option value="basic">Unico</mat-option>
+                        <mat-option value="aside"> Aside</mat-option>
+                        <mat-option value="collapsable">Colapsable</mat-option>
+                        <mat-option value="group">Grupo</mat-option>
+                    </mat-select>
+                    <mat-icon
+                        class="icon-size-5"
+                        matPrefix
+                        [svgIcon]="'heroicons_outline:adjustments-horizontal'"
+                    ></mat-icon>
+                </mat-form-field>
                 <!-- Actions -->
                 <div
                     class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6"
@@ -80,8 +129,15 @@ import { MatInputModule } from '@angular/material/input';
 export class AccessNewComponent implements OnInit {
     @Input() title: string = '';
     abcForms: any;
-    rolesForm = new FormGroup({
+    accessForm = new FormGroup({
         nombre: new FormControl('', [Validators.required]),
+        tipo: new FormControl('', [Validators.required]),
+        icono: new FormControl('', [Validators.required]),
+        estado: new FormControl('', [Validators.required]),
+        orden: new FormControl('', [Validators.required]),
+        nivel: new FormControl('', [Validators.required]),
+        url: new FormControl('', [Validators.required]),
+        parent: new FormControl('', [Validators.required]),
     });
 
     constructor(private _matDialog: MatDialogRef<AccessNewComponent>) {}
@@ -91,8 +147,8 @@ export class AccessNewComponent implements OnInit {
     }
 
     public saveForm(): void {
-        if (this.rolesForm.valid) {
-            this._matDialog.close(this.rolesForm.value);
+        if (this.accessForm.valid) {
+            this._matDialog.close(this.accessForm.value);
         }
     }
 

@@ -15,11 +15,15 @@ import { MatDialog } from '@angular/material/dialog';
     standalone: true,
     template: `
         <div
-            style="position: initial; display: initial; flex: initial; width: initial;"
+        class="w-full mx-auto p-6 bg-white rounded overflow-hidden shadow-lg"
         >
-            <div class="flex flex-col flex-auto min-w-0">
-                <div class="flex justify-end mt-1 sm:mt-1 pr-6 sm:ml-4">
-                    <button
+        <div
+                class="flex justify-between items-center mb-2 bg-slate-300 text-black p-4 rounded"
+            >
+                <h2 class="text-2xl font-bold">
+                    Lista de <span class="text-primary">Accesos</span>
+                </h2>
+                <button
                         mat-flat-button
                         [color]="'primary'"
                         class="ml-4"
@@ -28,17 +32,19 @@ import { MatDialog } from '@angular/material/dialog';
                         <mat-icon
                             [svgIcon]="'heroicons_outline:plus'"
                         ></mat-icon>
-                        <span class="ml-2">Nuevo Rol</span>
+                        <span class="ml-2">Nuevo Acceso</span>
                     </button>
-                </div>
+            </div>
+            <div class="flex flex-col flex-auto min-w-0">
+                
 
-                <div class="flex-auto px-6 sm:px-10">
-                    <div class="p-6 overflow-scroll px-0">
+                <div class="flex-auto  ">
+                    <div class=" overflow-scroll">
                         <table
-                            class="mt-4 w-full min-w-max table-auto text-left"
+                            class="w-full border"
                         >
                             <thead>
-                                <tr>
+                                <tr class="bg-primary-600 text-white">
                                     <th
                                         class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
                                     >
@@ -81,15 +87,6 @@ import { MatDialog } from '@angular/material/dialog';
                                         <p
                                             class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                                         >
-                                            ESTADO
-                                        </p>
-                                    </th>
-                                    <th
-                                        class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                                    >
-                                        <p
-                                            class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                                        >
                                             ORDEN
                                         </p>
                                     </th>
@@ -111,6 +108,24 @@ import { MatDialog } from '@angular/material/dialog';
                                             URL
                                         </p>
                                     </th>
+                                    <th
+                                        class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                                    >
+                                        <p
+                                            class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                        >
+                                            ESTADO
+                                        </p>
+                                    </th>
+                                    <th
+                                        class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
+                                    >
+                                        <p
+                                            class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                        >
+                                            ACCIONES
+                                        </p>
+                                    </th>
                                     <!-- <th
                                         class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
                                     >
@@ -122,128 +137,107 @@ import { MatDialog } from '@angular/material/dialog';
                                     </th> -->
                                 </tr>
                             </thead>
-                            <tbody
-                                class="mb-10 bgw"
-                                *ngFor="let r of acceso; let i = index"
-                            >
-                                <tr>
-                                    <td
-                                        class="p-4 border-b border-blue-gray-50"
-                                    >
-                                        <p
-                                            class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
+                            <tbody class="mb-10 bgw">
+                        @for (r of accesos;track r.id; let idx = $index) {
+                        <tr>
+                            <td class="p-4 border-b border-blue-gray-50">
+                                <p
+                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
+                                >
+                                    {{ idx + 1 }}
+                                </p>
+                            </td>
+                            <td class="p-4 border-b border-blue-gray-50">
+                                <p
+                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
+                                >
+                                    {{ r.nombre }}
+                                </p>
+                            </td>
+                            <td class="p-4 border-b border-blue-gray-50">
+                                <p
+                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
+                                >
+                                    {{r.tipo}}
+                                </p>
+                            </td>
+                            <td class="p-4 border-b border-blue-gray-50">
+                                <p
+                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
+                                >
+                                <mat-icon
+                        class="icon-size-5"
+                        matPrefix
+                        [svgIcon]="r.icono"
+                    ></mat-icon>
+                                    
+                                </p>
+                            </td>
+                            <td class="p-4 border-b border-blue-gray-50">
+                                <p
+                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
+                                >
+                                    {{r.orden}}
+                                </p>
+                            </td>
+                            <td class="p-4 border-b border-blue-gray-50">
+                                <p
+                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
+                                >
+                                    {{r.nivel}}
+                                </p>
+                            </td>
+                            <td class="p-4 border-b border-blue-gray-50">
+                                <p
+                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
+                                >
+                                    {{r.url}}
+                                </p>
+                            </td>
+                            <td class="p-4 border-b border-blue-gray-50">
+                                <div class="w-max">
+                                @if(r.estado){
+                                        <div
+                                            class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
+                                            style="opacity: 1"
                                         >
-                                            {{ i }}
-                                        </p>
-                                    </td>
-                                    <td
-                                        class="p-4 border-b border-blue-gray-50"
-                                    >
-                                        <p
-                                            class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                                        >
-                                            {{ r.nombre }}
-                                        </p>
-                                    </td>
-                                    <td
-                                        class="p-4 border-b border-blue-gray-50"
-                                    >
-                                        <p
-                                            class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                                        >
-                                            {{ r.tipo }}
-                                        </p>
-                                    </td>
-                                    <td
-                                        class="p-4 border-b border-blue-gray-50"
-                                    >
-                                        <p
-                                            class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                                        >
-                                            {{ r.icono }}
-                                        </p>
-                                    </td>
-                                    <td
-                                        class="p-4 border-b border-blue-gray-50"
-                                    >
-                                        <p
-                                            class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                                        >
-                                            {{ r.estado }}
-                                        </p>
-                                    </td>
-                                    <td
-                                        class="p-4 border-b border-blue-gray-50"
-                                    >
-                                        <p
-                                            class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                                        >
-                                            {{ r.orden }}
-                                        </p>
-                                    </td>
-                                    <td
-                                        class="p-4 border-b border-blue-gray-50"
-                                    >
-                                        <p
-                                            class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                                        >
-                                            {{ r.nivel }}
-                                        </p>
-                                    </td>
-                                    <td
-                                        class="p-4 border-b border-blue-gray-50"
-                                    >
-                                        <p
-                                            class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                                        >
-                                            {{ r.url }}
-                                        </p>
-                                    </td>
-                                    <!-- <td
-                                        class="p-4 border-b border-blue-gray-50"
-                                    >
-                                        <p
-                                            class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                                        >
-                                            {{ r.parent_acceso_id }}
-                                        </p>
-                                    </td> -->
-                                    <td
-                                        class="p-4 border-b border-blue-gray-50"
-                                    >
-                                        <div class="w-max">
-                                            <div
-                                                class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
-                                                style="opacity: 1"
-                                            >
-                                                <span class="">ACTIVO</span>
-                                            </div>
+                                            <span class="">ACTIVO</span>
                                         </div>
-                                    </td>
-                                    <td
-                                        class="p-4 border-b border-blue-gray-50"
-                                    >
-                                        <div class="flex space-x-3">
-                                            <mat-icon
-                                                class="text-amber-400 hover:text-amber-500 cursor-pointer"
-                                                (click)="goEdit(r.id)"
-                                                >edit</mat-icon
-                                            >
+                                    }@else{
+                                        <div
+                                            class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-red-500/20 text-red-700 py-1 px-2 text-xs rounded-md"
+                                            style="opacity: 1"
+                                        >
+                                            <span class="">INACTIVO</span>
+                                        </div>
+                                    }
+                                </div>
+                            </td>
+                            <td
+                                    class="w-2/6 p-2 text-center border-b text-sm"
+                                >
+                                    <div class="flex justify-center space-x-3">
+                                        <mat-icon
+                                            class="text-amber-400 hover:text-amber-500 cursor-pointer"
+                                            (click)="goEdit(r.id)"
+                                            >edit</mat-icon
+                                        >
 
-                                            <mat-icon
-                                                class="text-rose-500 hover:text-rose-600 cursor-pointer"
-                                                (click)="goDelete(r.id)"
-                                                >delete_sweep</mat-icon
-                                            >
-                                            <!--                                        <mat-icon-->
-                                            <!--                                            class="text-sky-400 hover:text-sky-600 cursor-pointer"-->
-                                            <!--                                            (click)="openComposeDialog()"-->
-                                            <!--                                            >swap_horiz-->
-                                            <!--                                        </mat-icon>-->
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
+                                        <mat-icon
+                                            class="text-rose-500 hover:text-rose-600 cursor-pointer"
+                                            (click)="goDelete(r.id)"
+                                            >delete_sweep</mat-icon
+                                        >
+                                    </div>
+                                </td>
+                            
+                        </tr>
+                        } @empty {
+                        <tr>
+                            Sin Contenido
+                        </tr>
+                        }
+                    </tbody>
                         </table>
                     </div>
                 </div>
@@ -253,7 +247,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AccessListComponent implements OnInit {
     abcForms: any;
-    @Input() acceso: Acceso[] = [];
+    @Input() accesos: Acceso[] = [];
     @Output() eventNew = new EventEmitter<boolean>();
     @Output() eventEdit = new EventEmitter<number>();
     @Output() eventDelete = new EventEmitter<number>();
