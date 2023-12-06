@@ -1,43 +1,57 @@
 import {HttpEvent, HttpEventType, HttpInterceptorFn} from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import {inject} from "@angular/core";
-import {tap} from "rxjs";
+import {catchError, tap, throwError} from "rxjs";
 // import {inject} from "@angular/core";
 
 
 export const toastInterceptor: HttpInterceptorFn = (req, next) => {
-    // console.log('Alerta Toast')
     const toastr = inject(ToastrService);
-    // console.log(event)
-    //
-    // if (req.url.includes('api')) {
-    //     // Aquí puedes mostrar el toast antes de la petición
-    //     // const s =  FuseAlertComponent;
-    //     // FuseAlertService.show('sad');
-    //     toastr.info('Hello world!', 'Toastr fun!');
-    // }
-    return next(req).pipe(tap(event => {
-        if (req.url.includes('api')){
-            if (event.type === HttpEventType.Response) {
-                if (event.status >= 0 && event.status < 200){
-                    toastr.info(`${event.body['message']??'Ten mucho cuidado'} '`, 'Atención');
-                }else if (event.status >= 200 && event.status < 300){
-                    toastr.success(`${event.body['message']??'En hora buena'}`, 'Correcto');
-                }else if (event.status >= 300 && event.status < 400){
-                    toastr.info(`${event.body['message']??'Ten mucho cuidado'}`, 'Atención');
-                }else if (event.status > 400 && event.status < 500 || event.status >= 500 && event.status < 600){
-                    toastr.error(`${event.body['message']??event.body['error']}`, 'Error');
+    return next(req).pipe(
+        tap(event => {
+            if (event.type === HttpEventType.Response && req.url.includes('api')) {
+                if (event.status >= 200 && event.status < 300) {
+                    toastr.success(`${event.body['message'] ?? 'En hora buena'}`, 'Correcto');
+                } else if (event.status >= 300 && event.status < 400) {
+                    toastr.info(`${event.body['message'] ?? 'Ten mucho cuidado'}`, 'Atención');
                 }
-                    console.log(req.url, 'returned a response with status', event.status);
             }
-        }else if (req.responseType) {
-            console.log('blob response', event);
-        }
+        }),
+        catchError(err => {
+            
+            let errorMessage = 'Error desconocido';
+            const responseObject:any = {};
+            responseObject.error = err;
+        
+            if(typeof responseObject === 'object' && err !== null) {
+                if (responseObject.error.error.error === 'Unauthorized') {
+                    errorMessage = 'No tienes permisos para realizar esta acción';
+                }
+            }
+            if (err.error) {
+                if (typeof err.error['message'] === 'object' && err.error['message'] !== null) {
+                    // Extraer el mensaje del primer campo del objeto message
+                    const firstKey = Object.keys(err.error['message'])[0];
+                    errorMessage = err.error['message'][firstKey][0];
+                } else if (Array.isArray(err.error['message'])) {
+                    // Si message es un arreglo
+                    errorMessage = err.error['message'][0];
+                } else if (typeof err.error['message'] === 'string') {
+                    // Si message es una cadena de texto
+                    errorMessage = err.error['message'];
+                }
+            }
 
-    }));
-
-
-
+            // Manejar respuestas de error
+            if (err.status >= 400 && err.status < 500) {
+                toastr.error(errorMessage, 'Error');
+            } else if (err.status >= 500) {
+                toastr.error(errorMessage, 'Error Grave');
+            }
+    
+            return throwError(err);
+        })
+    );
 };
 
 
