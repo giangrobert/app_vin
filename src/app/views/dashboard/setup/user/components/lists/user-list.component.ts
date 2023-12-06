@@ -174,34 +174,6 @@ import { CommonModule, DatePipe } from '@angular/common';
                                         >
                                             <span class="">INACTIVO</span>
                                         </div>
-<<<<<<< HEAD
-                                    }
-                                </div>
-                            </td>
-                            <td class="p-4 border-b border-blue-gray-50">
-                                <div class="flex space-x-3">
-                                    <mat-slide-toggle
-                                        [checked]="user.active == 1 ? true : false"
-                                        
-                                        [color]="'primary'"
-                                        (change)="goChangeState(user.id)"
-                                
-                                    >
-                                    </mat-slide-toggle>
-                                    <button (click)="goAssign(user.id)">
-                                     <mat-icon>swap_horiz</mat-icon>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        } @empty {
-                        <tr>
-                            Sin Contenido
-                        </tr>
-                        }
-                    </tbody>
-                </table>
-=======
                                         }
                                     </div>
                                 </td>
@@ -257,7 +229,6 @@ import { CommonModule, DatePipe } from '@angular/common';
                         </div>
                     </div>
                 </div>
->>>>>>> f451f32647938ae997646f4f3cd737612920bfd5
             </div>
         </div>
     `,
