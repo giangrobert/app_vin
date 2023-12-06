@@ -33,7 +33,7 @@ import { MatInputModule } from '@angular/material/input';
             <div
                 class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary"
             >
-                <div class="text-lg font-medium">{{ title }}</div>
+                <div class="text-lg font-medium" [innerHtml]="title"></div>
                 <button mat-icon-button (click)="cancelForm()" [tabIndex]="-1">
                     <mat-icon
                         class="text-current"
@@ -43,44 +43,17 @@ import { MatInputModule } from '@angular/material/input';
             </div>
 
             <!-- Compose form -->
-            <form
+            <div
                 class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
-                [formGroup]="rolesForm"
-            >
-                <mat-form-field>
-                    <mat-label>ROL</mat-label>
-                    <input matInput formControlName="nombre" />
-                </mat-form-field>
-
-                <!-- Actions -->
-                <div
-                    class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6"
                 >
-                    <div
-                        class="flex space-x-2 items-center mt-4 sm:mt-0 ml-auto"
-                    >
-                        <button
-                            mat-stroked-button
-                            [color]="'warn'"
-                            (click)="cancelForm()"
-                        >
-                            Cancelar
-                        </button>
-                        <button
-                            mat-stroked-button
-                            [color]="'primary'"
-                            (click)="saveForm()"
-                        >
-                            Guardar
-                        </button>
-                    </div>
-                </div>
-            </form>
+                hola mundo
+            </div>
         </div>
     `,
 })
 export class UserTreeComponent implements OnInit {
     @Input() title: string = '';
+    @Input() userTree: string = '';
     abcForms: any;
     rolesForm = new FormGroup({
         nombre: new FormControl('', [Validators.required]),

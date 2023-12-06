@@ -109,7 +109,10 @@ export class UsersContainerComponent implements OnInit {
             this.createTreeView(data)
             console.log(this.userTree)
             const userForm = this._matDialog.open(UserTreeComponent);
-            userForm.componentInstance.title = `Modificar jerarquia para el usuario: ${user.name||user.email}`;
+            userForm.componentInstance.title = `
+                Modificar jerarquia para el usuario: <b>${user.name||user.email}</b>
+            `;
+            userForm.componentInstance.userTree = this.userTree
             userForm.afterClosed().subscribe((result: any) => {
                 if (result) {
                     console.log("Guardar cambios")
