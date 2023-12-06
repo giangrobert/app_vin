@@ -43,10 +43,10 @@ import { CommonModule, DatePipe } from '@angular/common';
 
             <!-- Filtros -->
             <div class="bg-gray-100 rounded p-2 mb-2">
-                <div class="flex space-x-4">
+                <div class="sm:flex sm:space-x-4">
                     <!-- Filtro de NOMBRE -->
                     <div class="flex-1">
-                        <div class="px-6 py-2">
+                        <div class="px-4 sm:px-6 py-2">
                             <div class="font-semibold text-lg mb-2">
                                 Filtro de Nombre
                             </div>
@@ -63,7 +63,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 
                     <!-- Filtro de FECHA CREACIÓN -->
                     <div class="flex-1">
-                        <div class="px-6 py-2">
+                        <div class="px-4 sm:px-6 py-2">
                             <div class="font-semibold text-lg mb-2">
                                 Filtro de Fecha
                             </div>
@@ -79,7 +79,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 
                     <!-- Filtro de ESTADO -->
                     <div class="flex-1">
-                        <div class="px-6 py-4">
+                        <div class="px-4 sm:px-6 py-2">
                             <div class="font-semibold text-lg mb-1">
                                 Filtro de Estado
                             </div>
@@ -191,12 +191,11 @@ import { CommonModule, DatePipe } from '@angular/common';
                                         ></mat-slide-toggle>
                                         <mat-icon>swap_horiz</mat-icon>
 
-                                        
-                                        <button
-                                            (click)="goChangeTree(user)">
-                                            <mat-icon svgIcon="account_tree"></mat-icon>
+                                        <button (click)="goChangeTree(user)">
+                                            <mat-icon
+                                                svgIcon="account_tree"
+                                            ></mat-icon>
                                         </button>
-
                                     </div>
                                 </td>
                             </tr>
