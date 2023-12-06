@@ -25,116 +25,141 @@ import { CommonModule, DatePipe } from '@angular/common';
     ],
     // imports: [CommonModule, RouterOutlet, MatButtonModule, MatIconModule],
     template: `
-        <div class="flex justify-end sm:mt-6 sm:ml-4 mb-2">
-                <button mat-flat-button [color]="'primary'" class="ml-4" (click)="goNew()">
+        <div
+            class="w-full mx-auto p-6 bg-white rounded overflow-hidden shadow-lg"
+        >
+            <!-- Encabezado principal -->
+            <div
+                class="flex justify-between items-center mb-2 bg-slate-300 text-black p-4 rounded"
+            >
+                <h2 class="text-2xl font-bold">
+                    Lista de <span class="text-primary">Usuarios</span>
+                </h2>
+                <button mat-flat-button [color]="'primary'" (click)="goNew()">
                     <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                     <span class="ml-2">Nuevo Usuario</span>
                 </button>
             </div>
-        <div
-            class="bg-white rounded overflow-hidden shadow-lg flex-auto px-6 sm:px-10"
-        >
-            <div class="p-6 overflow-scroll px-0">
-                <table class="mt-4 w-full min-w-max table-auto text-left">
-                    <thead>
-                        <tr>
-                            <th
-                                class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                            >
-                                <p
-                                    class="antialiased font-sans text-sm text-gray-800 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+
+            <!-- Filtros -->
+            <div class="bg-gray-100 rounded p-2 mb-2">
+                <div class="flex space-x-4">
+                    <!-- Filtro de NOMBRE -->
+                    <div class="flex-1">
+                        <div class="px-6 py-2">
+                            <div class="font-semibold text-lg mb-2">
+                                Filtro de Nombre
+                            </div>
+                            <div class="mb-2">
+                                <input
+                                    class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+                                    id="nombre"
+                                    type="text"
+                                    placeholder="Ingrese el nombre"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filtro de FECHA CREACIÓN -->
+                    <div class="flex-1">
+                        <div class="px-6 py-2">
+                            <div class="font-semibold text-lg mb-2">
+                                Filtro de Fecha
+                            </div>
+                            <div class="mb-2">
+                                <input
+                                    class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+                                    id="fechaCreacion"
+                                    type="date"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filtro de ESTADO -->
+                    <div class="flex-1">
+                        <div class="px-6 py-4">
+                            <div class="font-semibold text-lg mb-1">
+                                Filtro de Estado
+                            </div>
+                            <div class="mb-2">
+                                <select
+                                    class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+                                    id="estado"
+                                >
+                                    <option value="">Seleccionar</option>
+                                    <option value="activo">Activo</option>
+                                    <option value="inactivo">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded overflow-hidden shadow-lg">
+                <div class="p-2 overflow-scroll px-0">
+                    <table class="w-full table-fixed">
+                        <thead class="bg-primary-600 text-white">
+                            <tr>
+                                <th
+                                    class="w-1/6 table-head text-center px-5 border-r"
                                 >
                                     #
-                                </p>
-                            </th>
-                            <th
-                                class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                            >
-                                <p
-                                    class="antialiased font-sans text-sm text-gray-800 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                </th>
+                                <th
+                                    class="w-2/6 table-header text-center px-5 border-r"
                                 >
-                                    NOMBRE
-                                </p>
-                            </th>
-                            <th
-                                class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                            >
-                                <p
-                                    class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                    Nombre
+                                </th>
+                                <th
+                                    class="w-2/6 table-header text-center border-r"
                                 >
-                                    EMAIL
-                                </p>
-                            </th>
-                            <th
-                                class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                            >
-                                <p
-                                    class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                    Email
+                                </th>
+                                <th
+                                    class="w-2/6 table-header text-center border-r"
                                 >
-                                    FECHA CREACIÓN
-                                </p>
-                            </th>
-                            <th
-                                class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                            >
-                                <p
-                                    class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                                    Fecha Creación
+                                </th>
+                                <th
+                                    class="w-1/6 table-header text-center border-r"
                                 >
-                                    ESTADO
-                                </p>
-                            </th>
-                            <th
-                                class="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50"
-                            >
-                                <p
-                                    class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
-                                >
-                                    ACCIONES
-                                </p>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="mb-10 bgw">
-                        @for (user of users;track user.id; let idx = $index) {
-                        <tr>
-                            <td class="p-4 border-b border-blue-gray-50">
-                                <p
-                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                                >
+                                    Estado
+                                </th>
+                                <th class="w-2/6 table-header text-center">
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white">
+                            @for (user of users;track user.id; let idx = $index)
+                            {
+                            <tr class="hover:bg-gray-100">
+                                <td class="w-1/6 p-4 border-b">
                                     {{ idx + 1 }}
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-blue-gray-50">
-                                <p
-                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                                >
+                                </td>
+
+                                <td class="w-2/6 p-4 border-b">
                                     {{ user.name }}
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-blue-gray-50">
-                                <p
-                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                                >
-                                    {{user.email}}
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-blue-gray-50">
-                                <p
-                                    class="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal"
-                                >
-                                    {{user.created_at | date : 'dd/MM/yyyy'}}
-                                </p>
-                            </td>
-                            <td class="p-4 border-b border-blue-gray-50">
-                                <div class="w-max">
-                                @if(user.active == 1){
+                                </td>
+                                <td class="w-2/6 p-4 border-b">
+                                    {{ user.email }}
+                                </td>
+                                <td class="w-2/6 p-4 border-b">
+                                    {{ user.created_at | date : 'dd/MM/yyyy' }}
+                                </td>
+                                <td class="w-2/6 p-4 border-b">
+                                    <div class="w-max">
+                                        @if(user.active == 1){
                                         <div
                                             class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
                                             style="opacity: 1"
                                         >
                                             <span class="">ACTIVO</span>
                                         </div>
-                                    }@else{
+                                        }@else{
                                         <div
                                             class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-red-500/20 text-red-700 py-1 px-2 text-xs rounded-md"
                                             style="opacity: 1"
@@ -154,9 +179,7 @@ import { CommonModule, DatePipe } from '@angular/common';
                                 
                                     >
                                     </mat-slide-toggle>
-                                    <button (click)="goAssign(user.id)">
-                                        <mat-icon >swap_horiz</mat-icon>
-                                    </button>
+                                    <mat-icon>swap_horiz</mat-icon>
                                 </div>
                             </td>
                         </tr>
