@@ -6,10 +6,17 @@ import { RouterOutlet } from '@angular/router';
 import { User } from '../../models/User';
 import { MatDialog } from '@angular/material/dialog';
 import { abcForms } from '../../../../../../../environments/generals';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
     selector: 'app-users-list',
-    imports: [CommonModule, RouterOutlet, MatButtonModule, MatIconModule],
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        MatButtonModule,
+        MatIconModule,
+        MatSlideToggleModule,
+    ],
     standalone: true,
     template: `
         <div class="flex flex-col flex-auto min-w-0">
