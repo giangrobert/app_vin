@@ -16,7 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
-    selector: 'app-roles-new',
+    selector: 'app-users-new',
     standalone: true,
     imports: [
         FormsModule,
@@ -58,18 +58,20 @@ import { MatInputModule } from '@angular/material/input';
                 >
                     <div class="flex space-x-2 items-center mt-4 sm:mt-0">
                         <button
-                            class="border border-primary bg-primary text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-primary-800 focus:outline-none focus:shadow-outline"
-                            mat-stroked-button
-                            (click)="saveForm()"
-                        >
-                            Guardar
-                        </button>
-                        <button
-                            class="border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-700 focus:outline-none focus:shadow-outline"
+                            class="ml-auto sm:ml-0"
+                            [color]="'warn'"
                             mat-stroked-button
                             (click)="cancelForm()"
                         >
                             Cancelar
+                        </button>
+                        <button
+                            class="ml-auto sm:ml-0"
+                            [color]="'primary'"
+                            mat-stroked-button
+                            (click)="saveForm()"
+                        >
+                            Guardar
                         </button>
                     </div>
                 </div>
@@ -77,14 +79,14 @@ import { MatInputModule } from '@angular/material/input';
         </div>
     `,
 })
-export class RolesNewComponent implements OnInit {
+export class UsersNewComponent implements OnInit {
     @Input() title: string = '';
     abcForms: any;
     rolesForm = new FormGroup({
         nombre: new FormControl('', [Validators.required]),
     });
 
-    constructor(private _matDialog: MatDialogRef<RolesNewComponent>) {}
+    constructor(private _matDialog: MatDialogRef<UsersNewComponent>) {}
 
     ngOnInit() {
         this.abcForms = abcForms;

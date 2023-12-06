@@ -4,19 +4,20 @@ import {RouterOutlet} from "@angular/router";
 import {MatIconModule} from "@angular/material/icon";
 import {abcForms} from "../../../environments/generals";
 import {MatButtonModule} from "@angular/material/button";
-import {UntypedFormBuilder, UntypedFormGroup} from "@angular/forms";
+import {FormsModule, UntypedFormBuilder, UntypedFormGroup} from "@angular/forms";
 import {FuseConfirmationService} from "../../../@fuse/services/confirmation";
 
 
 @Component({
     selector: 'app-dashboard',
     standalone: true,
-    imports: [CommonModule, RouterOutlet, MatIconModule, MatButtonModule],
+    imports: [CommonModule, RouterOutlet, MatIconModule, MatButtonModule,FormsModule],
     templateUrl: './dashboard.component.html',
     //   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
     public title: string = '';
+    name = '';
 
     configForm: UntypedFormGroup;
     abcForms:any;

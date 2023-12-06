@@ -1,19 +1,72 @@
-<div class="flex flex-col flex-auto min-w-0">
+<div class="max-w-4xl mx-auto flex flex-col flex-auto min-w-0">
     <!-- Main -->
 
-    <div class="flex justify-end mt-6 sm:mt-6 pr-6 sm:ml-4">
-        <button
-            mat-flat-button
-            [color]="'primary'"
-            class="ml-4"
-            (click)="openComposeDialog()"
-        >
-            <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
-            <span class="ml-2">Nuevo Usuario</span>
-        </button>
+    <!-- Filtros -->
+    <div class="bg-white rounded overflow-hidden shadow-lg p-8 mb-6">
+        <div class="flex space-x-4">
+            <!-- Filtro de NOMBRE -->
+            <div class="flex-1">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-2">Filtro de NOMBRE</div>
+                    <div class="mb-4">
+                        <input
+                            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+                            id="nombre"
+                            type="text"
+                            placeholder="Ingrese el nombre"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filtro de FECHA CREACIÓN -->
+            <div class="flex-1">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-2">Filtro de FECHA</div>
+                    <div class="mb-4">
+                        <input
+                            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+                            id="fechaCreacion"
+                            type="date"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filtro de ESTADO -->
+            <div class="flex-1">
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-2">Filtro de ESTADO</div>
+                    <div class="mb-4">
+                        <select
+                            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+                            id="estado"
+                        >
+                            <option value="">Seleccionar</option>
+                            <option value="activo">Activo</option>
+                            <option value="inactivo">Inactivo</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-end mt-6 sm:mt-6 pr-6 sm:ml-4">
+            <button
+                mat-flat-button
+                [color]="'primary'"
+                class="ml-4"
+                (click)="openComposeDialog()"
+            >
+                <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                <span class="ml-2">Nuevo Usuario</span>
+            </button>
+        </div>
     </div>
 
-    <div class="flex-auto px-6 sm:px-10">
+    <div
+        class="bg-white rounded overflow-hidden shadow-lg flex-auto px-6 sm:px-10"
+    >
         <div class="p-6 overflow-scroll px-0">
             <table class="mt-4 w-full min-w-max table-auto text-left">
                 <thead>
@@ -25,21 +78,6 @@
                                 class="antialiased font-sans text-sm text-gray-800 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                             >
                                 #
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="2"
-                                    stroke="currentColor"
-                                    aria-hidden="true"
-                                    class="h-4 w-4"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                                    ></path>
-                                </svg>
                             </p>
                         </th>
                         <th
@@ -49,21 +87,6 @@
                                 class="antialiased font-sans text-sm text-gray-800 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                             >
                                 NOMBRE
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="2"
-                                    stroke="currentColor"
-                                    aria-hidden="true"
-                                    class="h-4 w-4"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                                    ></path>
-                                </svg>
                             </p>
                         </th>
                         <th
@@ -73,21 +96,6 @@
                                 class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                             >
                                 EMAIL
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="2"
-                                    stroke="currentColor"
-                                    aria-hidden="true"
-                                    class="h-4 w-4"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                                    ></path>
-                                </svg>
                             </p>
                         </th>
                         <th
@@ -97,21 +105,6 @@
                                 class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                             >
                                 FECHA CREACIÓN
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="2"
-                                    stroke="currentColor"
-                                    aria-hidden="true"
-                                    class="h-4 w-4"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                                    ></path>
-                                </svg>
                             </p>
                         </th>
                         <th
@@ -121,21 +114,6 @@
                                 class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                             >
                                 ESTADO
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="2"
-                                    stroke="currentColor"
-                                    aria-hidden="true"
-                                    class="h-4 w-4"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                                    ></path>
-                                </svg>
                             </p>
                         </th>
                         <th
@@ -145,21 +123,6 @@
                                 class="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                             >
                                 ACCIONES
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="2"
-                                    stroke="currentColor"
-                                    aria-hidden="true"
-                                    class="h-4 w-4"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
-                                    ></path>
-                                </svg>
                             </p>
                         </th>
                     </tr>

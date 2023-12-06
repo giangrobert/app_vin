@@ -20,7 +20,8 @@ export const END_POINTS = {
     group: 'grupo',
     jerarquia: "gerarquia",
     menu:"menu",
-    access:"acceso"
+    users: 'auth/users',
+    access:'acceso'
   },
   event: {
     event: 'evento',
@@ -33,4 +34,3 @@ export const END_POINTS = {
   validTokensOauth: 'valid-tokens-oauth',
   orders: 'messages',
 };
-
