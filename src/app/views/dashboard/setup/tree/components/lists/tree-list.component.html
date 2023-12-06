@@ -57,22 +57,28 @@
                             <mat-menu #chatsHeaderMenu>
                                 <button 
                                     mat-menu-item
-                                    (click)="goEdit(node.id)">
-                                    <mat-icon [svgIcon]="'heroicons_outline:user-group'"></mat-icon>
-                                    Editar Nodo
+                                    (click)="goNew(node)">
+                                    <mat-icon
+                                        class="text-lime-600 hover:text-lime-700 cursor-pointer"
+                                        [svgIcon]="'heroicons_outline:plus'"
+                                    ></mat-icon>
+                                    Agregar nodo hijo para: {{ node.nombre }}
                                 </button>
-                                <button
+                                <button 
                                     mat-menu-item
-                                    (click)="goNew(node)" 
-                                    >
-                                    <mat-icon [svgIcon]="'heroicons_outline:chat-bubble-left-right'"></mat-icon>
-                                    Crear Nodo
+                                    (click)="goEdit(node.id)">
+                                    <mat-icon
+                                        class="text-amber-400 hover:text-amber-500 cursor-pointer"
+                                        >edit</mat-icon>
+                                    Editar nodo: {{ node.nombre }}
                                 </button>
                                 <button
                                     mat-menu-item
                                     (click)="goDelete(node.id)">
-                                    <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
-                                    Eliminar Nod
+                                    <mat-icon
+                                        class="text-rose-500 hover:text-rose-600 cursor-pointer"
+                                        >delete_sweep</mat-icon>
+                                    Eliminar nodo: {{ node.nombre }}
                                 </button>
                             </mat-menu>
                         </button>
@@ -111,21 +117,28 @@
                         <mat-menu #chatsHeaderMenu>
                             <button 
                                 mat-menu-item
-                                (click)="goEdit(node.id)">
-                                <mat-icon [svgIcon]="'heroicons_outline:user-group'"></mat-icon>
-                                Editar Nodo
+                                (click)="goNew(node)">
+                                <mat-icon
+                                    class="text-lime-600 hover:text-lime-700 cursor-pointer"
+                                    [svgIcon]="'heroicons_outline:plus'"
+                                ></mat-icon>
+                                Agregar nodo hijo para: {{ node.nombre }}
                             </button>
                             <button 
                                 mat-menu-item
-                                (click)="goNew(node)">
-                                <mat-icon [svgIcon]="'heroicons_outline:chat-bubble-left-right'"></mat-icon>
-                                Crear Nodo
+                                (click)="goEdit(node.id)">
+                                <mat-icon
+                                    class="text-amber-400 hover:text-amber-500 cursor-pointer"
+                                    >edit</mat-icon>
+                                Editar nodo: {{ node.nombre }}
                             </button>
                             <button
                                 mat-menu-item
                                 (click)="goDelete(node.id)">
-                                <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
-                                Eliminar Nod
+                                <mat-icon
+                                    class="text-rose-500 hover:text-rose-600 cursor-pointer"
+                                    >delete_sweep</mat-icon>
+                                Eliminar nodo: {{ node.nombre }}
                             </button>
                         </mat-menu>
                     </button>
