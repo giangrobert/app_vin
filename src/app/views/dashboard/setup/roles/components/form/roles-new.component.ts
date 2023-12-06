@@ -56,20 +56,22 @@ import { MatInputModule } from '@angular/material/input';
                 <div
                     class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6"
                 >
-                    <div class="flex space-x-2 items-center mt-4 sm:mt-0">
+                    <div
+                        class="flex space-x-2 items-center mt-4 sm:mt-0 ml-auto"
+                    >
                         <button
-                            class="border border-primary bg-primary text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-primary-800 focus:outline-none focus:shadow-outline"
                             mat-stroked-button
-                            (click)="saveForm()"
-                        >
-                            Guardar
-                        </button>
-                        <button
-                            class="border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-700 focus:outline-none focus:shadow-outline"
-                            mat-stroked-button
+                            [color]="'warn'"
                             (click)="cancelForm()"
                         >
                             Cancelar
+                        </button>
+                        <button
+                            mat-stroked-button
+                            [color]="'primary'"
+                            (click)="saveForm()"
+                        >
+                            Guardar
                         </button>
                     </div>
                 </div>
