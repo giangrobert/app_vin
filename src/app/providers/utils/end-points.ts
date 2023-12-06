@@ -20,7 +20,7 @@ export const END_POINTS = {
         group: 'grupo',
         jerarquia: 'gerarquia',
         menu: 'menu',
-        users: 'users',
+        users: 'auth/users',
     },
     event: {
         event: 'evento',
