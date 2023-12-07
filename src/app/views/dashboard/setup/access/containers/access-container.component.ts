@@ -1,5 +1,5 @@
 import { Acceso } from '../models/Acceso';
-import { AccessService, RoleService } from '../../../../../providers/services';
+import { AccessService } from '../../../../../providers/services';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -37,16 +37,20 @@ import { AccessEditComponent } from '../components/form/access-edit.component';
 export class AccessContainerComponent implements OnInit {
     public error: string = '';
     public accesos: Array<Acceso> = [];
+   
     public acceso = new Acceso();
 
     constructor(
         private _accessService: AccessService,
+
+        
         private _confirmDialogService:ConfirmDialogService,
         private _matDialog: MatDialog //private confirmDialogService: ConfirmDialogService
     ) {}
 
     ngOnInit() {
         this.getAccess();
+        
     }
 
     getAccess(): void {
@@ -59,6 +63,7 @@ export class AccessContainerComponent implements OnInit {
             }
         );
     }
+
 
     public eventNew($event: boolean): void {
         if ($event) {
@@ -74,7 +79,7 @@ export class AccessContainerComponent implements OnInit {
 
     saveRol(data: Object): void {
         this._accessService.add$(data).subscribe((response) => {
-            this.acceso = (response && response.data) || [];
+            this.accesos = (response && response.data) || [];
         });
     }
 
@@ -95,15 +100,15 @@ export class AccessContainerComponent implements OnInit {
             rolForm.componentInstance.acceso = data;
             rolForm.afterClosed().subscribe((result: any) => {
                 if (result) {
-                    this.editRol(data.id!, result);
+                    this.edit(data.id!, result);
                 }
             });
         }
     }
 
-    editRol(idRol: number, data: Object) {
-        this._accessService.update$(idRol, data).subscribe((response) => {
-            this.acceso = (response && response.data) || [];
+    edit(id: number, data: Object) {
+        this._accessService.update$(id, data).subscribe((response) => {
+            this.accesos = (response && response.data) || [];
         });
     }
 
@@ -117,15 +122,15 @@ export class AccessContainerComponent implements OnInit {
         // });
     }
 
-    public eventDelete(idRol: number) {
+    public eventDelete(id: number) {
         this._confirmDialogService.confirmDelete(
             {
                 // title: 'Confirmación Personalizada',
                 // message: `¿Quieres proceder con esta acción ${}?`,
             }
         ).then(() => {
-            this._accessService.delete$(idRol).subscribe((response) => {
-                this.acceso = (response && response.data) || [];
+            this._accessService.delete$(id).subscribe((response) => {
+                this.accesos = (response && response.data) || [];
             });
         }).catch(() => {
         });

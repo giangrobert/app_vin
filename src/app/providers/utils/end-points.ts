@@ -21,7 +21,8 @@ export const END_POINTS = {
     jerarquia: "gerarquia",
     menu:"menu",
     users: 'auth/users',
-    access:'acceso'
+    access:'acceso',
+    access_parent:'acceso-padres',
   },
   event: {
     event: 'evento',

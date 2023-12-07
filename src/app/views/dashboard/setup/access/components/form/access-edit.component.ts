@@ -13,6 +13,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatDialogRef} from "@angular/material/dialog";
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { AccessService } from 'app/providers/services';
 
 @Component({
   selector: 'app-roles-edit',
@@ -52,7 +53,7 @@ import { MatSelectModule } from '@angular/material/select';
                     <mat-label>Icono</mat-label>
                     <input matInput formControlName="icono" />
                 </mat-form-field>
-                
+
                 <mat-form-field>
                     <mat-label>orden</mat-label>
                     <input matInput formControlName="orden" />
@@ -66,11 +67,26 @@ import { MatSelectModule } from '@angular/material/select';
                     <input matInput formControlName="url" />
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>Padre Accesso</mat-label>
-                    <input matInput formControlName="parent" />
+                <mat-select
+                        [placeholder]="'{{accesosParent.nombre}}'"
+                        formControlName="Parent_acceso_id">
+                       @for (r of accesosParent;track r.id; let idx = $index)
+                            {
+                                <mat-option value="{{r.id}}">{{r.nombre}}</mat-option>
+                            }
+                    </mat-select>
+                    <mat-icon
+                        class="icon-size-5"
+                        matPrefix
+                        [svgIcon]="'heroicons_outline:adjustments-vertical'"
+                    ></mat-icon>
+                    
                 </mat-form-field>
+
                 <mat-form-field class="flex-auto gt-xs:pr-3">
-                    <mat-select [placeholder]="'Estado'" formControlName="estado">
+                    <mat-select
+                        [placeholder]=""
+                        formControlName="estado">
                         <mat-option value="1">Activo</mat-option>
                         <mat-option value="0">Inactivo</mat-option>
                     </mat-select>
@@ -80,6 +96,7 @@ import { MatSelectModule } from '@angular/material/select';
                         [svgIcon]="'heroicons_outline:adjustments-vertical'"
                     ></mat-icon>
                 </mat-form-field>
+
                 <mat-form-field class="flex-auto gt-xs:pr-3">
                     <mat-select [placeholder]="'Tipo'" formControlName="tipo">
                         <mat-option value="basic">Unico</mat-option>
@@ -127,20 +144,23 @@ export class AccessEditComponent implements OnInit {
     orden: new FormControl(null, [Validators.required]),
     nivel: new FormControl(null, [Validators.required]),
     url: new FormControl('', [Validators.required]),
-    parent: new FormControl(null, [Validators.required]),
+    Parent_acceso_id: new FormControl(null, [Validators.required]),
   });
   @Input() title: string = '';
   @Input() acceso = new Acceso();
+  public accesosParent: Array<Acceso> = [];
   abcForms: any;
 
   constructor(
       private formBuilder: FormBuilder,
       private _matDialog: MatDialogRef<AccessEditComponent>,
+      private _accessService: AccessService
   ) {
   }
 
   ngOnInit() {
     this.abcForms = abcForms;
+    this.getParent();
 
     if (this.acceso) {
       this.accessForm.patchValue(this.acceso);
@@ -156,4 +176,16 @@ export class AccessEditComponent implements OnInit {
   public cancelForm(): void {
     this._matDialog.close('');
   }
+  getParent():void{
+    this._accessService.getParent$().subscribe(
+        (response) => {
+            this.accesosParent = response.data;
+            console.log(this.accesosParent)
+        }
+        // (error) => {
+        //     this.error = error;
+        // }
+    );
+
+}
 }

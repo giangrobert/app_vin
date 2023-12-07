@@ -195,22 +195,13 @@ import { MatDialog } from '@angular/material/dialog';
                                 </p>
                             </td>
                             <td class="p-4 border-b border-blue-gray-50">
-                                <div class="w-max">
-                                @if(r.estado){
-                                        <div
-                                            class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
-                                            style="opacity: 1"
-                                        >
-                                            <span class="">ACTIVO</span>
-                                        </div>
-                                    }@else{
-                                        <div
-                                            class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-red-500/20 text-red-700 py-1 px-2 text-xs rounded-md"
-                                            style="opacity: 1"
-                                        >
-                                            <span class="">INACTIVO</span>
-                                        </div>
-                                    }
+                            <div class="w-max">
+                                    <div
+                                        class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-{{r.estado ?'green':'red'}}-500/20 text-{{r.estado?'green':'red'}}-600 py-1 px-2 text-xs rounded-md"
+                                        style="opacity: 1"
+                                    >
+                                        <span class="">{{r.estado? 'ACTIVO':'INACTIVO'}}</span>
+                                    </div>
                                 </div>
                             </td>
                             <td
