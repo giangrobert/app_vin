@@ -39,8 +39,27 @@ import { ConfirmDialogService } from 'app/shared/confirm-dialog/confirm-dialog.s
                 </button>
             </div>
 
+            <div class="flex justify-center my-6">
+                <ul
+                    class="text-md font-medium bg-white border border-gray-200 rounded-lg p2"
+                >
+                    <li>
+                        <div>
+                            <input type="checkbox" name="" id="" />
+                            <label for="">Vue JS</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <input type="checkbox" name="" id="" />
+                            <label for="">Vue JS</label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
             <!-- Body -->
-            <div class="flex flex-row space-x-2 m-4">
+            <!-- <div class="flex flex-row space-x-2 m-4">
                 @for (item of rolAssigneds; track item.id; let idx = $index) {
                 <div
                     class="flex items-start  text-sm text-gray-900 bg-white mx-4"
@@ -59,7 +78,9 @@ import { ConfirmDialogService } from 'app/shared/confirm-dialog/confirm-dialog.s
                     </label>
                 </div>
                 }
-            </div>
+            </div> -->
+
+            <!-- footer -->
 
             <div
                 class="flex flex-col sm:flex-row sm:items-center justify-between m-6"
