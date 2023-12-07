@@ -143,6 +143,11 @@ import { MatDialog } from '@angular/material/dialog';
                                         <!--                                            (click)="openComposeDialog()"-->
                                         <!--                                            >swap_horiz-->
                                         <!--                                        </mat-icon>-->
+                                        <mat-icon
+                                            class="text-sky-400 hover:text-sky-600 cursor-pointer"
+                                            (click)="openComposeDialog()"
+                                            >swap_horiz
+                                        </mat-icon>
                                     </div>
                                 </td>
                             </tr>

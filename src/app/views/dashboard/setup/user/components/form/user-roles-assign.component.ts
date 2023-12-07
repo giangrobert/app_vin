@@ -40,7 +40,34 @@ import { ConfirmDialogService } from 'app/shared/confirm-dialog/confirm-dialog.s
             </div>
 
             <!-- Body -->
-            <div class="flex flex-row space-x-2 m-4">
+            <div class="flex justify-center my-4">
+                <ul
+                    class="w-1/3  text-base font-medium bg-white border border-gray-200 rounded-lg "
+                >
+                    @for (item of rolAssigneds; track item.id; let idx = $index)
+                    {
+
+                    <li class="w-full border-b">
+                        <div class="flex items-center ps-3">
+                            <input
+                                type="checkbox"
+                                [(ngModel)]="item.asignado"
+                                id="men{{ idx }}"
+                                class="w-5 h-5"
+                            />
+                            <label
+                                for="men{{ idx }}"
+                                class="w-full py-3 ms-2"
+                                >{{ item.nombre }}</label
+                            >
+                        </div>
+                    </li>
+                    }
+                </ul>
+            </div>
+
+            <!-- Body -->
+            <!-- <div class="flex flex-row space-x-2 m-4">
                 @for (item of rolAssigneds; track item.id; let idx = $index) {
                 <div
                     class="flex items-start  text-sm text-gray-900 bg-white mx-4"
@@ -59,7 +86,9 @@ import { ConfirmDialogService } from 'app/shared/confirm-dialog/confirm-dialog.s
                     </label>
                 </div>
                 }
-            </div>
+            </div> -->
+
+            <!-- footer -->
 
             <div
                 class="flex flex-col sm:flex-row sm:items-center justify-between m-6"
