@@ -143,21 +143,12 @@ import { CommonModule, DatePipe } from '@angular/common';
                             </td>
                             <td class="w-1/6 p-2 text-center border-b text-sm">
                                 <div class="w-max">
-                                    @if(user.active == 1){
                                     <div
-                                        class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
+                                        class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-{{user.active===1?'green':'red'}}-500/20 text-{{user.active===1?'green':'red'}}-600 py-1 px-2 text-xs rounded-md"
                                         style="opacity: 1"
                                     >
-                                        <span class="">ACTIVO</span>
+                                        <span class="">{{user.active === 1? 'ACTIVO':'INACTIVO'}}</span>
                                     </div>
-                                    }@else{
-                                    <div
-                                        class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-red-500/20 text-red-700 py-1 px-2 text-xs rounded-md"
-                                        style="opacity: 1"
-                                    >
-                                        <span class="">INACTIVO</span>
-                                    </div>
-                                    }
                                 </div>
                             </td>
                             <td class="w-2/6 p-2 text-center border-b text-sm">

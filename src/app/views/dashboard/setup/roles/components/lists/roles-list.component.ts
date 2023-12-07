@@ -180,16 +180,6 @@ export class RolesListComponent implements OnInit {
 
     constructor(private _matDialog: MatDialog) {}
 
-    // openComposeDialog(): void {
-    //     // Open the dialog
-    //     const dialogRef = this._matDialog.open(InputComponent);
-    //
-    //     dialogRef.afterClosed().subscribe((result) => {
-    //         console.log('Compose dialog was closed!', result, 'hello');
-    //         this.eventAssign.emit(result);
-    //     });
-    // }
-
     ngOnInit() {
         this.abcForms = abcForms;
     }
