@@ -16,7 +16,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-
+import { AccessService } from 'app/providers/services';
+import { Acceso } from '../../models/Acceso';
 
 @Component({
     selector: 'app-access-new',
@@ -60,7 +61,7 @@ import { MatSelectModule } from '@angular/material/select';
                     <mat-label>Icono</mat-label>
                     <input matInput formControlName="icono" />
                 </mat-form-field>
-                
+
                 <mat-form-field>
                     <mat-label>orden</mat-label>
                     <input matInput formControlName="orden" />
@@ -74,11 +75,26 @@ import { MatSelectModule } from '@angular/material/select';
                     <input matInput formControlName="url" />
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label>Padre Accesso</mat-label>
-                    <input matInput formControlName="parent" />
+                <mat-select
+                        [placeholder]="'Padre Acceso'"
+                        formControlName="Parent_acceso_id">
+                       @for (r of accesosParent;track r.id; let idx = $index)
+                            {
+                                <mat-option value="{{r.id}}">{{r.nombre}}</mat-option>
+                            }
+                    </mat-select>
+                    <mat-icon
+                        class="icon-size-5"
+                        matPrefix
+                        [svgIcon]="'heroicons_outline:adjustments-vertical'"
+                    ></mat-icon>
+                    
                 </mat-form-field>
+
                 <mat-form-field class="flex-auto gt-xs:pr-3">
-                    <mat-select [placeholder]="'Estado'" formControlName="estado">
+                    <mat-select
+                        [placeholder]="'Estado'"
+                        formControlName="estado">
                         <mat-option value="1">Activo</mat-option>
                         <mat-option value="0">Inactivo</mat-option>
                     </mat-select>
@@ -88,6 +104,7 @@ import { MatSelectModule } from '@angular/material/select';
                         [svgIcon]="'heroicons_outline:adjustments-vertical'"
                     ></mat-icon>
                 </mat-form-field>
+
                 <mat-form-field class="flex-auto gt-xs:pr-3">
                     <mat-select [placeholder]="'Tipo'" formControlName="tipo">
                         <mat-option value="basic">Unico</mat-option>
@@ -128,23 +145,28 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class AccessNewComponent implements OnInit {
     @Input() title: string = '';
+    public accesosParent: Array<Acceso> = [];
     abcForms: any;
     accessForm = new FormGroup({
         nombre: new FormControl('', [Validators.required]),
         tipo: new FormControl('', [Validators.required]),
         icono: new FormControl('', [Validators.required]),
-        estado: new FormControl('', [Validators.required]),
-        orden: new FormControl('', [Validators.required]),
-        nivel: new FormControl('', [Validators.required]),
+        estado: new FormControl(null, [Validators.required]),
+        orden: new FormControl(null, [Validators.required]),
+        nivel: new FormControl(null, [Validators.required]),
         url: new FormControl('', [Validators.required]),
-        parent: new FormControl('', [Validators.required]),
+        Parent_acceso_id: new FormControl(null, [Validators.required]),
     });
 
-    constructor(private _matDialog: MatDialogRef<AccessNewComponent>) {}
+    constructor(private _matDialog: MatDialogRef<AccessNewComponent>,
+        private _accessService: AccessService) {}
 
     ngOnInit() {
         this.abcForms = abcForms;
+        this.getParent();
+
     }
+    
 
     public saveForm(): void {
         if (this.accessForm.valid) {
@@ -154,5 +176,17 @@ export class AccessNewComponent implements OnInit {
 
     public cancelForm(): void {
         this._matDialog.close('');
+    }
+    getParent():void{
+        this._accessService.getParent$().subscribe(
+            (response) => {
+                this.accesosParent = response.data;
+                console.log(this.accesosParent)
+            }
+            // (error) => {
+            //     this.error = error;
+            // }
+        );
+
     }
 }
