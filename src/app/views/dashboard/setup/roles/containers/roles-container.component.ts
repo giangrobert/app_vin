@@ -3,7 +3,7 @@ import { RoleService } from '../../../../../providers/services';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { RolesListComponent } from '../components';
+import { RolesAssignComponent, RolesListComponent } from '../components';
 import { MatDialog } from '@angular/material/dialog';
 import { RolesNewComponent } from '../components/form/roles-new.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -107,6 +107,16 @@ export class RolesContainerComponent implements OnInit {
     }
 
     eventAssign($event: number) {
+        if ($event) {
+            const rolForm = this._matDialog.open(RolesAssignComponent);
+            rolForm.componentInstance.title =`Asignar Acceso a Módulos <b>${$event} </b>`;
+            rolForm.componentInstance.idRol = $event;
+            rolForm.afterClosed().subscribe((result: any) => {
+                if (result) {
+                
+                }
+            });
+        }
         // const rolForm = this.modalService.open(RolesAssignComponent, {size: 'lg'});
         // rolForm.componentInstance.title = 'Asignar Acceso a Módulos' || null;
         // rolForm.componentInstance.idRol = $event;

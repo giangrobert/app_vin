@@ -12,9 +12,10 @@ import { abcForms } from '../../../../../../../environments/generals';
 // import {ConfirmDialogService} from "../../../../../../shared";
 import { Menu } from '../../models/Menu';
 import { ModuleFather } from '../../models/ModuleFather';
-import { RoleService } from '../../../../../../providers/services';
+import { AccessService, RoleService } from '../../../../../../providers/services';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { ModuleService } from 'app/providers/services/setup/module.service';
 
 //import { ConfirmDialogService } from 'src/app/shared';
 
@@ -120,7 +121,7 @@ import { RouterOutlet } from '@angular/router';
 export class RolesAssignComponent implements OnInit {
     //public rolesForm: FormGroup;
     @Input() title: string = '';
-    @Input() idRol: string = '';
+    @Input() idRol: number = 0;
     abcForms: any;
 
     modules: ModuleFather[] = [];
@@ -128,15 +129,17 @@ export class RolesAssignComponent implements OnInit {
     moduleIds: number[] = [];
 
     rolesForm = new FormGroup({
-        modulo_id: new FormControl(''),
-        Parent_id: new FormControl(''),
-        rol_id: new FormControl(''),
+        modulo_id: new FormControl(null),
+        Parent_id: new FormControl(null),
+        rol_id: new FormControl(null),
     });
 
     constructor(
         private formBuilder: FormBuilder,
         // public activeModal: NgbActiveModal,
-        // private moduleService: ModuleService,
+        private _moduleService: ModuleService,
+        private _accessService: AccessService,
+        
         // private confirmDialogService: ConfirmDialogService,
         private rolService: RoleService
     ) {}
@@ -155,14 +158,14 @@ export class RolesAssignComponent implements OnInit {
     }
 
     getListModules(): void {
-        // let m = this.moduleService.getModuleFather$().subscribe(async response => {
-        //   this.modules = await response && response.data || [];
-        //   await this.rolesForm.patchValue({
-        //     Parent_id: String(this.modules[0].id)
-        //   });
-        //   await this.getListMenu(this.modules[0].id!);
-        //   m.unsubscribe();
-        // });
+        let m = this._accessService.getp().subscribe(async response => {
+          this.modules = await response && response.data || [];
+          await this.rolesForm.patchValue({
+            Parent_id: String(this.modules[0].id)
+          });
+          await this.getListMenu(this.modules[0].id!);
+          m.unsubscribe();
+        });
     }
 
     getListMenu(idModule: number) {
