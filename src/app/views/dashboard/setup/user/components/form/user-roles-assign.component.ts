@@ -39,22 +39,30 @@ import { ConfirmDialogService } from 'app/shared/confirm-dialog/confirm-dialog.s
                 </button>
             </div>
 
-            <div class="flex justify-center my-6">
+            <!-- Body -->
+            <div class="flex justify-center my-4">
                 <ul
-                    class="text-md font-medium bg-white border border-gray-200 rounded-lg p2"
+                    class="w-1/3  text-base font-medium bg-white border border-gray-200 rounded-lg "
                 >
-                    <li>
-                        <div>
-                            <input type="checkbox" name="" id="" />
-                            <label for="">Vue JS</label>
+                    @for (item of rolAssigneds; track item.id; let idx = $index)
+                    {
+
+                    <li class="w-full border-b">
+                        <div class="flex items-center ps-3">
+                            <input
+                                type="checkbox"
+                                [(ngModel)]="item.asignado"
+                                id="men{{ idx }}"
+                                class="w-5 h-5"
+                            />
+                            <label
+                                for="men{{ idx }}"
+                                class="w-full py-3 ms-2"
+                                >{{ item.nombre }}</label
+                            >
                         </div>
                     </li>
-                    <li>
-                        <div>
-                            <input type="checkbox" name="" id="" />
-                            <label for="">Vue JS</label>
-                        </div>
-                    </li>
+                    }
                 </ul>
             </div>
 
