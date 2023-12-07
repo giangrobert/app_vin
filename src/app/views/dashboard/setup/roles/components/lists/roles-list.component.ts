@@ -135,6 +135,9 @@ import { MatDialog } from '@angular/material/dialog';
                                             (click)="goDelete(r.id)"
                                             >delete_sweep</mat-icon
                                         >
+                                        <button (click)="goAssign(user.id)">
+                                        <mat-icon>swap_horiz</mat-icon>
+                                    </button>
                                         <!--                                        <mat-icon-->
                                         <!--                                            class="text-sky-400 hover:text-sky-600 cursor-pointer"-->
                                         <!--                                            (click)="openComposeDialog()"-->
